@@ -1,0 +1,4398 @@
+Index: .idea/php.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/php.xml b/.idea/php.xml
+new file mode 100644
+--- /dev/null	(date 1716402410517)
++++ b/.idea/php.xml	(date 1716402410517)
+@@ -0,0 +1,63 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="MessDetectorOptionsConfiguration">
++    <option name="transferred" value="true" />
++  </component>
++  <component name="PHPCSFixerOptionsConfiguration">
++    <option name="transferred" value="true" />
++  </component>
++  <component name="PHPCodeSnifferOptionsConfiguration">
++    <option name="highlightLevel" value="WARNING" />
++    <option name="transferred" value="true" />
++  </component>
++  <component name="PhpIncludePathManager">
++    <include_path>
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/sebastian/code-unit" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/sebastian/cli-parser" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/sebastian/exporter" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/sebastian/version" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/sebastian/complexity" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/sebastian/recursion-context" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/psr/log" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/sebastian/code-unit-reverse-lookup" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/psr/container" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/myclabs/deep-copy" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/sebastian/global-state" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/sebastian/environment" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/sebastian/object-reflector" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/mikey179/vfsstream" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/phpunit/php-timer" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/phpunit/phpunit" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/symfony/deprecation-contracts" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/phpunit/php-text-template" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/nikic/php-parser" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/phpunit/php-invoker" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/phpunit/php-file-iterator" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/codeigniter4/framework" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/phpunit/php-code-coverage" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/theseer/tokenizer" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/phar-io/version" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/phar-io/manifest" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/fakerphp/faker" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/sebastian/type" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/laminas/laminas-escaper" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/sebastian/diff" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/sebastian/lines-of-code" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/sebastian/object-enumerator" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/composer" />
++      <path value="$PROJECT_DIR$/cigniter-app/vendor/sebastian/comparator" />
++    </include_path>
++  </component>
++  <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />
++  <component name="PhpStanOptionsConfiguration">
++    <option name="transferred" value="true" />
++  </component>
++  <component name="PhpUnit">
++    <phpunit_settings>
++      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/cigniter-app/phpunit.xml.dist" custom_loader_path="$PROJECT_DIR$/cigniter-app/vendor/autoload.php" use_configuration_file="true" />
++    </phpunit_settings>
++  </component>
++  <component name="PsalmOptionsConfiguration">
++    <option name="transferred" value="true" />
++  </component>
++</project>
+\ No newline at end of file
+Index: cigniter-app/app/Views/admin/events/edit.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/cigniter-app/app/Views/admin/events/edit.php b/cigniter-app/app/Views/admin/events/edit.php
+new file mode 100644
+--- /dev/null	(date 1718215033195)
++++ b/cigniter-app/app/Views/admin/events/edit.php	(date 1718215033195)
+@@ -0,0 +1,335 @@
++<?php
++$title = [
++    'name'=>'title',
++    'id'=>'title',
++    'maxlength'=>'100',
++    'class'=>'form-control',
++    'required'=>'required',
++    'size'=>'50',
++    'value'=> $event['title'],
++];
++$description = [
++    'name'=>'description',
++    'id'=>'description',
++    'type'=>'textarea',
++    'size'=>'50',
++    'rows'=>'5',
++    'maxlength'=>'1500',
++    'required'=>'required',
++    'class'=>'form-control',
++    'value'=> $event['description'],
++];
++$image = [
++    'name'=>'image',
++    'id'=>'image',
++    'type'=>'file',
++    'accept'=>'image/*',
++
++];
++
++$date=[
++    'name'=>'date',
++    'id'=>'date',
++    'type'=>'date',
++    'class'=>'form-control',
++    'required'=>'required',
++    'size'=>'50',
++    'value'=> $event['date'],
++
++];
++helper('form');
++echo form_open_multipart('/admin/events/update/'.$event['id']);
++?>
++<!DOCTYPE html>
++<html lang="en">
++<head>
++    <meta charset="UTF-8">
++    <title>Add new event</title>
++    <meta name="description" content="The small framework with powerful features">
++    <link rel="shortcut icon" type="image/png" href="/favicon.ico">
++
++    <!-- STYLES -->
++
++    <style {csp-style-nonce}>
++        * {
++            transition: background-color 300ms ease, color 300ms ease;
++        }
++        *:focus {
++            background-color: rgba(221, 72, 20, .2);
++            outline: none;
++        }
++        html, body {
++            color: rgba(33, 37, 41, 1);
++            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
++            font-size: 16px;
++            margin: 0;
++            padding: 0;
++            -webkit-font-smoothing: antialiased;
++            -moz-osx-font-smoothing: grayscale;
++            text-rendering: optimizeLegibility;
++        }
++        header {
++            background-color: rgba(247, 248, 249, 1);
++            padding: .4rem 0 0;
++        }
++        .menu {
++            padding: .4rem 2rem;
++        }
++        header ul {
++            border-bottom: 1px solid rgba(242, 242, 242, 1);
++            list-style-type: none;
++            margin: 0;
++            overflow: hidden;
++            padding: 0;
++            text-align: right;
++        }
++        header li {
++            display: inline-block;
++        }
++        header li a {
++            border-radius: 5px;
++            color: rgba(0, 0, 0, .5);
++            display: block;
++            height: 44px;
++            text-decoration: none;
++        }
++        header li.menu-item a {
++            border-radius: 5px;
++            margin: 5px 0;
++            height: 38px;
++            line-height: 36px;
++            padding: .4rem .65rem;
++            text-align: center;
++        }
++        header li.menu-item a:hover,
++        header li.menu-item a:focus {
++            background-color: rgba(221, 72, 20, .2);
++            color: rgba(221, 72, 20, 1);
++        }
++        header .logo {
++            float: left;
++            height: 44px;
++            padding: .4rem .5rem;
++        }
++        header .menu-toggle {
++            display: none;
++            float: right;
++            font-size: 2rem;
++            font-weight: bold;
++        }
++        header .menu-toggle button {
++            background-color: rgba(221, 72, 20, .6);
++            border: none;
++            border-radius: 3px;
++            color: rgba(255, 255, 255, 1);
++            cursor: pointer;
++            font: inherit;
++            font-size: 1.3rem;
++            height: 36px;
++            padding: 0;
++            margin: 11px 0;
++            overflow: visible;
++            width: 40px;
++        }
++        header .menu-toggle button:hover,
++        header .menu-toggle button:focus {
++            background-color: rgba(221, 72, 20, .8);
++            color: rgba(255, 255, 255, .8);
++        }
++        header .heroe {
++            margin: 0 auto;
++            max-width: 1100px;
++            padding: 1rem 1.75rem 1.75rem 1.75rem;
++        }
++        header .heroe h1 {
++            font-size: 2.5rem;
++            font-weight: 500;
++        }
++        header .heroe h2 {
++            font-size: 1.5rem;
++            font-weight: 300;
++        }
++        section {
++            margin: 0 auto;
++            max-width: 1100px;
++            padding: 2.5rem 1.75rem 3.5rem 1.75rem;
++        }
++        section h1 {
++            margin-bottom: 2.5rem;
++        }
++        section h2 {
++            font-size: 120%;
++            line-height: 2.5rem;
++            padding-top: 1.5rem;
++        }
++        section pre {
++            background-color: rgba(247, 248, 249, 1);
++            border: 1px solid rgba(242, 242, 242, 1);
++            display: block;
++            font-size: .9rem;
++            margin: 2rem 0;
++            padding: 1rem 1.5rem;
++            white-space: pre-wrap;
++            word-break: break-all;
++        }
++        section code {
++            display: block;
++        }
++        section a {
++            color: rgba(221, 72, 20, 1);
++        }
++        section svg {
++            margin-bottom: -5px;
++            margin-right: 5px;
++            width: 25px;
++        }
++        .further {
++            background-color: rgba(247, 248, 249, 1);
++            border-bottom: 1px solid rgba(242, 242, 242, 1);
++            border-top: 1px solid rgba(242, 242, 242, 1);
++        }
++        .further h2:first-of-type {
++            padding-top: 0;
++        }
++        .svg-stroke {
++            fill: none;
++            stroke: #000;
++            stroke-width: 32px;
++        }
++        footer {
++            background-color: rgba(221, 72, 20, .8);
++            text-align: center;
++        }
++        footer .environment {
++            color: rgba(255, 255, 255, 1);
++            padding: 2rem 1.75rem;
++        }
++        footer .copyrights {
++            background-color: rgba(62, 62, 62, 1);
++            color: rgba(200, 200, 200, 1);
++            padding: .25rem 1.75rem;
++        }
++        @media (max-width: 629px) {
++            header ul {
++                padding: 0;
++            }
++            header .menu-toggle {
++                padding: 0 1rem;
++            }
++            header .menu-item {
++                background-color: rgba(244, 245, 246, 1);
++                border-top: 1px solid rgba(242, 242, 242, 1);
++                margin: 0 15px;
++                width: calc(100% - 30px);
++            }
++            header .menu-toggle {
++                display: block;
++            }
++            header .hidden {
++                display: none;
++            }
++            header li.menu-item a {
++                background-color: rgba(221, 72, 20, .1);
++            }
++            header li.menu-item a:hover,
++            header li.menu-item a:focus {
++                background-color: rgba(221, 72, 20, .7);
++                color: rgba(255, 255, 255, .8);
++            }
++        }
++        table{
++            font-family: arial, sans-serif;
++            border-collapse: collapse;
++        }
++        td, th {
++            border-bottom: 1px solid #dddddd;
++            text-align: left;
++            padding: 20px;
++        }
++    </style>
++</head>
++<body style="height: 1vh;">
++
++<!-- HEADER: MENU + HEROE SECTION -->
++<header>
++
++    <div class="menu">
++        <ul>
++            <li class="logo">
++                <div id="fh5co-logo"><a href="<?php echo base_url()?>" target="_blank">Tasty<span>.
++                            <!--                    <svg role="img" aria-label="Visit CodeIgniter.com official website!" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2100 500" height="44"><path fill="#dd4814" d="M148.2 411c-20.53-9.07-34.48-28.61-36.31-50.99 1.2-23.02 13.36-44.06 32.67-56.61-3.17 7.73-2.4 16.53 2 23.6 5.01 7 13.63 10.36 22.07 8.61 12.02-3.38 19.06-15.86 15.68-27.89-1.2-4.21-3.6-8.03-6.88-10.91-13.6-11.06-20.43-28.44-18-45.81 2.33-9.2 7.42-17.52 14.61-23.8-5.4 14.4 9.83 28.61 20.05 35.6 18.14 10.88 35.6 22.84 52.32 35.81 18.27 14.4 28.23 36.94 26.67 60-4.11 24.54-21.47 44.8-45.13 52.4 47.33-10.53 96.13-48.13 97.06-101.46-.93-42.67-26.4-80.96-65.33-98.4h-1.73c.86 2.09 1.28 4.34 1.2 6.61.13-1.47.13-2.93 0-4.4.21 1.73.21 3.47 0 5.2-2.96 12.13-15.2 19.6-27.36 16.64-4.86-1.2-9.2-3.93-12.32-7.87-15.6-20 0-42.76 2.61-64.76 1.6-28.13-11.25-55.02-34.05-71.46 11.41 19.02-3.79 44-14.84 58.21-11.07 14.21-27.07 24.8-40.11 37.2-14.05 13.07-26.93 27.44-38.49 42.8-24.99 30.53-34.8 70.8-26.67 109.4 11.15 37.2 42.07 65.15 80.2 72.4h.21l-.13-.12Zm324.56-159.8q0-17.92 6.16-35.56 6.44-17.92 18.48-31.92t29.68-22.68q17.64-8.96 40.04-8.96 26.6 0 45.36 12.04 19.04 12.04 28 31.36l-15.4 9.52q-4.76-9.8-11.76-16.52-6.72-6.72-14.56-10.92-7.84-4.2-16.24-5.88-8.4-1.96-16.52-1.96-17.92 0-31.64 7.28-13.72 7.28-23.24 19.04-9.24 11.76-14 26.6-4.76 14.56-4.76 29.68 0 16.52 5.6 31.64 5.88 15.12 15.68 26.88 10.08 11.48 23.52 18.48 13.72 6.72 29.68 6.72 8.4 0 17.08-1.96 8.96-2.24 17.08-6.72 8.4-4.76 15.4-11.48 7-7 11.76-16.8l16.24 8.4q-4.76 11.2-13.44 19.88-8.68 8.4-19.32 14.28-10.64 5.88-22.68 8.96-11.76 3.08-23.24 3.08-20.44 0-37.52-8.96-17.08-8.96-29.4-23.24-12.32-14.56-19.32-32.76-6.72-18.48-6.72-37.52Zm263.48 103.6q-15.96 0-29.12-5.88-13.16-6.16-22.96-16.52-9.52-10.36-14.84-24.08Q664 294.6 664 279.48q0-15.4 5.32-29.12 5.6-13.72 15.12-24.08 9.8-10.36 22.96-16.52t28.84-6.16q15.68 0 28.84 6.16 13.44 6.16 22.96 16.52 9.8 10.36 15.12 24.08 5.6 13.72 5.6 29.12 0 15.12-5.32 28.84t-15.12 24.08q-9.52 10.36-22.96 16.52-13.16 5.88-29.12 5.88Zm-52.92-75.04q0 12.32 4.2 22.96 4.2 10.36 11.2 18.48 7.28 7.84 16.8 12.32 9.8 4.48 20.72 4.48 10.92 0 20.44-4.48 9.8-4.76 17.08-12.6 7.28-8.12 11.48-18.76 4.2-10.64 4.2-22.96 0-12.04-4.2-22.68-4.2-10.92-11.48-18.76-7.28-8.12-17.08-12.6-9.52-4.76-20.44-4.76-10.92 0-20.44 4.76-9.52 4.48-16.8 12.6-7.28 8.12-11.48 19.04-4.2 10.64-4.2 22.96ZM900.6 354.8q-15.12 0-28-6.16-12.88-6.44-22.12-16.8t-14.56-23.8q-5.04-13.72-5.04-28.56 0-15.4 5.04-29.12 5.04-14 13.72-24.36 8.96-10.36 21-16.24 12.32-6.16 26.88-6.16 18.48 0 32.76 9.8 14.28 9.52 22.4 23.24V147.6h19.04v179.76q0 7.84 6.72 7.84V352q-4.2.84-6.72.84-6.72 0-11.76-4.2-5.04-4.48-5.04-10.64v-14.28Q946.24 338 931.4 346.4t-30.8 8.4Zm4.2-16.8q7 0 14.84-2.8 8.12-2.8 15.12-7.56 7-5.04 11.76-11.48 5.04-6.72 6.16-14.28V256.8q-2.8-7.56-8.12-14-5.32-6.72-12.32-11.76-6.72-5.04-14.56-7.84-7.84-2.8-15.4-2.8-11.76 0-21.28 5.04-9.52 5.04-16.52 13.44-6.72 8.12-10.36 18.76-3.64 10.64-3.64 21.84 0 11.76 4.2 22.4 4.2 10.64 11.48 18.76 7.28 7.84 17.08 12.6Q893.32 338 904.8 338Zm173.04 16.8q-15.96 0-29.4-5.88-13.16-6.16-22.96-16.52-9.8-10.64-15.4-24.36-5.32-13.72-5.32-29.4 0-15.4 5.32-28.84 5.6-13.72 15.12-23.8 9.8-10.36 23.24-16.24 13.44-6.16 29.12-6.16 15.96 0 29.12 6.16 13.44 5.88 22.96 16.24 9.52 10.36 14.84 23.8 5.32 13.44 5.32 28.56v4.48q0 2.24-.28 3.08h-124.88q.84 11.76 5.32 21.84 4.76 9.8 12.04 17.08 7.28 7.28 16.52 11.48 9.52 3.92 20.16 3.92 7 0 14-1.96t12.88-5.32q5.88-3.36 10.64-8.12 4.76-5.04 7.28-10.92l16.52 4.48q-3.36 8.12-9.52 14.84-6.16 6.44-14.28 11.48-8.12 4.76-17.92 7.56-9.8 2.52-20.44 2.52Zm-53.48-83.44h107.24q-.84-11.76-5.6-21.28-4.48-9.8-11.76-16.8-7-7-16.52-10.92-9.24-3.92-19.88-3.92-10.64 0-20.16 3.92t-16.8 10.92q-7 7-11.48 16.8-4.2 9.8-5.04 21.28Zm193.2 80.64h-38.64V153.2h38.64V352Zm93.52.84q-14.84 0-26.88-5.88t-21-15.96q-8.68-10.36-13.44-23.8-4.76-13.44-4.76-28.56 0-15.96 5.04-29.68 5.04-13.72 14-24.08 8.96-10.36 21.56-16.24 12.6-5.88 27.72-5.88 17.08 0 29.96 7.84 12.88 7.56 21.28 20.44v-25.76h32.76V345q0 16.24-6.16 29.12-6.16 12.88-17.08 21.84-10.64 8.96-25.76 13.72-14.84 4.76-32.48 4.76-24.08 0-40.6-7.84-16.24-8.12-28-22.68l20.44-19.88q8.4 10.36 21 16.24 12.88 5.88 27.16 5.88 8.68 0 16.52-2.24 8.12-2.52 14.28-7.56 6.16-5.04 9.52-12.88 3.64-7.84 3.64-18.48v-18.48q-7.28 12.6-20.44 19.6-13.16 6.72-28.28 6.72Zm12.6-29.96q6.16 0 11.76-1.96t10.36-5.32q4.76-3.36 8.4-7.84 3.64-4.48 5.6-9.52v-35q-5.04-12.88-15.96-20.72-10.64-7.84-22.4-7.84-8.68 0-15.68 3.92-7 3.64-12.04 10.08-5.04 6.16-7.84 14.28-2.52 8.12-2.52 16.8 0 8.96 3.08 16.8t8.4 13.72q5.6 5.88 12.88 9.24 7.28 3.36 15.96 3.36Zm243.88-62.44V352h-37.52v-82.32q0-17.64-6.16-25.76-6.16-8.12-17.08-8.12-5.6 0-11.48 2.24-5.88 2.24-11.2 6.44-5.04 3.92-9.24 9.52t-6.16 12.32V352h-37.52V205.28h33.88v27.16q8.12-14 23.52-21.84t34.72-7.84q13.72 0 22.4 5.04 8.68 5.04 13.44 13.16 4.76 8.12 6.44 18.48 1.96 10.36 1.96 21Zm70.28 91.56h-37.52V205.28h37.52V352Zm0-167.16h-37.52V147.6h37.52v37.24Zm114.24 129.92 7.56 29.68q-7.56 3.36-18.48 6.72-10.92 3.36-22.96 3.36-7.84 0-14.84-1.96-6.72-1.96-12.04-6.16-5.04-4.48-8.12-11.2-3.08-7-3.08-16.8v-84.28h-19.32v-28.84h19.32v-47.6h37.52v47.6h30.8v28.84h-30.8v71.68q0 7.84 3.92 11.2 4.2 3.08 10.08 3.08t11.48-1.96q5.6-1.96 8.96-3.36Zm91.56 40.04q-17.64 0-31.92-5.88-14.28-6.16-24.36-16.52t-15.68-24.08q-5.32-13.72-5.32-28.84 0-15.68 5.32-29.4 5.32-14 15.4-24.36 10.08-10.64 24.36-16.8 14.56-6.16 32.48-6.16 17.92 0 31.92 6.16 14.28 6.16 24.08 16.52 10.08 10.36 15.12 24.08 5.32 13.72 5.32 28.56 0 3.64-.28 7 0 3.36-.56 5.6h-113.4q.84 8.68 4.2 15.4 3.36 6.72 8.68 11.48 5.32 4.76 12.04 7.28 6.72 2.52 14 2.52 11.2 0 21-5.32 10.08-5.6 13.72-14.56l32.2 8.96q-8.12 16.8-26.04 27.72-17.64 10.64-42.28 10.64Zm-38.08-88.48h76.16q-1.4-16.52-12.32-26.32-10.64-10.08-26.04-10.08-7.56 0-14.28 2.8-6.44 2.52-11.48 7.28t-8.4 11.48q-3.08 6.72-3.64 14.84Zm225.12-62.72v34.16q-17.08.28-30.52 6.72-13.44 6.16-19.32 18.76V352h-37.52V205.28h34.44v31.36q3.92-7.56 9.24-13.44 5.32-6.16 11.48-10.64t12.32-6.72q6.44-2.52 12.32-2.52h4.48q1.68 0 3.08.28Z"/></svg>-->
++                </span></a>
++                </div>
++            </li>
++        </ul>
++    </div>
++
++    <div class="heroe">
++
++        <h1>Add event</h1>
++
++        <h2></h2>
++
++    </div>
++
++</header>
++
++<!-- CONTENT -->
++
++<section>
++    <table>
++        <tr>
++            <td><?php echo form_label('Title', 'title');?></td>
++            <td><?php echo form_input($title);?></td>
++        </tr>
++        <tr>
++            <td><?php echo form_label('Description', 'description');?></td>
++            <td><?php echo form_textarea($description);?></td>
++        </tr>
++        <tr>
++            <td><?php echo form_label('Image', 'image');?></td>
++            <td><?php echo form_upload($image); ?></td>
++        </tr>
++        <tr>
++            <td><?php echo form_label("Date", 'date');?></td>
++            <td><?php echo form_input($date); ?></td>
++        </tr>
++    </table>
++
++    <?php echo "<br><br>";?>
++
++    <?php echo form_submit('submit', 'Save', 'class="btn btn-primary"');?>
++
++    <br><br>
++    <?php echo anchor(array('/admin/events/upload'), 'Add new event')?>
++</section>
++
++<!-- FOOTER: DEBUG INFO + COPYRIGHTS -->
++
++<footer style="vertical-align: bottom">
++
++    <div class="copyrights">
++
++        <p>&copy; <?= date('Y') ?> Tasty. All rights reserved.</p>
++
++    </div>
++
++</footer>
++
++<!-- SCRIPTS -->
++
++<script {csp-script-nonce}>
++    document.getElementById("menuToggle").addEventListener('click', toggleMenu);
++    function toggleMenu() {
++        var menuItems = document.getElementsByClassName('menu-item');
++        for (var i = 0; i < menuItems.length; i++) {
++            var menuItem = menuItems[i];
++            menuItem.classList.toggle("hidden");
++        }
++    }
++</script>
++
++<!-- -->
++
++</body>
++</html>
+Index: .idea/phpunit.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/phpunit.xml b/.idea/phpunit.xml
+new file mode 100644
+--- /dev/null	(date 1716402410519)
++++ b/.idea/phpunit.xml	(date 1716402410519)
+@@ -0,0 +1,10 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="PHPUnit">
++    <option name="directories">
++      <list>
++        <option value="$PROJECT_DIR$/cigniter-app/tests" />
++      </list>
++    </option>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1716402410520)
++++ b/.idea/vcs.xml	(date 1716402410520)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: cigniter-app/app/Views/admin/events/view.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/cigniter-app/app/Views/admin/events/view.php b/cigniter-app/app/Views/admin/events/view.php
+new file mode 100644
+--- /dev/null	(date 1718202233746)
++++ b/cigniter-app/app/Views/admin/events/view.php	(date 1718202233746)
+@@ -0,0 +1,151 @@
++<!DOCTYPE HTML>
++<html>
++<head>
++    <meta charset="utf-8">
++    <meta http-equiv="X-UA-Compatible" content="IE=edge">
++    <title>Tasty &mdash; Free Website Template, Free HTML5 Template by freehtml5.co</title>
++    <meta name="viewport" content="width=device-width, initial-scale=1">
++    <meta name="description" content="Free HTML5 Website Template by freehtml5.co" />
++    <meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
++    <meta name="author" content="freehtml5.co" />
++
++    <!--
++    //////////////////////////////////////////////////////
++
++    FREE HTML5 TEMPLATE
++    DESIGNED & DEVELOPED by FreeHTML5.co
++
++    Website: 		http://freehtml5.co/
++    Email: 			info@freehtml5.co
++    Twitter: 		http://twitter.com/fh5co
++    Facebook: 		https://www.facebook.com/fh5co
++
++    //////////////////////////////////////////////////////
++     -->
++
++    <!-- Facebook and Twitter integration -->
++    <meta property="og:title" content=""/>
++    <meta property="og:image" content=""/>
++    <meta property="og:url" content=""/>
++    <meta property="og:site_name" content=""/>
++    <meta property="og:description" content=""/>
++    <meta name="twitter:title" content="" />
++    <meta name="twitter:image" content="" />
++    <meta name="twitter:url" content="" />
++    <meta name="twitter:card" content="" />
++
++    <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond:300,300i,400,400i,500,600i,700" rel="stylesheet">
++    <link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet">
++
++    <!-- Animate.css -->
++    <link rel="stylesheet" href="<?php echo base_url()?>css/animate.css">
++    <!-- Icomoon Icon Fonts-->
++    <link rel="stylesheet" href="<?php echo base_url()?>css/icomoon.css">
++    <!-- Bootstrap  -->
++    <link rel="stylesheet" href="<?php echo base_url()?>css/bootstrap.css">
++
++    <!-- Flexslider  -->
++    <link rel="stylesheet" href="<?php echo base_url()?>css/flexslider.css">
++
++    <!-- Theme style  -->
++    <link rel="stylesheet" href="<?php echo base_url()?>css/style.css">
++
++    <!-- Modernizr JS -->
++    <script src="<?php echo base_url()?>js/modernizr-2.6.2.min.js"></script>
++    <!-- FOR IE9 below -->
++    <!--[if lt IE 9]>
++    <script src="<?php echo base_url()?>js/respond.min.js"></script>
++    <![endif]-->
++
++    <style>
++        err{
++            color: red;
++            font-size: 10pt;
++        }
++    </style>
++</head>
++<body>
++
++
++
++<div class="fh5co-loader"></div>
++
++<div id="page">
++    <nav class="fh5co-nav" role="navigation">
++        <!-- <div class="top-menu"> -->
++        <div class="container">
++            <div class="row">
++                <div class="col-xs-12 text-center logo-wrap">
++                    <div id="fh5co-logo"><a href="/">Tasty<span>.</span></a></div>
++                </div>
++                <div class="col-xs-12 text-center menu-1 menu-wrap">
++                    <h1 style="color: darkgrey"><i>Event preview</i></h1>
++                </div>
++            </div>
++
++        </div>
++        <!-- </div> -->
++    </nav>
++
++    <header id="fh5co-header" class="fh5co-cover js-fullheight" role="banner" style="background-image: url(<?php echo base_url().$event['image']; ?>)" data-stellar-background-ratio="0.5">
++        <div class="overlay"></div>
++        <div class="container">
++            <div class="row">
++                <div class="col-md-12 text-center">
++                    <div class="display-t js-fullheight">
++                        <div class="display-tc js-fullheight animate-box" data-animate-effect="fadeIn">
++                            <h1><?php echo $event['title']; ?></h1>
++                            <h2><?php echo $event['description'] ?></h2>
++                            <h3 style="opacity: 100; color: whitesmoke"><strong>Date:</strong> <?php echo $event['date']?> </h3>
++                        </div>
++                    </div>
++            </div>
++        </div>
++
++    </header>
++
++    <footer id="fh5co-footer" role="contentinfo" class="fh5co-section">
++
++            <div class="row copyright">
++                <div class="col-md-12 text-center">
++                    <p>
++                        <small class="block">&copy; 2024 Tasty. All Rights Reserved.</small>
++                        <small class="block">Designed by Bulgac Roman</small>
++                    </p>
++                    <p>
++                    <ul class="fh5co-social-icons">
++                        <li><a href="#"><i class="icon-twitter2"></i></a></li>
++                        <li><a href="#"><i class="icon-facebook2"></i></a></li>
++                        <li><a href="#"><i class="icon-linkedin2"></i></a></li>
++                        <li><a href="#"><i class="icon-dribbble2"></i></a></li>
++                    </ul>
++                    </p>
++                </div>
++            </div>
++
++        </div>
++    </footer>
++</div>
++
++<div class="gototop js-top">
++    <a href="#" class="js-gotop"><i class="icon-arrow-up22"></i></a>
++</div>
++
++<!-- jQuery -->
++<script src="<?php echo base_url()?>js/jquery.min.js"></script>
++<!-- jQuery Easing -->
++<script src="<?php echo base_url()?>js/jquery.easing.1.3.js"></script>
++<!-- Bootstrap -->
++<script src="<?php echo base_url()?>js/bootstrap.min.js"></script>
++<!-- Waypoints -->
++<script src="<?php echo base_url()?>js/jquery.waypoints.min.js"></script>
++<!-- Waypoints -->
++<script src="<?php echo base_url()?>js/jquery.stellar.min.js"></script>
++<!-- Flexslider -->
++<script src="<?php echo base_url()?>js/jquery.flexslider-min.js"></script>
++<!-- Main -->
++<script src="<?php echo base_url()?>js/main.js"></script>
++
++</body>
++</html>
++
+Index: cigniter-app/app/Views/admin/events/events.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/cigniter-app/app/Views/admin/events/events.php b/cigniter-app/app/Views/admin/events/events.php
+new file mode 100644
+--- /dev/null	(date 1718218966171)
++++ b/cigniter-app/app/Views/admin/events/events.php	(date 1718218966171)
+@@ -0,0 +1,298 @@
++<!DOCTYPE html>
++<html lang="en">
++<head>
++    <meta charset="UTF-8">
++    <title>Admin dashboard</title>
++    <meta name="description" content="The small framework with powerful features">
++    <link rel="shortcut icon" type="image/png" href="/favicon.ico">
++
++    <!-- STYLES -->
++
++    <style {csp-style-nonce}>
++        * {
++            transition: background-color 300ms ease, color 300ms ease;
++        }
++        *:focus {
++            background-color: rgba(221, 72, 20, .2);
++            outline: none;
++        }
++        html, body {
++            color: rgba(33, 37, 41, 1);
++            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
++            font-size: 16px;
++            margin: 0;
++            padding: 0;
++            -webkit-font-smoothing: antialiased;
++            -moz-osx-font-smoothing: grayscale;
++            text-rendering: optimizeLegibility;
++        }
++        header {
++            background-color: rgba(247, 248, 249, 1);
++            padding: .4rem 0 0;
++        }
++        .menu {
++            padding: .4rem 2rem;
++        }
++        header ul {
++            border-bottom: 1px solid rgba(242, 242, 242, 1);
++            list-style-type: none;
++            margin: 0;
++            overflow: hidden;
++            padding: 0;
++            text-align: right;
++        }
++        header li {
++            display: inline-block;
++        }
++        header li a {
++            border-radius: 5px;
++            color: rgba(0, 0, 0, .5);
++            display: block;
++            height: 44px;
++            text-decoration: none;
++        }
++        header li.menu-item a {
++            border-radius: 5px;
++            margin: 5px 0;
++            height: 38px;
++            line-height: 36px;
++            padding: .4rem .65rem;
++            text-align: center;
++        }
++        header li.menu-item a:hover,
++        header li.menu-item a:focus {
++            background-color: rgba(221, 72, 20, .2);
++            color: rgba(221, 72, 20, 1);
++        }
++        header .logo {
++            float: left;
++            height: 44px;
++            padding: .4rem .5rem;
++        }
++        header .menu-toggle {
++            display: none;
++            float: right;
++            font-size: 2rem;
++            font-weight: bold;
++        }
++        header .menu-toggle button {
++            background-color: rgba(221, 72, 20, .6);
++            border: none;
++            border-radius: 3px;
++            color: rgba(255, 255, 255, 1);
++            cursor: pointer;
++            font: inherit;
++            font-size: 1.3rem;
++            height: 36px;
++            padding: 0;
++            margin: 11px 0;
++            overflow: visible;
++            width: 40px;
++        }
++        header .menu-toggle button:hover,
++        header .menu-toggle button:focus {
++            background-color: rgba(221, 72, 20, .8);
++            color: rgba(255, 255, 255, .8);
++        }
++        header .heroe {
++            margin: 0 auto;
++            max-width: 1100px;
++            padding: 1rem 1.75rem 1.75rem 1.75rem;
++        }
++        header .heroe h1 {
++            font-size: 2.5rem;
++            font-weight: 500;
++        }
++        header .heroe h2 {
++            font-size: 1.5rem;
++            font-weight: 300;
++        }
++        section {
++            margin: 0 auto;
++            max-width: 1100px;
++            padding: 2.5rem 1.75rem 3.5rem 1.75rem;
++        }
++        section h1 {
++            margin-bottom: 2.5rem;
++        }
++        section h2 {
++            font-size: 120%;
++            line-height: 2.5rem;
++            padding-top: 1.5rem;
++        }
++        section pre {
++            background-color: rgba(247, 248, 249, 1);
++            border: 1px solid rgba(242, 242, 242, 1);
++            display: block;
++            font-size: .9rem;
++            margin: 2rem 0;
++            padding: 1rem 1.5rem;
++            white-space: pre-wrap;
++            word-break: break-all;
++        }
++        section code {
++            display: block;
++        }
++        section a {
++            color: rgba(221, 72, 20, 1);
++        }
++        section svg {
++            margin-bottom: -5px;
++            margin-right: 5px;
++            width: 25px;
++        }
++        .further {
++            background-color: rgba(247, 248, 249, 1);
++            border-bottom: 1px solid rgba(242, 242, 242, 1);
++            border-top: 1px solid rgba(242, 242, 242, 1);
++        }
++        .further h2:first-of-type {
++            padding-top: 0;
++        }
++        .svg-stroke {
++            fill: none;
++            stroke: #000;
++            stroke-width: 32px;
++        }
++        footer {
++            background-color: rgba(221, 72, 20, .8);
++            text-align: center;
++        }
++        footer .environment {
++            color: rgba(255, 255, 255, 1);
++            padding: 2rem 1.75rem;
++        }
++        footer .copyrights {
++            background-color: rgba(62, 62, 62, 1);
++            color: rgba(200, 200, 200, 1);
++            padding: .25rem 1.75rem;
++        }
++        @media (max-width: 629px) {
++            header ul {
++                padding: 0;
++            }
++            header .menu-toggle {
++                padding: 0 1rem;
++            }
++            header .menu-item {
++                background-color: rgba(244, 245, 246, 1);
++                border-top: 1px solid rgba(242, 242, 242, 1);
++                margin: 0 15px;
++                width: calc(100% - 30px);
++            }
++            header .menu-toggle {
++                display: block;
++            }
++            header .hidden {
++                display: none;
++            }
++            header li.menu-item a {
++                background-color: rgba(221, 72, 20, .1);
++            }
++            header li.menu-item a:hover,
++            header li.menu-item a:focus {
++                background-color: rgba(221, 72, 20, .7);
++                color: rgba(255, 255, 255, .8);
++            }
++        }
++        table{
++            font-family: arial, sans-serif;
++            border-collapse: collapse;
++            width: 100%;
++        }
++        td, th {
++            border: 1px solid #dddddd;
++            text-align: left;
++            padding: 8px;
++        }
++    </style>
++</head>
++<body>
++
++<!-- HEADER: MENU + HEROE SECTION -->
++<header>
++
++    <div class="menu">
++        <ul>
++            <li class="logo">
++                <div id="fh5co-logo"><a href="<?php echo base_url()?>" target="_blank">Tasty<span>.
++                            <!--                    <svg role="img" aria-label="Visit CodeIgniter.com official website!" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2100 500" height="44"><path fill="#dd4814" d="M148.2 411c-20.53-9.07-34.48-28.61-36.31-50.99 1.2-23.02 13.36-44.06 32.67-56.61-3.17 7.73-2.4 16.53 2 23.6 5.01 7 13.63 10.36 22.07 8.61 12.02-3.38 19.06-15.86 15.68-27.89-1.2-4.21-3.6-8.03-6.88-10.91-13.6-11.06-20.43-28.44-18-45.81 2.33-9.2 7.42-17.52 14.61-23.8-5.4 14.4 9.83 28.61 20.05 35.6 18.14 10.88 35.6 22.84 52.32 35.81 18.27 14.4 28.23 36.94 26.67 60-4.11 24.54-21.47 44.8-45.13 52.4 47.33-10.53 96.13-48.13 97.06-101.46-.93-42.67-26.4-80.96-65.33-98.4h-1.73c.86 2.09 1.28 4.34 1.2 6.61.13-1.47.13-2.93 0-4.4.21 1.73.21 3.47 0 5.2-2.96 12.13-15.2 19.6-27.36 16.64-4.86-1.2-9.2-3.93-12.32-7.87-15.6-20 0-42.76 2.61-64.76 1.6-28.13-11.25-55.02-34.05-71.46 11.41 19.02-3.79 44-14.84 58.21-11.07 14.21-27.07 24.8-40.11 37.2-14.05 13.07-26.93 27.44-38.49 42.8-24.99 30.53-34.8 70.8-26.67 109.4 11.15 37.2 42.07 65.15 80.2 72.4h.21l-.13-.12Zm324.56-159.8q0-17.92 6.16-35.56 6.44-17.92 18.48-31.92t29.68-22.68q17.64-8.96 40.04-8.96 26.6 0 45.36 12.04 19.04 12.04 28 31.36l-15.4 9.52q-4.76-9.8-11.76-16.52-6.72-6.72-14.56-10.92-7.84-4.2-16.24-5.88-8.4-1.96-16.52-1.96-17.92 0-31.64 7.28-13.72 7.28-23.24 19.04-9.24 11.76-14 26.6-4.76 14.56-4.76 29.68 0 16.52 5.6 31.64 5.88 15.12 15.68 26.88 10.08 11.48 23.52 18.48 13.72 6.72 29.68 6.72 8.4 0 17.08-1.96 8.96-2.24 17.08-6.72 8.4-4.76 15.4-11.48 7-7 11.76-16.8l16.24 8.4q-4.76 11.2-13.44 19.88-8.68 8.4-19.32 14.28-10.64 5.88-22.68 8.96-11.76 3.08-23.24 3.08-20.44 0-37.52-8.96-17.08-8.96-29.4-23.24-12.32-14.56-19.32-32.76-6.72-18.48-6.72-37.52Zm263.48 103.6q-15.96 0-29.12-5.88-13.16-6.16-22.96-16.52-9.52-10.36-14.84-24.08Q664 294.6 664 279.48q0-15.4 5.32-29.12 5.6-13.72 15.12-24.08 9.8-10.36 22.96-16.52t28.84-6.16q15.68 0 28.84 6.16 13.44 6.16 22.96 16.52 9.8 10.36 15.12 24.08 5.6 13.72 5.6 29.12 0 15.12-5.32 28.84t-15.12 24.08q-9.52 10.36-22.96 16.52-13.16 5.88-29.12 5.88Zm-52.92-75.04q0 12.32 4.2 22.96 4.2 10.36 11.2 18.48 7.28 7.84 16.8 12.32 9.8 4.48 20.72 4.48 10.92 0 20.44-4.48 9.8-4.76 17.08-12.6 7.28-8.12 11.48-18.76 4.2-10.64 4.2-22.96 0-12.04-4.2-22.68-4.2-10.92-11.48-18.76-7.28-8.12-17.08-12.6-9.52-4.76-20.44-4.76-10.92 0-20.44 4.76-9.52 4.48-16.8 12.6-7.28 8.12-11.48 19.04-4.2 10.64-4.2 22.96ZM900.6 354.8q-15.12 0-28-6.16-12.88-6.44-22.12-16.8t-14.56-23.8q-5.04-13.72-5.04-28.56 0-15.4 5.04-29.12 5.04-14 13.72-24.36 8.96-10.36 21-16.24 12.32-6.16 26.88-6.16 18.48 0 32.76 9.8 14.28 9.52 22.4 23.24V147.6h19.04v179.76q0 7.84 6.72 7.84V352q-4.2.84-6.72.84-6.72 0-11.76-4.2-5.04-4.48-5.04-10.64v-14.28Q946.24 338 931.4 346.4t-30.8 8.4Zm4.2-16.8q7 0 14.84-2.8 8.12-2.8 15.12-7.56 7-5.04 11.76-11.48 5.04-6.72 6.16-14.28V256.8q-2.8-7.56-8.12-14-5.32-6.72-12.32-11.76-6.72-5.04-14.56-7.84-7.84-2.8-15.4-2.8-11.76 0-21.28 5.04-9.52 5.04-16.52 13.44-6.72 8.12-10.36 18.76-3.64 10.64-3.64 21.84 0 11.76 4.2 22.4 4.2 10.64 11.48 18.76 7.28 7.84 17.08 12.6Q893.32 338 904.8 338Zm173.04 16.8q-15.96 0-29.4-5.88-13.16-6.16-22.96-16.52-9.8-10.64-15.4-24.36-5.32-13.72-5.32-29.4 0-15.4 5.32-28.84 5.6-13.72 15.12-23.8 9.8-10.36 23.24-16.24 13.44-6.16 29.12-6.16 15.96 0 29.12 6.16 13.44 5.88 22.96 16.24 9.52 10.36 14.84 23.8 5.32 13.44 5.32 28.56v4.48q0 2.24-.28 3.08h-124.88q.84 11.76 5.32 21.84 4.76 9.8 12.04 17.08 7.28 7.28 16.52 11.48 9.52 3.92 20.16 3.92 7 0 14-1.96t12.88-5.32q5.88-3.36 10.64-8.12 4.76-5.04 7.28-10.92l16.52 4.48q-3.36 8.12-9.52 14.84-6.16 6.44-14.28 11.48-8.12 4.76-17.92 7.56-9.8 2.52-20.44 2.52Zm-53.48-83.44h107.24q-.84-11.76-5.6-21.28-4.48-9.8-11.76-16.8-7-7-16.52-10.92-9.24-3.92-19.88-3.92-10.64 0-20.16 3.92t-16.8 10.92q-7 7-11.48 16.8-4.2 9.8-5.04 21.28Zm193.2 80.64h-38.64V153.2h38.64V352Zm93.52.84q-14.84 0-26.88-5.88t-21-15.96q-8.68-10.36-13.44-23.8-4.76-13.44-4.76-28.56 0-15.96 5.04-29.68 5.04-13.72 14-24.08 8.96-10.36 21.56-16.24 12.6-5.88 27.72-5.88 17.08 0 29.96 7.84 12.88 7.56 21.28 20.44v-25.76h32.76V345q0 16.24-6.16 29.12-6.16 12.88-17.08 21.84-10.64 8.96-25.76 13.72-14.84 4.76-32.48 4.76-24.08 0-40.6-7.84-16.24-8.12-28-22.68l20.44-19.88q8.4 10.36 21 16.24 12.88 5.88 27.16 5.88 8.68 0 16.52-2.24 8.12-2.52 14.28-7.56 6.16-5.04 9.52-12.88 3.64-7.84 3.64-18.48v-18.48q-7.28 12.6-20.44 19.6-13.16 6.72-28.28 6.72Zm12.6-29.96q6.16 0 11.76-1.96t10.36-5.32q4.76-3.36 8.4-7.84 3.64-4.48 5.6-9.52v-35q-5.04-12.88-15.96-20.72-10.64-7.84-22.4-7.84-8.68 0-15.68 3.92-7 3.64-12.04 10.08-5.04 6.16-7.84 14.28-2.52 8.12-2.52 16.8 0 8.96 3.08 16.8t8.4 13.72q5.6 5.88 12.88 9.24 7.28 3.36 15.96 3.36Zm243.88-62.44V352h-37.52v-82.32q0-17.64-6.16-25.76-6.16-8.12-17.08-8.12-5.6 0-11.48 2.24-5.88 2.24-11.2 6.44-5.04 3.92-9.24 9.52t-6.16 12.32V352h-37.52V205.28h33.88v27.16q8.12-14 23.52-21.84t34.72-7.84q13.72 0 22.4 5.04 8.68 5.04 13.44 13.16 4.76 8.12 6.44 18.48 1.96 10.36 1.96 21Zm70.28 91.56h-37.52V205.28h37.52V352Zm0-167.16h-37.52V147.6h37.52v37.24Zm114.24 129.92 7.56 29.68q-7.56 3.36-18.48 6.72-10.92 3.36-22.96 3.36-7.84 0-14.84-1.96-6.72-1.96-12.04-6.16-5.04-4.48-8.12-11.2-3.08-7-3.08-16.8v-84.28h-19.32v-28.84h19.32v-47.6h37.52v47.6h30.8v28.84h-30.8v71.68q0 7.84 3.92 11.2 4.2 3.08 10.08 3.08t11.48-1.96q5.6-1.96 8.96-3.36Zm91.56 40.04q-17.64 0-31.92-5.88-14.28-6.16-24.36-16.52t-15.68-24.08q-5.32-13.72-5.32-28.84 0-15.68 5.32-29.4 5.32-14 15.4-24.36 10.08-10.64 24.36-16.8 14.56-6.16 32.48-6.16 17.92 0 31.92 6.16 14.28 6.16 24.08 16.52 10.08 10.36 15.12 24.08 5.32 13.72 5.32 28.56 0 3.64-.28 7 0 3.36-.56 5.6h-113.4q.84 8.68 4.2 15.4 3.36 6.72 8.68 11.48 5.32 4.76 12.04 7.28 6.72 2.52 14 2.52 11.2 0 21-5.32 10.08-5.6 13.72-14.56l32.2 8.96q-8.12 16.8-26.04 27.72-17.64 10.64-42.28 10.64Zm-38.08-88.48h76.16q-1.4-16.52-12.32-26.32-10.64-10.08-26.04-10.08-7.56 0-14.28 2.8-6.44 2.52-11.48 7.28t-8.4 11.48q-3.08 6.72-3.64 14.84Zm225.12-62.72v34.16q-17.08.28-30.52 6.72-13.44 6.16-19.32 18.76V352h-37.52V205.28h34.44v31.36q3.92-7.56 9.24-13.44 5.32-6.16 11.48-10.64t12.32-6.72q6.44-2.52 12.32-2.52h4.48q1.68 0 3.08.28Z"/></svg>-->
++                </span></a>
++                </div>
++            </li>
++        </ul>
++    </div>
++
++    <div class="heroe">
++
++        <h1>Event Dashboard</h1>
++
++        <h2>Add some event on website</h2>
++
++    </div>
++
++</header>
++
++<!-- CONTENT -->
++
++<section>
++
++    <div style="horiz-align: center">
++        <form action="/admin/events/search" method="post" style="">
++            <input type="text" name="search" id="search" size="80" style="border-left: 0; border-right: 0; border-top: 0; border-bottom: 1px solid #00000f; border-radius: 2px; scale: 1">
++            <input type="submit" value="Search!" >
++        </form>
++    </div>
++    <br><br>
++
++    <table class="table">
++        <tr>
++            <td><strong>Title</strong></td>
++            <td style="width: 25%"><strong>Description</strong></td>
++            <td><strong>Image</strong></td>
++            <td style="width: 9%"><strong>Date</strong></td>
++            <td style="align-content: center"><strong>Actions</strong></td>
++        </tr>
++        <?php  foreach ($events as $var){ ?>
++        <tr>
++            <td><a href="/admin/event/view/<?php echo $var['id']; ?>"><?php echo $var['title']; ?></a></td>
++            <td><?php echo $var['description'] ?></td>
++            <td><img src="<?php echo base_url($var['image']); ?>" alt="" width="400"></td>
++            <td><?php echo $var['date']; ?></td>
++            <td><span><a href="/admin/event/edit/<?php echo $var['id']; ?>">Edit</a> <a href="/admin/event/delete/<?php echo $var['id']; ?>" onclick="return confirm('Do you want to delete this event')">Delete</a></span></td>
++        </tr>
++        <?php } ?>
++    </table>
++    <br><br>
++    <?php echo anchor(array('/admin/events/upload'), 'Add new event')?>
++</section>
++
++<!-- FOOTER: DEBUG INFO + COPYRIGHTS -->
++
++<footer style="vertical-align: bottom">
++
++    <div class="copyrights">
++
++        <p>&copy; <?= date('Y') ?> Tasty. All rights reserved.</p>
++
++    </div>
++
++</footer>
++
++<!-- SCRIPTS -->
++
++<script {csp-script-nonce}>
++    document.getElementById("menuToggle").addeventListener('click', toggleMenu);
++    function toggleMenu() {
++        var menuItems = document.getElementsByClassName('menu-item');
++        for (var i = 0; i < menuItems.length; i++) {
++            var menuItem = menuItems[i];
++            menuItem.classList.toggle("hidden");
++        }
++    }
++</script>
++
++<!-- -->
++
++</body>
++</html>
+Index: .idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+new file mode 100644
+--- /dev/null	(date 1716402410597)
++++ b/.idea/.gitignore	(date 1716402410597)
+@@ -0,0 +1,8 @@
++# Default ignored files
++/shelf/
++/workspace.xml
++# Editor-based HTTP Client requests
++/httpRequests/
++# Datasource local storage ignored files
++/dataSources/
++/dataSources.local.xml
+Index: cigniter-app/app/Views/errors/cli/error_404.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/cigniter-app/app/Views/errors/cli/error_404.php b/cigniter-app/app/Views/errors/cli/error_404.php
+new file mode 100644
+--- /dev/null	(date 1712484387000)
++++ b/cigniter-app/app/Views/errors/cli/error_404.php	(date 1712484387000)
+@@ -0,0 +1,7 @@
++<?php
++
++use CodeIgniter\CLI\CLI;
++
++CLI::error('ERROR: ' . $code);
++CLI::write($message);
++CLI::newLine();
+Index: cigniter-app/app/Views/errors/cli/production.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/cigniter-app/app/Views/errors/cli/production.php b/cigniter-app/app/Views/errors/cli/production.php
+new file mode 100644
+--- /dev/null	(date 1712484387000)
++++ b/cigniter-app/app/Views/errors/cli/production.php	(date 1712484387000)
+@@ -0,0 +1,5 @@
++<?php
++
++// On the CLI, we still want errors in productions
++// so just use the exception template.
++include __DIR__ . '/error_exception.php';
+Index: cigniter-app/app/Views/admin/events/upload.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/cigniter-app/app/Views/admin/events/upload.php b/cigniter-app/app/Views/admin/events/upload.php
+new file mode 100644
+--- /dev/null	(date 1718215033196)
++++ b/cigniter-app/app/Views/admin/events/upload.php	(date 1718215033196)
+@@ -0,0 +1,330 @@
++<?php
++    $title = [
++            'name'=>'title',
++            'id'=>'title',
++            'maxlength'=>'100',
++            'class'=>'form-control',
++            'required'=>'required',
++            'size'=>'50',
++    ];
++    $description = [
++            'name'=>'description',
++            'id'=>'description',
++            'type'=>'textarea',
++            'size'=>'50',
++            'rows'=>'5',
++            'maxlength'=>'1500',
++            'required'=>'required',
++            'class'=>'form-control',
++    ];
++    $image = [
++            'name'=>'image',
++            'id'=>'image',
++            'type'=>'file',
++            'accept'=>'image/*',
++    ];
++
++    $date=[
++            'name'=>'date',
++        'id'=>'date',
++        'type'=>'date',
++        'class'=>'form-control',
++        'required'=>'required',
++        'size'=>'50',
++    ];
++    helper('form');
++    echo form_open_multipart('/admin/events/save');
++?>
++<!DOCTYPE html>
++<html lang="en">
++<head>
++    <meta charset="UTF-8">
++    <title>Add new event</title>
++    <meta name="description" content="The small framework with powerful features">
++    <link rel="shortcut icon" type="image/png" href="/favicon.ico">
++
++    <!-- STYLES -->
++
++    <style {csp-style-nonce}>
++        * {
++            transition: background-color 300ms ease, color 300ms ease;
++        }
++        *:focus {
++            background-color: rgba(221, 72, 20, .2);
++            outline: none;
++        }
++        html, body {
++            color: rgba(33, 37, 41, 1);
++            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
++            font-size: 16px;
++            margin: 0;
++            padding: 0;
++            -webkit-font-smoothing: antialiased;
++            -moz-osx-font-smoothing: grayscale;
++            text-rendering: optimizeLegibility;
++        }
++        header {
++            background-color: rgba(247, 248, 249, 1);
++            padding: .4rem 0 0;
++        }
++        .menu {
++            padding: .4rem 2rem;
++        }
++        header ul {
++            border-bottom: 1px solid rgba(242, 242, 242, 1);
++            list-style-type: none;
++            margin: 0;
++            overflow: hidden;
++            padding: 0;
++            text-align: right;
++        }
++        header li {
++            display: inline-block;
++        }
++        header li a {
++            border-radius: 5px;
++            color: rgba(0, 0, 0, .5);
++            display: block;
++            height: 44px;
++            text-decoration: none;
++        }
++        header li.menu-item a {
++            border-radius: 5px;
++            margin: 5px 0;
++            height: 38px;
++            line-height: 36px;
++            padding: .4rem .65rem;
++            text-align: center;
++        }
++        header li.menu-item a:hover,
++        header li.menu-item a:focus {
++            background-color: rgba(221, 72, 20, .2);
++            color: rgba(221, 72, 20, 1);
++        }
++        header .logo {
++            float: left;
++            height: 44px;
++            padding: .4rem .5rem;
++        }
++        header .menu-toggle {
++            display: none;
++            float: right;
++            font-size: 2rem;
++            font-weight: bold;
++        }
++        header .menu-toggle button {
++            background-color: rgba(221, 72, 20, .6);
++            border: none;
++            border-radius: 3px;
++            color: rgba(255, 255, 255, 1);
++            cursor: pointer;
++            font: inherit;
++            font-size: 1.3rem;
++            height: 36px;
++            padding: 0;
++            margin: 11px 0;
++            overflow: visible;
++            width: 40px;
++        }
++        header .menu-toggle button:hover,
++        header .menu-toggle button:focus {
++            background-color: rgba(221, 72, 20, .8);
++            color: rgba(255, 255, 255, .8);
++        }
++        header .heroe {
++            margin: 0 auto;
++            max-width: 1100px;
++            padding: 1rem 1.75rem 1.75rem 1.75rem;
++        }
++        header .heroe h1 {
++            font-size: 2.5rem;
++            font-weight: 500;
++        }
++        header .heroe h2 {
++            font-size: 1.5rem;
++            font-weight: 300;
++        }
++        section {
++            margin: 0 auto;
++            max-width: 1100px;
++            padding: 2.5rem 1.75rem 3.5rem 1.75rem;
++        }
++        section h1 {
++            margin-bottom: 2.5rem;
++        }
++        section h2 {
++            font-size: 120%;
++            line-height: 2.5rem;
++            padding-top: 1.5rem;
++        }
++        section pre {
++            background-color: rgba(247, 248, 249, 1);
++            border: 1px solid rgba(242, 242, 242, 1);
++            display: block;
++            font-size: .9rem;
++            margin: 2rem 0;
++            padding: 1rem 1.5rem;
++            white-space: pre-wrap;
++            word-break: break-all;
++        }
++        section code {
++            display: block;
++        }
++        section a {
++            color: rgba(221, 72, 20, 1);
++        }
++        section svg {
++            margin-bottom: -5px;
++            margin-right: 5px;
++            width: 25px;
++        }
++        .further {
++            background-color: rgba(247, 248, 249, 1);
++            border-bottom: 1px solid rgba(242, 242, 242, 1);
++            border-top: 1px solid rgba(242, 242, 242, 1);
++        }
++        .further h2:first-of-type {
++            padding-top: 0;
++        }
++        .svg-stroke {
++            fill: none;
++            stroke: #000;
++            stroke-width: 32px;
++        }
++        footer {
++            background-color: rgba(221, 72, 20, .8);
++            text-align: center;
++        }
++        footer .environment {
++            color: rgba(255, 255, 255, 1);
++            padding: 2rem 1.75rem;
++        }
++        footer .copyrights {
++            background-color: rgba(62, 62, 62, 1);
++            color: rgba(200, 200, 200, 1);
++            padding: .25rem 1.75rem;
++        }
++        @media (max-width: 629px) {
++            header ul {
++                padding: 0;
++            }
++            header .menu-toggle {
++                padding: 0 1rem;
++            }
++            header .menu-item {
++                background-color: rgba(244, 245, 246, 1);
++                border-top: 1px solid rgba(242, 242, 242, 1);
++                margin: 0 15px;
++                width: calc(100% - 30px);
++            }
++            header .menu-toggle {
++                display: block;
++            }
++            header .hidden {
++                display: none;
++            }
++            header li.menu-item a {
++                background-color: rgba(221, 72, 20, .1);
++            }
++            header li.menu-item a:hover,
++            header li.menu-item a:focus {
++                background-color: rgba(221, 72, 20, .7);
++                color: rgba(255, 255, 255, .8);
++            }
++        }
++        table{
++            font-family: arial, sans-serif;
++            border-collapse: collapse;
++        }
++        td, th {
++            border-bottom: 1px solid #dddddd;
++            text-align: left;
++            padding: 20px;
++        }
++    </style>
++</head>
++<body style="height: 1vh;">
++
++<!-- HEADER: MENU + HEROE SECTION -->
++<header>
++
++    <div class="menu">
++        <ul>
++            <li class="logo">
++                <div id="fh5co-logo"><a href="<?php echo base_url()?>" target="_blank">Tasty<span>.
++                            <!--                    <svg role="img" aria-label="Visit CodeIgniter.com official website!" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2100 500" height="44"><path fill="#dd4814" d="M148.2 411c-20.53-9.07-34.48-28.61-36.31-50.99 1.2-23.02 13.36-44.06 32.67-56.61-3.17 7.73-2.4 16.53 2 23.6 5.01 7 13.63 10.36 22.07 8.61 12.02-3.38 19.06-15.86 15.68-27.89-1.2-4.21-3.6-8.03-6.88-10.91-13.6-11.06-20.43-28.44-18-45.81 2.33-9.2 7.42-17.52 14.61-23.8-5.4 14.4 9.83 28.61 20.05 35.6 18.14 10.88 35.6 22.84 52.32 35.81 18.27 14.4 28.23 36.94 26.67 60-4.11 24.54-21.47 44.8-45.13 52.4 47.33-10.53 96.13-48.13 97.06-101.46-.93-42.67-26.4-80.96-65.33-98.4h-1.73c.86 2.09 1.28 4.34 1.2 6.61.13-1.47.13-2.93 0-4.4.21 1.73.21 3.47 0 5.2-2.96 12.13-15.2 19.6-27.36 16.64-4.86-1.2-9.2-3.93-12.32-7.87-15.6-20 0-42.76 2.61-64.76 1.6-28.13-11.25-55.02-34.05-71.46 11.41 19.02-3.79 44-14.84 58.21-11.07 14.21-27.07 24.8-40.11 37.2-14.05 13.07-26.93 27.44-38.49 42.8-24.99 30.53-34.8 70.8-26.67 109.4 11.15 37.2 42.07 65.15 80.2 72.4h.21l-.13-.12Zm324.56-159.8q0-17.92 6.16-35.56 6.44-17.92 18.48-31.92t29.68-22.68q17.64-8.96 40.04-8.96 26.6 0 45.36 12.04 19.04 12.04 28 31.36l-15.4 9.52q-4.76-9.8-11.76-16.52-6.72-6.72-14.56-10.92-7.84-4.2-16.24-5.88-8.4-1.96-16.52-1.96-17.92 0-31.64 7.28-13.72 7.28-23.24 19.04-9.24 11.76-14 26.6-4.76 14.56-4.76 29.68 0 16.52 5.6 31.64 5.88 15.12 15.68 26.88 10.08 11.48 23.52 18.48 13.72 6.72 29.68 6.72 8.4 0 17.08-1.96 8.96-2.24 17.08-6.72 8.4-4.76 15.4-11.48 7-7 11.76-16.8l16.24 8.4q-4.76 11.2-13.44 19.88-8.68 8.4-19.32 14.28-10.64 5.88-22.68 8.96-11.76 3.08-23.24 3.08-20.44 0-37.52-8.96-17.08-8.96-29.4-23.24-12.32-14.56-19.32-32.76-6.72-18.48-6.72-37.52Zm263.48 103.6q-15.96 0-29.12-5.88-13.16-6.16-22.96-16.52-9.52-10.36-14.84-24.08Q664 294.6 664 279.48q0-15.4 5.32-29.12 5.6-13.72 15.12-24.08 9.8-10.36 22.96-16.52t28.84-6.16q15.68 0 28.84 6.16 13.44 6.16 22.96 16.52 9.8 10.36 15.12 24.08 5.6 13.72 5.6 29.12 0 15.12-5.32 28.84t-15.12 24.08q-9.52 10.36-22.96 16.52-13.16 5.88-29.12 5.88Zm-52.92-75.04q0 12.32 4.2 22.96 4.2 10.36 11.2 18.48 7.28 7.84 16.8 12.32 9.8 4.48 20.72 4.48 10.92 0 20.44-4.48 9.8-4.76 17.08-12.6 7.28-8.12 11.48-18.76 4.2-10.64 4.2-22.96 0-12.04-4.2-22.68-4.2-10.92-11.48-18.76-7.28-8.12-17.08-12.6-9.52-4.76-20.44-4.76-10.92 0-20.44 4.76-9.52 4.48-16.8 12.6-7.28 8.12-11.48 19.04-4.2 10.64-4.2 22.96ZM900.6 354.8q-15.12 0-28-6.16-12.88-6.44-22.12-16.8t-14.56-23.8q-5.04-13.72-5.04-28.56 0-15.4 5.04-29.12 5.04-14 13.72-24.36 8.96-10.36 21-16.24 12.32-6.16 26.88-6.16 18.48 0 32.76 9.8 14.28 9.52 22.4 23.24V147.6h19.04v179.76q0 7.84 6.72 7.84V352q-4.2.84-6.72.84-6.72 0-11.76-4.2-5.04-4.48-5.04-10.64v-14.28Q946.24 338 931.4 346.4t-30.8 8.4Zm4.2-16.8q7 0 14.84-2.8 8.12-2.8 15.12-7.56 7-5.04 11.76-11.48 5.04-6.72 6.16-14.28V256.8q-2.8-7.56-8.12-14-5.32-6.72-12.32-11.76-6.72-5.04-14.56-7.84-7.84-2.8-15.4-2.8-11.76 0-21.28 5.04-9.52 5.04-16.52 13.44-6.72 8.12-10.36 18.76-3.64 10.64-3.64 21.84 0 11.76 4.2 22.4 4.2 10.64 11.48 18.76 7.28 7.84 17.08 12.6Q893.32 338 904.8 338Zm173.04 16.8q-15.96 0-29.4-5.88-13.16-6.16-22.96-16.52-9.8-10.64-15.4-24.36-5.32-13.72-5.32-29.4 0-15.4 5.32-28.84 5.6-13.72 15.12-23.8 9.8-10.36 23.24-16.24 13.44-6.16 29.12-6.16 15.96 0 29.12 6.16 13.44 5.88 22.96 16.24 9.52 10.36 14.84 23.8 5.32 13.44 5.32 28.56v4.48q0 2.24-.28 3.08h-124.88q.84 11.76 5.32 21.84 4.76 9.8 12.04 17.08 7.28 7.28 16.52 11.48 9.52 3.92 20.16 3.92 7 0 14-1.96t12.88-5.32q5.88-3.36 10.64-8.12 4.76-5.04 7.28-10.92l16.52 4.48q-3.36 8.12-9.52 14.84-6.16 6.44-14.28 11.48-8.12 4.76-17.92 7.56-9.8 2.52-20.44 2.52Zm-53.48-83.44h107.24q-.84-11.76-5.6-21.28-4.48-9.8-11.76-16.8-7-7-16.52-10.92-9.24-3.92-19.88-3.92-10.64 0-20.16 3.92t-16.8 10.92q-7 7-11.48 16.8-4.2 9.8-5.04 21.28Zm193.2 80.64h-38.64V153.2h38.64V352Zm93.52.84q-14.84 0-26.88-5.88t-21-15.96q-8.68-10.36-13.44-23.8-4.76-13.44-4.76-28.56 0-15.96 5.04-29.68 5.04-13.72 14-24.08 8.96-10.36 21.56-16.24 12.6-5.88 27.72-5.88 17.08 0 29.96 7.84 12.88 7.56 21.28 20.44v-25.76h32.76V345q0 16.24-6.16 29.12-6.16 12.88-17.08 21.84-10.64 8.96-25.76 13.72-14.84 4.76-32.48 4.76-24.08 0-40.6-7.84-16.24-8.12-28-22.68l20.44-19.88q8.4 10.36 21 16.24 12.88 5.88 27.16 5.88 8.68 0 16.52-2.24 8.12-2.52 14.28-7.56 6.16-5.04 9.52-12.88 3.64-7.84 3.64-18.48v-18.48q-7.28 12.6-20.44 19.6-13.16 6.72-28.28 6.72Zm12.6-29.96q6.16 0 11.76-1.96t10.36-5.32q4.76-3.36 8.4-7.84 3.64-4.48 5.6-9.52v-35q-5.04-12.88-15.96-20.72-10.64-7.84-22.4-7.84-8.68 0-15.68 3.92-7 3.64-12.04 10.08-5.04 6.16-7.84 14.28-2.52 8.12-2.52 16.8 0 8.96 3.08 16.8t8.4 13.72q5.6 5.88 12.88 9.24 7.28 3.36 15.96 3.36Zm243.88-62.44V352h-37.52v-82.32q0-17.64-6.16-25.76-6.16-8.12-17.08-8.12-5.6 0-11.48 2.24-5.88 2.24-11.2 6.44-5.04 3.92-9.24 9.52t-6.16 12.32V352h-37.52V205.28h33.88v27.16q8.12-14 23.52-21.84t34.72-7.84q13.72 0 22.4 5.04 8.68 5.04 13.44 13.16 4.76 8.12 6.44 18.48 1.96 10.36 1.96 21Zm70.28 91.56h-37.52V205.28h37.52V352Zm0-167.16h-37.52V147.6h37.52v37.24Zm114.24 129.92 7.56 29.68q-7.56 3.36-18.48 6.72-10.92 3.36-22.96 3.36-7.84 0-14.84-1.96-6.72-1.96-12.04-6.16-5.04-4.48-8.12-11.2-3.08-7-3.08-16.8v-84.28h-19.32v-28.84h19.32v-47.6h37.52v47.6h30.8v28.84h-30.8v71.68q0 7.84 3.92 11.2 4.2 3.08 10.08 3.08t11.48-1.96q5.6-1.96 8.96-3.36Zm91.56 40.04q-17.64 0-31.92-5.88-14.28-6.16-24.36-16.52t-15.68-24.08q-5.32-13.72-5.32-28.84 0-15.68 5.32-29.4 5.32-14 15.4-24.36 10.08-10.64 24.36-16.8 14.56-6.16 32.48-6.16 17.92 0 31.92 6.16 14.28 6.16 24.08 16.52 10.08 10.36 15.12 24.08 5.32 13.72 5.32 28.56 0 3.64-.28 7 0 3.36-.56 5.6h-113.4q.84 8.68 4.2 15.4 3.36 6.72 8.68 11.48 5.32 4.76 12.04 7.28 6.72 2.52 14 2.52 11.2 0 21-5.32 10.08-5.6 13.72-14.56l32.2 8.96q-8.12 16.8-26.04 27.72-17.64 10.64-42.28 10.64Zm-38.08-88.48h76.16q-1.4-16.52-12.32-26.32-10.64-10.08-26.04-10.08-7.56 0-14.28 2.8-6.44 2.52-11.48 7.28t-8.4 11.48q-3.08 6.72-3.64 14.84Zm225.12-62.72v34.16q-17.08.28-30.52 6.72-13.44 6.16-19.32 18.76V352h-37.52V205.28h34.44v31.36q3.92-7.56 9.24-13.44 5.32-6.16 11.48-10.64t12.32-6.72q6.44-2.52 12.32-2.52h4.48q1.68 0 3.08.28Z"/></svg>-->
++                </span></a>
++                </div>
++            </li>
++        </ul>
++    </div>
++
++    <div class="heroe">
++
++        <h1>Add event</h1>
++
++        <h2></h2>
++
++    </div>
++
++</header>
++
++<!-- CONTENT -->
++
++<section>
++    <table>
++        <tr>
++            <td><?php echo form_label('Title', 'title');?></td>
++            <td><?php echo form_input($title);?></td>
++        </tr>
++        <tr>
++            <td><?php echo form_label('Description', 'description');?></td>
++            <td><?php echo form_textarea($description);?></td>
++        </tr>
++        <tr>
++            <td><?php echo form_label('Image', 'image');?></td>
++            <td><?php echo form_upload($image); ?></td>
++        </tr>
++        <tr>
++            <td><?php echo form_label("Date", 'date');?></td>
++            <td><?php echo form_input($date); ?></td>
++        </tr>
++    </table>
++
++    <?php echo "<br><br>";?>
++
++    <?php echo form_submit('submit', 'Save', 'class="btn btn-primary"');?>
++
++    <br><br>
++    <?php echo anchor(array('/admin/events/upload'), 'Add new event')?>
++</section>
++
++<!-- FOOTER: DEBUG INFO + COPYRIGHTS -->
++
++<footer style="vertical-align: bottom">
++
++    <div class="copyrights">
++
++        <p>&copy; <?= date('Y') ?> Tasty. All rights reserved.</p>
++
++    </div>
++
++</footer>
++
++<!-- SCRIPTS -->
++
++<script {csp-script-nonce}>
++    document.getElementById("menuToggle").addEventListener('click', toggleMenu);
++    function toggleMenu() {
++        var menuItems = document.getElementsByClassName('menu-item');
++        for (var i = 0; i < menuItems.length; i++) {
++            var menuItem = menuItems[i];
++            menuItem.classList.toggle("hidden");
++        }
++    }
++</script>
++
++<!-- -->
++
++</body>
++</html>
+Index: cigniter-app/app/Views/errors/cli/error_exception.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/cigniter-app/app/Views/errors/cli/error_exception.php b/cigniter-app/app/Views/errors/cli/error_exception.php
+new file mode 100644
+--- /dev/null	(date 1712484387000)
++++ b/cigniter-app/app/Views/errors/cli/error_exception.php	(date 1712484387000)
+@@ -0,0 +1,65 @@
++<?php
++
++use CodeIgniter\CLI\CLI;
++
++// The main Exception
++CLI::write('[' . $exception::class . ']', 'light_gray', 'red');
++CLI::write($message);
++CLI::write('at ' . CLI::color(clean_path($exception->getFile()) . ':' . $exception->getLine(), 'green'));
++CLI::newLine();
++
++$last = $exception;
++
++while ($prevException = $last->getPrevious()) {
++    $last = $prevException;
++
++    CLI::write('  Caused by:');
++    CLI::write('  [' . $prevException::class . ']', 'red');
++    CLI::write('  ' . $prevException->getMessage());
++    CLI::write('  at ' . CLI::color(clean_path($prevException->getFile()) . ':' . $prevException->getLine(), 'green'));
++    CLI::newLine();
++}
++
++// The backtrace
++if (defined('SHOW_DEBUG_BACKTRACE') && SHOW_DEBUG_BACKTRACE) {
++    $backtraces = $last->getTrace();
++
++    if ($backtraces) {
++        CLI::write('Backtrace:', 'green');
++    }
++
++    foreach ($backtraces as $i => $error) {
++        $padFile  = '    '; // 4 spaces
++        $padClass = '       '; // 7 spaces
++        $c        = str_pad($i + 1, 3, ' ', STR_PAD_LEFT);
++
++        if (isset($error['file'])) {
++            $filepath = clean_path($error['file']) . ':' . $error['line'];
++
++            CLI::write($c . $padFile . CLI::color($filepath, 'yellow'));
++        } else {
++            CLI::write($c . $padFile . CLI::color('[internal function]', 'yellow'));
++        }
++
++        $function = '';
++
++        if (isset($error['class'])) {
++            $type = ($error['type'] === '->') ? '()' . $error['type'] : $error['type'];
++            $function .= $padClass . $error['class'] . $type . $error['function'];
++        } elseif (! isset($error['class']) && isset($error['function'])) {
++            $function .= $padClass . $error['function'];
++        }
++
++        $args = implode(', ', array_map(static fn ($value) => match (true) {
++            is_object($value) => 'Object(' . $value::class . ')',
++            is_array($value)  => count($value) ? '[...]' : '[]',
++            $value === null   => 'null', // return the lowercased version
++            default           => var_export($value, true),
++        }, array_values($error['args'] ?? [])));
++
++        $function .= '(' . $args . ')';
++
++        CLI::write($function);
++        CLI::newLine();
++    }
++}
+Index: cigniter-app/app/Views/admin/dashboard.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/cigniter-app/app/Views/admin/dashboard.php b/cigniter-app/app/Views/admin/dashboard.php
+new file mode 100644
+--- /dev/null	(date 1719145788407)
++++ b/cigniter-app/app/Views/admin/dashboard.php	(date 1719145788407)
+@@ -0,0 +1,326 @@
++<!DOCTYPE html>
++<html lang="en">
++<head>
++    <meta charset="UTF-8">
++    <title>Admin dashboard</title>
++    <meta name="description" content="The small framework with powerful features">
++    <link rel="shortcut icon" type="image/png" href="/favicon.ico">
++
++    <!-- STYLES -->
++
++    <style {csp-style-nonce}>
++        * {
++            transition: background-color 300ms ease, color 300ms ease;
++        }
++        *:focus {
++            background-color: rgba(221, 72, 20, .2);
++            outline: none;
++        }
++        html, body {
++            color: rgba(33, 37, 41, 1);
++            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
++            font-size: 16px;
++            margin: 0;
++            padding: 0;
++            -webkit-font-smoothing: antialiased;
++            -moz-osx-font-smoothing: grayscale;
++            text-rendering: optimizeLegibility;
++        }
++        header {
++            background-color: rgba(247, 248, 249, 1);
++            padding: .4rem 0 0;
++        }
++        .menu {
++            padding: .4rem 2rem;
++        }
++        header ul {
++            border-bottom: 1px solid rgba(242, 242, 242, 1);
++            list-style-type: none;
++            margin: 0;
++            overflow: hidden;
++            padding: 0;
++            text-align: right;
++        }
++        header li {
++            display: inline-block;
++        }
++        header li a {
++            border-radius: 5px;
++            color: rgba(0, 0, 0, .5);
++            display: block;
++            height: 44px;
++            text-decoration: none;
++        }
++        header li.menu-item a {
++            border-radius: 5px;
++            margin: 5px 0;
++            height: 38px;
++            line-height: 36px;
++            padding: .4rem .65rem;
++            text-align: center;
++        }
++        header li.menu-item a:hover,
++        header li.menu-item a:focus {
++            background-color: rgba(221, 72, 20, .2);
++            color: rgba(221, 72, 20, 1);
++        }
++        header .logo {
++            float: left;
++            height: 44px;
++            padding: .4rem .5rem;
++        }
++        header .menu-toggle {
++            display: none;
++            float: right;
++            font-size: 2rem;
++            font-weight: bold;
++        }
++        header .menu-toggle button {
++            background-color: rgba(221, 72, 20, .6);
++            border: none;
++            border-radius: 3px;
++            color: rgba(255, 255, 255, 1);
++            cursor: pointer;
++            font: inherit;
++            font-size: 1.3rem;
++            height: 36px;
++            padding: 0;
++            margin: 11px 0;
++            overflow: visible;
++            width: 40px;
++        }
++        header .menu-toggle button:hover,
++        header .menu-toggle button:focus {
++            background-color: rgba(221, 72, 20, .8);
++            color: rgba(255, 255, 255, .8);
++        }
++        header .heroe {
++            margin: 0 auto;
++            max-width: 1100px;
++            padding: 1rem 1.75rem 1.75rem 1.75rem;
++        }
++        header .heroe h1 {
++            font-size: 2.5rem;
++            font-weight: 500;
++        }
++        header .heroe h2 {
++            font-size: 1.5rem;
++            font-weight: 300;
++        }
++        section {
++            margin: 0 auto;
++            max-width: 1100px;
++            padding: 2.5rem 1.75rem 3.5rem 1.75rem;
++        }
++        section h1 {
++            margin-bottom: 2.5rem;
++        }
++        section h2 {
++            font-size: 120%;
++            line-height: 2.5rem;
++            padding-top: 1.5rem;
++        }
++        section pre {
++            background-color: rgba(247, 248, 249, 1);
++            border: 1px solid rgba(242, 242, 242, 1);
++            display: block;
++            font-size: .9rem;
++            margin: 2rem 0;
++            padding: 1rem 1.5rem;
++            white-space: pre-wrap;
++            word-break: break-all;
++        }
++        section code {
++            display: block;
++        }
++        section a {
++            color: rgba(221, 72, 20, 1);
++        }
++        section svg {
++            margin-bottom: -5px;
++            margin-right: 5px;
++            width: 25px;
++        }
++        .further {
++            background-color: rgba(247, 248, 249, 1);
++            border-bottom: 1px solid rgba(242, 242, 242, 1);
++            border-top: 1px solid rgba(242, 242, 242, 1);
++        }
++        .further h2:first-of-type {
++            padding-top: 0;
++        }
++        .svg-stroke {
++            fill: none;
++            stroke: #000;
++            stroke-width: 32px;
++        }
++        footer {
++            background-color: rgba(221, 72, 20, .8);
++            text-align: center;
++        }
++        footer .environment {
++            color: rgba(255, 255, 255, 1);
++            padding: 2rem 1.75rem;
++        }
++        footer .copyrights {
++            background-color: rgba(62, 62, 62, 1);
++            color: rgba(200, 200, 200, 1);
++            padding: .25rem 1.75rem;
++        }
++        @media (max-width: 629px) {
++            header ul {
++                padding: 0;
++            }
++            header .menu-toggle {
++                padding: 0 1rem;
++            }
++            header .menu-item {
++                background-color: rgba(244, 245, 246, 1);
++                border-top: 1px solid rgba(242, 242, 242, 1);
++                margin: 0 15px;
++                width: calc(100% - 30px);
++            }
++            header .menu-toggle {
++                display: block;
++            }
++            header .hidden {
++                display: none;
++            }
++            header li.menu-item a {
++                background-color: rgba(221, 72, 20, .1);
++            }
++            header li.menu-item a:hover,
++            header li.menu-item a:focus {
++                background-color: rgba(221, 72, 20, .7);
++                color: rgba(255, 255, 255, .8);
++            }
++        }
++        table{
++            font-family: arial, sans-serif;
++            border-collapse: collapse;
++            width: 100%;
++        }
++        td, th {
++            border: 1px solid #dddddd;
++            text-align: left;
++            padding: 8px;
++        }
++    </style>
++</head>
++<body>
++
++<!-- HEADER: MENU + HEROE SECTION -->
++<header>
++    <div class="menu">
++        <ul>
++            <li class="logo">
++                <div id="fh5co-logo"><a href="<?php echo base_url()?>" target="_blank">Tasty<span>.
++<!--                    <svg role="img" aria-label="Visit CodeIgniter.com official website!" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2100 500" height="44"><path fill="#dd4814" d="M148.2 411c-20.53-9.07-34.48-28.61-36.31-50.99 1.2-23.02 13.36-44.06 32.67-56.61-3.17 7.73-2.4 16.53 2 23.6 5.01 7 13.63 10.36 22.07 8.61 12.02-3.38 19.06-15.86 15.68-27.89-1.2-4.21-3.6-8.03-6.88-10.91-13.6-11.06-20.43-28.44-18-45.81 2.33-9.2 7.42-17.52 14.61-23.8-5.4 14.4 9.83 28.61 20.05 35.6 18.14 10.88 35.6 22.84 52.32 35.81 18.27 14.4 28.23 36.94 26.67 60-4.11 24.54-21.47 44.8-45.13 52.4 47.33-10.53 96.13-48.13 97.06-101.46-.93-42.67-26.4-80.96-65.33-98.4h-1.73c.86 2.09 1.28 4.34 1.2 6.61.13-1.47.13-2.93 0-4.4.21 1.73.21 3.47 0 5.2-2.96 12.13-15.2 19.6-27.36 16.64-4.86-1.2-9.2-3.93-12.32-7.87-15.6-20 0-42.76 2.61-64.76 1.6-28.13-11.25-55.02-34.05-71.46 11.41 19.02-3.79 44-14.84 58.21-11.07 14.21-27.07 24.8-40.11 37.2-14.05 13.07-26.93 27.44-38.49 42.8-24.99 30.53-34.8 70.8-26.67 109.4 11.15 37.2 42.07 65.15 80.2 72.4h.21l-.13-.12Zm324.56-159.8q0-17.92 6.16-35.56 6.44-17.92 18.48-31.92t29.68-22.68q17.64-8.96 40.04-8.96 26.6 0 45.36 12.04 19.04 12.04 28 31.36l-15.4 9.52q-4.76-9.8-11.76-16.52-6.72-6.72-14.56-10.92-7.84-4.2-16.24-5.88-8.4-1.96-16.52-1.96-17.92 0-31.64 7.28-13.72 7.28-23.24 19.04-9.24 11.76-14 26.6-4.76 14.56-4.76 29.68 0 16.52 5.6 31.64 5.88 15.12 15.68 26.88 10.08 11.48 23.52 18.48 13.72 6.72 29.68 6.72 8.4 0 17.08-1.96 8.96-2.24 17.08-6.72 8.4-4.76 15.4-11.48 7-7 11.76-16.8l16.24 8.4q-4.76 11.2-13.44 19.88-8.68 8.4-19.32 14.28-10.64 5.88-22.68 8.96-11.76 3.08-23.24 3.08-20.44 0-37.52-8.96-17.08-8.96-29.4-23.24-12.32-14.56-19.32-32.76-6.72-18.48-6.72-37.52Zm263.48 103.6q-15.96 0-29.12-5.88-13.16-6.16-22.96-16.52-9.52-10.36-14.84-24.08Q664 294.6 664 279.48q0-15.4 5.32-29.12 5.6-13.72 15.12-24.08 9.8-10.36 22.96-16.52t28.84-6.16q15.68 0 28.84 6.16 13.44 6.16 22.96 16.52 9.8 10.36 15.12 24.08 5.6 13.72 5.6 29.12 0 15.12-5.32 28.84t-15.12 24.08q-9.52 10.36-22.96 16.52-13.16 5.88-29.12 5.88Zm-52.92-75.04q0 12.32 4.2 22.96 4.2 10.36 11.2 18.48 7.28 7.84 16.8 12.32 9.8 4.48 20.72 4.48 10.92 0 20.44-4.48 9.8-4.76 17.08-12.6 7.28-8.12 11.48-18.76 4.2-10.64 4.2-22.96 0-12.04-4.2-22.68-4.2-10.92-11.48-18.76-7.28-8.12-17.08-12.6-9.52-4.76-20.44-4.76-10.92 0-20.44 4.76-9.52 4.48-16.8 12.6-7.28 8.12-11.48 19.04-4.2 10.64-4.2 22.96ZM900.6 354.8q-15.12 0-28-6.16-12.88-6.44-22.12-16.8t-14.56-23.8q-5.04-13.72-5.04-28.56 0-15.4 5.04-29.12 5.04-14 13.72-24.36 8.96-10.36 21-16.24 12.32-6.16 26.88-6.16 18.48 0 32.76 9.8 14.28 9.52 22.4 23.24V147.6h19.04v179.76q0 7.84 6.72 7.84V352q-4.2.84-6.72.84-6.72 0-11.76-4.2-5.04-4.48-5.04-10.64v-14.28Q946.24 338 931.4 346.4t-30.8 8.4Zm4.2-16.8q7 0 14.84-2.8 8.12-2.8 15.12-7.56 7-5.04 11.76-11.48 5.04-6.72 6.16-14.28V256.8q-2.8-7.56-8.12-14-5.32-6.72-12.32-11.76-6.72-5.04-14.56-7.84-7.84-2.8-15.4-2.8-11.76 0-21.28 5.04-9.52 5.04-16.52 13.44-6.72 8.12-10.36 18.76-3.64 10.64-3.64 21.84 0 11.76 4.2 22.4 4.2 10.64 11.48 18.76 7.28 7.84 17.08 12.6Q893.32 338 904.8 338Zm173.04 16.8q-15.96 0-29.4-5.88-13.16-6.16-22.96-16.52-9.8-10.64-15.4-24.36-5.32-13.72-5.32-29.4 0-15.4 5.32-28.84 5.6-13.72 15.12-23.8 9.8-10.36 23.24-16.24 13.44-6.16 29.12-6.16 15.96 0 29.12 6.16 13.44 5.88 22.96 16.24 9.52 10.36 14.84 23.8 5.32 13.44 5.32 28.56v4.48q0 2.24-.28 3.08h-124.88q.84 11.76 5.32 21.84 4.76 9.8 12.04 17.08 7.28 7.28 16.52 11.48 9.52 3.92 20.16 3.92 7 0 14-1.96t12.88-5.32q5.88-3.36 10.64-8.12 4.76-5.04 7.28-10.92l16.52 4.48q-3.36 8.12-9.52 14.84-6.16 6.44-14.28 11.48-8.12 4.76-17.92 7.56-9.8 2.52-20.44 2.52Zm-53.48-83.44h107.24q-.84-11.76-5.6-21.28-4.48-9.8-11.76-16.8-7-7-16.52-10.92-9.24-3.92-19.88-3.92-10.64 0-20.16 3.92t-16.8 10.92q-7 7-11.48 16.8-4.2 9.8-5.04 21.28Zm193.2 80.64h-38.64V153.2h38.64V352Zm93.52.84q-14.84 0-26.88-5.88t-21-15.96q-8.68-10.36-13.44-23.8-4.76-13.44-4.76-28.56 0-15.96 5.04-29.68 5.04-13.72 14-24.08 8.96-10.36 21.56-16.24 12.6-5.88 27.72-5.88 17.08 0 29.96 7.84 12.88 7.56 21.28 20.44v-25.76h32.76V345q0 16.24-6.16 29.12-6.16 12.88-17.08 21.84-10.64 8.96-25.76 13.72-14.84 4.76-32.48 4.76-24.08 0-40.6-7.84-16.24-8.12-28-22.68l20.44-19.88q8.4 10.36 21 16.24 12.88 5.88 27.16 5.88 8.68 0 16.52-2.24 8.12-2.52 14.28-7.56 6.16-5.04 9.52-12.88 3.64-7.84 3.64-18.48v-18.48q-7.28 12.6-20.44 19.6-13.16 6.72-28.28 6.72Zm12.6-29.96q6.16 0 11.76-1.96t10.36-5.32q4.76-3.36 8.4-7.84 3.64-4.48 5.6-9.52v-35q-5.04-12.88-15.96-20.72-10.64-7.84-22.4-7.84-8.68 0-15.68 3.92-7 3.64-12.04 10.08-5.04 6.16-7.84 14.28-2.52 8.12-2.52 16.8 0 8.96 3.08 16.8t8.4 13.72q5.6 5.88 12.88 9.24 7.28 3.36 15.96 3.36Zm243.88-62.44V352h-37.52v-82.32q0-17.64-6.16-25.76-6.16-8.12-17.08-8.12-5.6 0-11.48 2.24-5.88 2.24-11.2 6.44-5.04 3.92-9.24 9.52t-6.16 12.32V352h-37.52V205.28h33.88v27.16q8.12-14 23.52-21.84t34.72-7.84q13.72 0 22.4 5.04 8.68 5.04 13.44 13.16 4.76 8.12 6.44 18.48 1.96 10.36 1.96 21Zm70.28 91.56h-37.52V205.28h37.52V352Zm0-167.16h-37.52V147.6h37.52v37.24Zm114.24 129.92 7.56 29.68q-7.56 3.36-18.48 6.72-10.92 3.36-22.96 3.36-7.84 0-14.84-1.96-6.72-1.96-12.04-6.16-5.04-4.48-8.12-11.2-3.08-7-3.08-16.8v-84.28h-19.32v-28.84h19.32v-47.6h37.52v47.6h30.8v28.84h-30.8v71.68q0 7.84 3.92 11.2 4.2 3.08 10.08 3.08t11.48-1.96q5.6-1.96 8.96-3.36Zm91.56 40.04q-17.64 0-31.92-5.88-14.28-6.16-24.36-16.52t-15.68-24.08q-5.32-13.72-5.32-28.84 0-15.68 5.32-29.4 5.32-14 15.4-24.36 10.08-10.64 24.36-16.8 14.56-6.16 32.48-6.16 17.92 0 31.92 6.16 14.28 6.16 24.08 16.52 10.08 10.36 15.12 24.08 5.32 13.72 5.32 28.56 0 3.64-.28 7 0 3.36-.56 5.6h-113.4q.84 8.68 4.2 15.4 3.36 6.72 8.68 11.48 5.32 4.76 12.04 7.28 6.72 2.52 14 2.52 11.2 0 21-5.32 10.08-5.6 13.72-14.56l32.2 8.96q-8.12 16.8-26.04 27.72-17.64 10.64-42.28 10.64Zm-38.08-88.48h76.16q-1.4-16.52-12.32-26.32-10.64-10.08-26.04-10.08-7.56 0-14.28 2.8-6.44 2.52-11.48 7.28t-8.4 11.48q-3.08 6.72-3.64 14.84Zm225.12-62.72v34.16q-17.08.28-30.52 6.72-13.44 6.16-19.32 18.76V352h-37.52V205.28h34.44v31.36q3.92-7.56 9.24-13.44 5.32-6.16 11.48-10.64t12.32-6.72q6.44-2.52 12.32-2.52h4.48q1.68 0 3.08.28Z"/></svg>-->
++                </span></a>
++                </div>
++            </li>
++        </ul>
++    </div>
++    <div class="heroe">
++
++        <h1>Admin Dashboard</h1>
++
++        <h2>Do some changes in Tasty.'s website</h2>
++
++    </div>
++</header>
++
++<!-- CONTENT -->
++
++<section>
++    <h1><a href="/admin/events">Events</a></h1>
++    <div style="horiz-align: center">
++        <form action="/admin/events/search" method="post" style="">
++            <input type="text" name="search" id="search" size="80" style="border-left: 0; border-right: 0; border-top: 0; border-bottom: 1px solid #00000f; border-radius: 2px; scale: 1">
++            <input type="submit" value="Search!" >
++        </form>
++    </div>
++    <br><br>
++
++    <table class="table">
++        <tr>
++            <td><strong>Title</strong></td>
++            <td style="width: 25%"><strong>Description</strong></td>
++            <td><strong>Image</strong></td>
++            <td style="width: 9%"><strong>Date</strong></td>
++            <td style="align-content: center"><strong>Actions</strong></td>
++        </tr>
++        <?php  foreach ($events as $var){ ?>
++            <tr>
++                <td><a href="/admin/event/view/<?php echo $var['id']; ?>"><?php echo $var['title']; ?></a></td>
++                <td><?php echo $var['description'] ?></td>
++                <td><img src="<?php echo base_url($var['image']); ?>" alt="" width="400"></td>
++                <td><?php echo $var['date']; ?></td>
++                <td><span><a href="/admin/event/edit/<?php echo $var['id']; ?>">Edit</a> <a href="/admin/event/delete/<?php echo $var['id']; ?>" onclick="return confirm('Do you want to delete this event')">Delete</a></span></td>
++            </tr>
++        <?php } ?>
++    </table>
++    <br><br>
++    <?php echo anchor(array('/admin/events/upload'), 'Add new event')?>
++
++    <br><br>
++    <h1><a href="/admin/food">Food</a></h1>
++    <div style="horiz-align: center">
++        <form action="/admin/food/search" method="post" style="">
++            <input type="text" name="search" id="search" size="80" style="border-left: 0; border-right: 0; border-top: 0; border-bottom: 1px solid #00000f; border-radius: 2px; scale: 1">
++            <input type="submit" value="Search!" >
++        </form>
++    </div>
++    <br><br>
++
++    <table class="table">
++        <tr>
++            <td><strong>Title</strong></td>
++            <td style="width: 25%"><strong>Description</strong></td>
++            <td><strong>Image</strong></td>
++            <td style="width: 9%"><strong>Price</strong></td>
++            <td style="align-content: center"><strong>Actions</strong></td>
++        </tr>
++        <?php  foreach ($food as $var){ ?>
++            <tr>
++                <td><a href="/admin/food/view/<?php echo $var['id']; ?>"><?php echo $var['title']; ?></a></td>
++                <td><?php echo $var['description'] ?></td>
++                <td><img src="<?php echo base_url($var['image']); ?>" alt="" width="400"></td>
++                <td><?php echo $var['price']; ?></td>
++                <td><span><a href="/admin/food/edit/<?php echo $var['id']; ?>">Edit</a> <a href="/admin/food/delete/<?php echo $var['id']; ?>" onclick="return confirm('Do you want to delete this event')">Delete</a></span></td>
++            </tr>
++        <?php } ?>
++    </table>
++    <br><br>
++    <?php echo anchor(array('/admin/food/upload'), 'Add new food')?>
++</section>
++
++<!-- FOOTER: DEBUG INFO + COPYRIGHTS -->
++
++<footer>
++
++    <div class="copyrights">
++
++        <p>&copy; <?= date('Y') ?> Tasty. All rights reserved.</p>
++
++    </div>
++
++</footer>
++
++<!-- SCRIPTS -->
++
++<script {csp-script-nonce}>
++    document.getElementById("menuToggle").addEventListener('click', toggleMenu);
++    function toggleMenu() {
++        var menuItems = document.getElementsByClassName('menu-item');
++        for (var i = 0; i < menuItems.length; i++) {
++            var menuItem = menuItems[i];
++            menuItem.classList.toggle("hidden");
++        }
++    }
++</script>
++
++<!-- -->
++
++</body>
++</html>
+Index: cigniter-app/app/Views/admin/login.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/cigniter-app/app/Views/admin/login.php b/cigniter-app/app/Views/admin/login.php
+new file mode 100644
+--- /dev/null	(date 1718194884230)
++++ b/cigniter-app/app/Views/admin/login.php	(date 1718194884230)
+@@ -0,0 +1,246 @@
++<!DOCTYPE HTML>
++<html>
++<head>
++    <meta charset="utf-8">
++    <meta http-equiv="X-UA-Compatible" content="IE=edge">
++    <title>Tasty &mdash; Free Website Template, Free HTML5 Template by freehtml5.co</title>
++    <meta name="viewport" content="width=device-width, initial-scale=1">
++    <meta name="description" content="Free HTML5 Website Template by freehtml5.co" />
++    <meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
++    <meta name="author" content="freehtml5.co" />
++
++    <!--
++    //////////////////////////////////////////////////////
++
++    FREE HTML5 TEMPLATE
++    DESIGNED & DEVELOPED by FreeHTML5.co
++
++    Website: 		http://freehtml5.co/
++    Email: 			info@freehtml5.co
++    Twitter: 		http://twitter.com/fh5co
++    Facebook: 		https://www.facebook.com/fh5co
++
++    //////////////////////////////////////////////////////
++     -->
++
++    <!-- Facebook and Twitter integration -->
++    <meta property="og:title" content=""/>
++    <meta property="og:image" content=""/>
++    <meta property="og:url" content=""/>
++    <meta property="og:site_name" content=""/>
++    <meta property="og:description" content=""/>
++    <meta name="twitter:title" content="" />
++    <meta name="twitter:image" content="" />
++    <meta name="twitter:url" content="" />
++    <meta name="twitter:card" content="" />
++
++    <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond:300,300i,400,400i,500,600i,700" rel="stylesheet">
++    <link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet">
++
++    <!-- Animate.css -->
++    <link rel="stylesheet" href="<?php echo base_url()?>css/animate.css">
++    <!-- Icomoon Icon Fonts-->
++    <link rel="stylesheet" href="<?php echo base_url()?>css/icomoon.css">
++    <!-- Bootstrap  -->
++    <link rel="stylesheet" href="<?php echo base_url()?>css/bootstrap.css">
++
++    <!-- Flexslider  -->
++    <link rel="stylesheet" href="<?php echo base_url()?>css/flexslider.css">
++
++    <!-- Theme style  -->
++    <link rel="stylesheet" href="<?php echo base_url()?>css/style.css">
++
++    <!-- Modernizr JS -->
++    <script src="<?php echo base_url()?>js/modernizr-2.6.2.min.js"></script>
++    <!-- FOR IE9 below -->
++    <!--[if lt IE 9]>
++    <script src="<?php echo base_url()?>js/respond.min.js"></script>
++    <![endif]-->
++
++    <style>
++        err{
++            color: red;
++            font-size: 10pt;
++        }
++    </style>
++</head>
++<body>
++
++
++
++<div class="fh5co-loader"></div>
++
++<div id="page">
++    <nav class="fh5co-nav" role="navigation">
++        <!-- <div class="top-menu"> -->
++        <div class="container">
++            <div class="row">
++                <div class="col-xs-12 text-center logo-wrap">
++                    <div id="fh5co-logo"><a href="/">Tasty<span>.</span></a></div>
++                </div>
++                <div class="col-xs-12 text-center menu-1 menu-wrap">
++                    <ul>
++                        <li><a href="/">Home</a></li>
++                        <li><a href="/menu">Menu</a></li>
++                        <li class="has-dropdown">
++                            <a href="/gallery">Gallery</a>
++                            <ul class="dropdown">
++                                <li><a href="#">Events</a></li>
++                                <li><a href="#">Food</a></li>
++                                <li><a href="#">Coffees</a></li>
++                            </ul>
++                        </li>
++                        <li><a href="/reservation">Reservation</a></li>
++                        <li><a href="/about">About</a></li>
++                        <li class="active"><a href="/contact">Contact</a></li>
++                    </ul>
++                </div>
++            </div>
++
++        </div>
++        <!-- </div> -->
++    </nav>
++
++    <header id="fh5co-header" class="fh5co-cover js-fullheight" role="banner" style="background-image: url(images/hero_1.jpeg);" data-stellar-background-ratio="0.5">
++        <div class="overlay"></div>
++        <div class="container">
++            <div class="row">
++                <div class="col-md-12 text-center">
++                    <div class="display-t js-fullheight">
++                        <div class="display-tc js-fullheight animate-box" data-animate-effect="fadeIn">
++                            <h1>Welcome, administrator</h1>
++                            <h2></h2>
++                        </div>
++                    </div>
++                </div>
++            </div>
++        </div>
++    </header>
++
++
++    <div id="fh5co-contact" class="fh5co-section animate-box">
++        <div class="container">
++
++            <div class="row">
++                <div class="col-md-6 col-md-push-6 col-sm-6 col-sm-push-6">
++                    <form action="/admin/signUp" id="form-wrap" method="post">
++                        <div class="row form-group">
++                            <div class="col-md-12">
++                                <label for="username">Username</label>
++                                <input type="text" class="form-control" id="username"  name="username" required>
++                                <err><?php if (isset($validation)){
++                                    echo $validation->getError('username');
++                                    }?></err>
++
++                            </div>
++                        </div>
++                        <div class="row form-group">
++                            <div class="col-md-12">
++                                <label for="password">Password</label>
++                                <input type="password" class="form-control" id="password" name="password" required>
++                            </div>
++                            <err><?php if (isset($validation)){
++                                    echo $validation->getError('password');
++                                } ?></err>
++                        </div>
++
++                        <div class="row form-group">
++                            <err><?php if (isset($loginError)){
++                                    echo $loginError;
++                                } ?>
++                            </err>
++                            <div class="col-md-12">
++                                <input type="submit" class="btn btn-primary btn-outline btn-lg" value="Login">
++                            </div>
++                        </div>
++
++                    </form>
++                </div>
++            </div>
++
++        </div>
++    </div>
++
++    <footer id="fh5co-footer" role="contentinfo" class="fh5co-section">
++        <div class="container">
++            <div class="row row-pb-md">
++                <div class="col-md-4 fh5co-widget">
++                    <h4>Tasty</h4>
++                    <p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta adipisci architecto culpa amet.</p>
++                </div>
++                <div class="col-md-2 col-md-push-1 fh5co-widget">
++                    <h4>Links</h4>
++                    <ul class="fh5co-footer-links">
++                        <li><a href="#">Home</a></li>
++                        <li><a href="#">Portfolio</a></li>
++                        <li><a href="#">Blog</a></li>
++                        <li><a href="#">About</a></li>
++                    </ul>
++                </div>
++
++                <div class="col-md-2 col-md-push-1 fh5co-widget">
++                    <h4>Categories</h4>
++                    <ul class="fh5co-footer-links">
++                        <li><a href="#">Landing Page</a></li>
++                        <li><a href="#">Real Estate</a></li>
++                        <li><a href="#">Personal</a></li>
++                        <li><a href="#">Business</a></li>
++                        <li><a href="#">e-Commerce</a></li>
++                    </ul>
++                </div>
++
++                <div class="col-md-4 col-md-push-1 fh5co-widget">
++                    <h4>Contact Information</h4>
++                    <ul class="fh5co-footer-links">
++                        <li>198 West 21th Street, <br> Suite 721 New York NY 10016</li>
++                        <li><a href="tel://1234567920">+ 1235 2355 98</a></li>
++                        <li><a href="mailto:info@yoursite.com">info@yoursite.com</a></li>
++                        <li><a href="http://https://freehtml5.co">freehtml5.co</a></li>
++                    </ul>
++                </div>
++
++            </div>
++
++            <div class="row copyright">
++                <div class="col-md-12 text-center">
++                    <p>
++                        <small class="block">&copy; 2024 Tasty. All Rights Reserved.</small>
++                        <small class="block">Designed by Bulgac Roman</small>
++                    </p>
++                    <p>
++                    <ul class="fh5co-social-icons">
++                        <li><a href="#"><i class="icon-twitter2"></i></a></li>
++                        <li><a href="#"><i class="icon-facebook2"></i></a></li>
++                        <li><a href="#"><i class="icon-linkedin2"></i></a></li>
++                        <li><a href="#"><i class="icon-dribbble2"></i></a></li>
++                    </ul>
++                    </p>
++                </div>
++            </div>
++
++        </div>
++    </footer>
++</div>
++
++<div class="gototop js-top">
++    <a href="#" class="js-gotop"><i class="icon-arrow-up22"></i></a>
++</div>
++
++<!-- jQuery -->
++<script src="<?php echo base_url()?>js/jquery.min.js"></script>
++<!-- jQuery Easing -->
++<script src="<?php echo base_url()?>js/jquery.easing.1.3.js"></script>
++<!-- Bootstrap -->
++<script src="<?php echo base_url()?>js/bootstrap.min.js"></script>
++<!-- Waypoints -->
++<script src="<?php echo base_url()?>js/jquery.waypoints.min.js"></script>
++<!-- Waypoints -->
++<script src="<?php echo base_url()?>js/jquery.stellar.min.js"></script>
++<!-- Flexslider -->
++<script src="<?php echo base_url()?>js/jquery.flexslider-min.js"></script>
++<!-- Main -->
++<script src="<?php echo base_url()?>js/main.js"></script>
++
++</body>
++</html>
++
+Index: cigniter-app/app/Views/admin/Food/view.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/cigniter-app/app/Views/admin/Food/view.php b/cigniter-app/app/Views/admin/Food/view.php
+new file mode 100644
+--- /dev/null	(date 1719145048487)
++++ b/cigniter-app/app/Views/admin/Food/view.php	(date 1719145048487)
+@@ -0,0 +1,282 @@
++<!DOCTYPE html>
++<html lang="en">
++<head>
++    <meta charset="UTF-8">
++    <title>Admin dashboard</title>
++    <meta name="description" content="The small framework with powerful features">
++    <link rel="shortcut icon" type="image/png" href="/favicon.ico">
++
++    <!-- STYLES -->
++
++    <style {csp-style-nonce}>
++        * {
++            transition: background-color 300ms ease, color 300ms ease;
++        }
++        *:focus {
++            background-color: rgba(221, 72, 20, .2);
++            outline: none;
++        }
++        html, body {
++            color: rgba(33, 37, 41, 1);
++            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
++            font-size: 16px;
++            margin: 0;
++            padding: 0;
++            -webkit-font-smoothing: antialiased;
++            -moz-osx-font-smoothing: grayscale;
++            text-rendering: optimizeLegibility;
++        }
++        header {
++            background-color: rgba(247, 248, 249, 1);
++            padding: .4rem 0 0;
++        }
++        .menu {
++            padding: .4rem 2rem;
++        }
++        header ul {
++            border-bottom: 1px solid rgba(242, 242, 242, 1);
++            list-style-type: none;
++            margin: 0;
++            overflow: hidden;
++            padding: 0;
++            text-align: right;
++        }
++        header li {
++            display: inline-block;
++        }
++        header li a {
++            border-radius: 5px;
++            color: rgba(0, 0, 0, .5);
++            display: block;
++            height: 44px;
++            text-decoration: none;
++        }
++        header li.menu-item a {
++            border-radius: 5px;
++            margin: 5px 0;
++            height: 38px;
++            line-height: 36px;
++            padding: .4rem .65rem;
++            text-align: center;
++        }
++        header li.menu-item a:hover,
++        header li.menu-item a:focus {
++            background-color: rgba(221, 72, 20, .2);
++            color: rgba(221, 72, 20, 1);
++        }
++        header .logo {
++            float: left;
++            height: 44px;
++            padding: .4rem .5rem;
++        }
++        header .menu-toggle {
++            display: none;
++            float: right;
++            font-size: 2rem;
++            font-weight: bold;
++        }
++        header .menu-toggle button {
++            background-color: rgba(221, 72, 20, .6);
++            border: none;
++            border-radius: 3px;
++            color: rgba(255, 255, 255, 1);
++            cursor: pointer;
++            font: inherit;
++            font-size: 1.3rem;
++            height: 36px;
++            padding: 0;
++            margin: 11px 0;
++            overflow: visible;
++            width: 40px;
++        }
++        header .menu-toggle button:hover,
++        header .menu-toggle button:focus {
++            background-color: rgba(221, 72, 20, .8);
++            color: rgba(255, 255, 255, .8);
++        }
++        header .heroe {
++            margin: 0 auto;
++            max-width: 1100px;
++            padding: 1rem 1.75rem 1.75rem 1.75rem;
++        }
++        header .heroe h1 {
++            font-size: 2.5rem;
++            font-weight: 500;
++        }
++        header .heroe h2 {
++            font-size: 1.5rem;
++            font-weight: 300;
++        }
++        section {
++            margin: 0 auto;
++            max-width: 1100px;
++            padding: 2.5rem 1.75rem 3.5rem 1.75rem;
++        }
++        section h1 {
++            margin-bottom: 2.5rem;
++        }
++        section h2 {
++            font-size: 120%;
++            line-height: 2.5rem;
++            padding-top: 1.5rem;
++        }
++        section pre {
++            background-color: rgba(247, 248, 249, 1);
++            border: 1px solid rgba(242, 242, 242, 1);
++            display: block;
++            font-size: .9rem;
++            margin: 2rem 0;
++            padding: 1rem 1.5rem;
++            white-space: pre-wrap;
++            word-break: break-all;
++        }
++        section code {
++            display: block;
++        }
++        section a {
++            color: rgba(221, 72, 20, 1);
++        }
++        section svg {
++            margin-bottom: -5px;
++            margin-right: 5px;
++            width: 25px;
++        }
++        .further {
++            background-color: rgba(247, 248, 249, 1);
++            border-bottom: 1px solid rgba(242, 242, 242, 1);
++            border-top: 1px solid rgba(242, 242, 242, 1);
++        }
++        .further h2:first-of-type {
++            padding-top: 0;
++        }
++        .svg-stroke {
++            fill: none;
++            stroke: #000;
++            stroke-width: 32px;
++        }
++        footer {
++            background-color: rgba(221, 72, 20, .8);
++            text-align: center;
++        }
++        footer .environment {
++            color: rgba(255, 255, 255, 1);
++            padding: 2rem 1.75rem;
++        }
++        footer .copyrights {
++            background-color: rgba(62, 62, 62, 1);
++            color: rgba(200, 200, 200, 1);
++            padding: .25rem 1.75rem;
++        }
++        @media (max-width: 629px) {
++            header ul {
++                padding: 0;
++            }
++            header .menu-toggle {
++                padding: 0 1rem;
++            }
++            header .menu-item {
++                background-color: rgba(244, 245, 246, 1);
++                border-top: 1px solid rgba(242, 242, 242, 1);
++                margin: 0 15px;
++                width: calc(100% - 30px);
++            }
++            header .menu-toggle {
++                display: block;
++            }
++            header .hidden {
++                display: none;
++            }
++            header li.menu-item a {
++                background-color: rgba(221, 72, 20, .1);
++            }
++            header li.menu-item a:hover,
++            header li.menu-item a:focus {
++                background-color: rgba(221, 72, 20, .7);
++                color: rgba(255, 255, 255, .8);
++            }
++        }
++        table{
++            font-family: arial, sans-serif;
++            border-collapse: collapse;
++            width: 100%;
++        }
++        td, th {
++            border: 1px solid #dddddd;
++            text-align: left;
++            padding: 8px;
++        }
++    </style>
++</head>
++<body>
++
++<!-- HEADER: MENU + HEROE SECTION -->
++<header>
++
++    <div class="menu">
++        <ul>
++            <li class="logo">
++                <div id="fh5co-logo"><a href="<?php echo base_url()?>" target="_blank">Tasty<span>.
++                            <!--                    <svg role="img" aria-label="Visit CodeIgniter.com official website!" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2100 500" height="44"><path fill="#dd4814" d="M148.2 411c-20.53-9.07-34.48-28.61-36.31-50.99 1.2-23.02 13.36-44.06 32.67-56.61-3.17 7.73-2.4 16.53 2 23.6 5.01 7 13.63 10.36 22.07 8.61 12.02-3.38 19.06-15.86 15.68-27.89-1.2-4.21-3.6-8.03-6.88-10.91-13.6-11.06-20.43-28.44-18-45.81 2.33-9.2 7.42-17.52 14.61-23.8-5.4 14.4 9.83 28.61 20.05 35.6 18.14 10.88 35.6 22.84 52.32 35.81 18.27 14.4 28.23 36.94 26.67 60-4.11 24.54-21.47 44.8-45.13 52.4 47.33-10.53 96.13-48.13 97.06-101.46-.93-42.67-26.4-80.96-65.33-98.4h-1.73c.86 2.09 1.28 4.34 1.2 6.61.13-1.47.13-2.93 0-4.4.21 1.73.21 3.47 0 5.2-2.96 12.13-15.2 19.6-27.36 16.64-4.86-1.2-9.2-3.93-12.32-7.87-15.6-20 0-42.76 2.61-64.76 1.6-28.13-11.25-55.02-34.05-71.46 11.41 19.02-3.79 44-14.84 58.21-11.07 14.21-27.07 24.8-40.11 37.2-14.05 13.07-26.93 27.44-38.49 42.8-24.99 30.53-34.8 70.8-26.67 109.4 11.15 37.2 42.07 65.15 80.2 72.4h.21l-.13-.12Zm324.56-159.8q0-17.92 6.16-35.56 6.44-17.92 18.48-31.92t29.68-22.68q17.64-8.96 40.04-8.96 26.6 0 45.36 12.04 19.04 12.04 28 31.36l-15.4 9.52q-4.76-9.8-11.76-16.52-6.72-6.72-14.56-10.92-7.84-4.2-16.24-5.88-8.4-1.96-16.52-1.96-17.92 0-31.64 7.28-13.72 7.28-23.24 19.04-9.24 11.76-14 26.6-4.76 14.56-4.76 29.68 0 16.52 5.6 31.64 5.88 15.12 15.68 26.88 10.08 11.48 23.52 18.48 13.72 6.72 29.68 6.72 8.4 0 17.08-1.96 8.96-2.24 17.08-6.72 8.4-4.76 15.4-11.48 7-7 11.76-16.8l16.24 8.4q-4.76 11.2-13.44 19.88-8.68 8.4-19.32 14.28-10.64 5.88-22.68 8.96-11.76 3.08-23.24 3.08-20.44 0-37.52-8.96-17.08-8.96-29.4-23.24-12.32-14.56-19.32-32.76-6.72-18.48-6.72-37.52Zm263.48 103.6q-15.96 0-29.12-5.88-13.16-6.16-22.96-16.52-9.52-10.36-14.84-24.08Q664 294.6 664 279.48q0-15.4 5.32-29.12 5.6-13.72 15.12-24.08 9.8-10.36 22.96-16.52t28.84-6.16q15.68 0 28.84 6.16 13.44 6.16 22.96 16.52 9.8 10.36 15.12 24.08 5.6 13.72 5.6 29.12 0 15.12-5.32 28.84t-15.12 24.08q-9.52 10.36-22.96 16.52-13.16 5.88-29.12 5.88Zm-52.92-75.04q0 12.32 4.2 22.96 4.2 10.36 11.2 18.48 7.28 7.84 16.8 12.32 9.8 4.48 20.72 4.48 10.92 0 20.44-4.48 9.8-4.76 17.08-12.6 7.28-8.12 11.48-18.76 4.2-10.64 4.2-22.96 0-12.04-4.2-22.68-4.2-10.92-11.48-18.76-7.28-8.12-17.08-12.6-9.52-4.76-20.44-4.76-10.92 0-20.44 4.76-9.52 4.48-16.8 12.6-7.28 8.12-11.48 19.04-4.2 10.64-4.2 22.96ZM900.6 354.8q-15.12 0-28-6.16-12.88-6.44-22.12-16.8t-14.56-23.8q-5.04-13.72-5.04-28.56 0-15.4 5.04-29.12 5.04-14 13.72-24.36 8.96-10.36 21-16.24 12.32-6.16 26.88-6.16 18.48 0 32.76 9.8 14.28 9.52 22.4 23.24V147.6h19.04v179.76q0 7.84 6.72 7.84V352q-4.2.84-6.72.84-6.72 0-11.76-4.2-5.04-4.48-5.04-10.64v-14.28Q946.24 338 931.4 346.4t-30.8 8.4Zm4.2-16.8q7 0 14.84-2.8 8.12-2.8 15.12-7.56 7-5.04 11.76-11.48 5.04-6.72 6.16-14.28V256.8q-2.8-7.56-8.12-14-5.32-6.72-12.32-11.76-6.72-5.04-14.56-7.84-7.84-2.8-15.4-2.8-11.76 0-21.28 5.04-9.52 5.04-16.52 13.44-6.72 8.12-10.36 18.76-3.64 10.64-3.64 21.84 0 11.76 4.2 22.4 4.2 10.64 11.48 18.76 7.28 7.84 17.08 12.6Q893.32 338 904.8 338Zm173.04 16.8q-15.96 0-29.4-5.88-13.16-6.16-22.96-16.52-9.8-10.64-15.4-24.36-5.32-13.72-5.32-29.4 0-15.4 5.32-28.84 5.6-13.72 15.12-23.8 9.8-10.36 23.24-16.24 13.44-6.16 29.12-6.16 15.96 0 29.12 6.16 13.44 5.88 22.96 16.24 9.52 10.36 14.84 23.8 5.32 13.44 5.32 28.56v4.48q0 2.24-.28 3.08h-124.88q.84 11.76 5.32 21.84 4.76 9.8 12.04 17.08 7.28 7.28 16.52 11.48 9.52 3.92 20.16 3.92 7 0 14-1.96t12.88-5.32q5.88-3.36 10.64-8.12 4.76-5.04 7.28-10.92l16.52 4.48q-3.36 8.12-9.52 14.84-6.16 6.44-14.28 11.48-8.12 4.76-17.92 7.56-9.8 2.52-20.44 2.52Zm-53.48-83.44h107.24q-.84-11.76-5.6-21.28-4.48-9.8-11.76-16.8-7-7-16.52-10.92-9.24-3.92-19.88-3.92-10.64 0-20.16 3.92t-16.8 10.92q-7 7-11.48 16.8-4.2 9.8-5.04 21.28Zm193.2 80.64h-38.64V153.2h38.64V352Zm93.52.84q-14.84 0-26.88-5.88t-21-15.96q-8.68-10.36-13.44-23.8-4.76-13.44-4.76-28.56 0-15.96 5.04-29.68 5.04-13.72 14-24.08 8.96-10.36 21.56-16.24 12.6-5.88 27.72-5.88 17.08 0 29.96 7.84 12.88 7.56 21.28 20.44v-25.76h32.76V345q0 16.24-6.16 29.12-6.16 12.88-17.08 21.84-10.64 8.96-25.76 13.72-14.84 4.76-32.48 4.76-24.08 0-40.6-7.84-16.24-8.12-28-22.68l20.44-19.88q8.4 10.36 21 16.24 12.88 5.88 27.16 5.88 8.68 0 16.52-2.24 8.12-2.52 14.28-7.56 6.16-5.04 9.52-12.88 3.64-7.84 3.64-18.48v-18.48q-7.28 12.6-20.44 19.6-13.16 6.72-28.28 6.72Zm12.6-29.96q6.16 0 11.76-1.96t10.36-5.32q4.76-3.36 8.4-7.84 3.64-4.48 5.6-9.52v-35q-5.04-12.88-15.96-20.72-10.64-7.84-22.4-7.84-8.68 0-15.68 3.92-7 3.64-12.04 10.08-5.04 6.16-7.84 14.28-2.52 8.12-2.52 16.8 0 8.96 3.08 16.8t8.4 13.72q5.6 5.88 12.88 9.24 7.28 3.36 15.96 3.36Zm243.88-62.44V352h-37.52v-82.32q0-17.64-6.16-25.76-6.16-8.12-17.08-8.12-5.6 0-11.48 2.24-5.88 2.24-11.2 6.44-5.04 3.92-9.24 9.52t-6.16 12.32V352h-37.52V205.28h33.88v27.16q8.12-14 23.52-21.84t34.72-7.84q13.72 0 22.4 5.04 8.68 5.04 13.44 13.16 4.76 8.12 6.44 18.48 1.96 10.36 1.96 21Zm70.28 91.56h-37.52V205.28h37.52V352Zm0-167.16h-37.52V147.6h37.52v37.24Zm114.24 129.92 7.56 29.68q-7.56 3.36-18.48 6.72-10.92 3.36-22.96 3.36-7.84 0-14.84-1.96-6.72-1.96-12.04-6.16-5.04-4.48-8.12-11.2-3.08-7-3.08-16.8v-84.28h-19.32v-28.84h19.32v-47.6h37.52v47.6h30.8v28.84h-30.8v71.68q0 7.84 3.92 11.2 4.2 3.08 10.08 3.08t11.48-1.96q5.6-1.96 8.96-3.36Zm91.56 40.04q-17.64 0-31.92-5.88-14.28-6.16-24.36-16.52t-15.68-24.08q-5.32-13.72-5.32-28.84 0-15.68 5.32-29.4 5.32-14 15.4-24.36 10.08-10.64 24.36-16.8 14.56-6.16 32.48-6.16 17.92 0 31.92 6.16 14.28 6.16 24.08 16.52 10.08 10.36 15.12 24.08 5.32 13.72 5.32 28.56 0 3.64-.28 7 0 3.36-.56 5.6h-113.4q.84 8.68 4.2 15.4 3.36 6.72 8.68 11.48 5.32 4.76 12.04 7.28 6.72 2.52 14 2.52 11.2 0 21-5.32 10.08-5.6 13.72-14.56l32.2 8.96q-8.12 16.8-26.04 27.72-17.64 10.64-42.28 10.64Zm-38.08-88.48h76.16q-1.4-16.52-12.32-26.32-10.64-10.08-26.04-10.08-7.56 0-14.28 2.8-6.44 2.52-11.48 7.28t-8.4 11.48q-3.08 6.72-3.64 14.84Zm225.12-62.72v34.16q-17.08.28-30.52 6.72-13.44 6.16-19.32 18.76V352h-37.52V205.28h34.44v31.36q3.92-7.56 9.24-13.44 5.32-6.16 11.48-10.64t12.32-6.72q6.44-2.52 12.32-2.52h4.48q1.68 0 3.08.28Z"/></svg>-->
++                </span></a>
++                </div>
++            </li>
++        </ul>
++    </div>
++
++    <div class="heroe">
++        <h1>Food view</h1>
++    </div>
++
++</header>
++
++<!-- CONTENT -->
++
++<section>
++
++    <table class="table">
++        <tr>
++            <td><strong>Title</strong></td>
++            <td style="width: 25%"><strong>Description</strong></td>
++            <td><strong>Image</strong></td>
++            <td style="width: 9%"><strong>Price</strong></td>
++            <td style="align-content: center"><strong>Actions</strong></td>
++        </tr>
++            <tr>
++                <td><a href="/admin/food/view/<?php echo $food['id']; ?>"><?php echo $food['title']; ?></a></td>
++                <td><?php echo $food['description'] ?></td>
++                <td><img src="<?php echo base_url($food['image']); ?>" alt="" width="400"></td>
++                <td><?php echo $food['price']; ?></td>
++                <td><span><a href="/admin/food/edit/<?php echo $food['id']; ?>">Edit</a> <a href="/admin/food/delete/<?php echo $food['id']; ?>" onclick="return confirm('Do you want to delete this event')">Delete</a></span></td>
++            </tr>
++    </table>
++</section>
++
++<!-- FOOTER: DEBUG INFO + COPYRIGHTS -->
++
++<footer style="vertical-align: bottom">
++
++    <div class="copyrights">
++
++        <p>&copy; <?= date('Y') ?> Tasty. All rights reserved.</p>
++
++    </div>
++
++</footer>
++
++<!-- SCRIPTS -->
++
++<script {csp-script-nonce}>
++    document.getElementById("menuToggle").addEventListener('click', toggleMenu);
++    function toggleMenu() {
++        var menuItems = document.getElementsByClassName('menu-item');
++        for (var i = 0; i < menuItems.length; i++) {
++            var menuItem = menuItems[i];
++            menuItem.classList.toggle("hidden");
++        }
++    }
++</script>
++
++<!-- -->
++
++</body>
++</html>
+Index: cigniter-app/app/Views/admin/Food/upload.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/cigniter-app/app/Views/admin/Food/upload.php b/cigniter-app/app/Views/admin/Food/upload.php
+new file mode 100644
+--- /dev/null	(date 1719143333873)
++++ b/cigniter-app/app/Views/admin/Food/upload.php	(date 1719143333873)
+@@ -0,0 +1,330 @@
++<?php
++    $title = [
++            'name'=>'title',
++            'id'=>'title',
++            'maxlength'=>'100',
++            'class'=>'form-control',
++            'required'=>'required',
++            'size'=>'50',
++    ];
++    $description = [
++            'name'=>'description',
++            'id'=>'description',
++            'type'=>'textarea',
++            'size'=>'50',
++            'rows'=>'5',
++            'maxlength'=>'1500',
++            'required'=>'required',
++            'class'=>'form-control',
++    ];
++    $image = [
++            'name'=>'image',
++            'id'=>'image',
++            'type'=>'file',
++            'accept'=>'image/*',
++    ];
++
++    $price=[
++            'name'=>'price',
++        'id'=>'price',
++        'type'=>'number',
++        'class'=>'form-control',
++        'required'=>'required',
++        'size'=>'50',
++    ];
++    helper('form');
++    echo form_open_multipart('/admin/food/save');
++?>
++<!DOCTYPE html>
++<html lang="en">
++<head>
++    <meta charset="UTF-8">
++    <title>Add new food</title>
++    <meta name="description" content="The small framework with powerful features">
++    <link rel="shortcut icon" type="image/png" href="/favicon.ico">
++
++    <!-- STYLES -->
++
++    <style {csp-style-nonce}>
++        * {
++            transition: background-color 300ms ease, color 300ms ease;
++        }
++        *:focus {
++            background-color: rgba(221, 72, 20, .2);
++            outline: none;
++        }
++        html, body {
++            color: rgba(33, 37, 41, 1);
++            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
++            font-size: 16px;
++            margin: 0;
++            padding: 0;
++            -webkit-font-smoothing: antialiased;
++            -moz-osx-font-smoothing: grayscale;
++            text-rendering: optimizeLegibility;
++        }
++        header {
++            background-color: rgba(247, 248, 249, 1);
++            padding: .4rem 0 0;
++        }
++        .menu {
++            padding: .4rem 2rem;
++        }
++        header ul {
++            border-bottom: 1px solid rgba(242, 242, 242, 1);
++            list-style-type: none;
++            margin: 0;
++            overflow: hidden;
++            padding: 0;
++            text-align: right;
++        }
++        header li {
++            display: inline-block;
++        }
++        header li a {
++            border-radius: 5px;
++            color: rgba(0, 0, 0, .5);
++            display: block;
++            height: 44px;
++            text-decoration: none;
++        }
++        header li.menu-item a {
++            border-radius: 5px;
++            margin: 5px 0;
++            height: 38px;
++            line-height: 36px;
++            padding: .4rem .65rem;
++            text-align: center;
++        }
++        header li.menu-item a:hover,
++        header li.menu-item a:focus {
++            background-color: rgba(221, 72, 20, .2);
++            color: rgba(221, 72, 20, 1);
++        }
++        header .logo {
++            float: left;
++            height: 44px;
++            padding: .4rem .5rem;
++        }
++        header .menu-toggle {
++            display: none;
++            float: right;
++            font-size: 2rem;
++            font-weight: bold;
++        }
++        header .menu-toggle button {
++            background-color: rgba(221, 72, 20, .6);
++            border: none;
++            border-radius: 3px;
++            color: rgba(255, 255, 255, 1);
++            cursor: pointer;
++            font: inherit;
++            font-size: 1.3rem;
++            height: 36px;
++            padding: 0;
++            margin: 11px 0;
++            overflow: visible;
++            width: 40px;
++        }
++        header .menu-toggle button:hover,
++        header .menu-toggle button:focus {
++            background-color: rgba(221, 72, 20, .8);
++            color: rgba(255, 255, 255, .8);
++        }
++        header .heroe {
++            margin: 0 auto;
++            max-width: 1100px;
++            padding: 1rem 1.75rem 1.75rem 1.75rem;
++        }
++        header .heroe h1 {
++            font-size: 2.5rem;
++            font-weight: 500;
++        }
++        header .heroe h2 {
++            font-size: 1.5rem;
++            font-weight: 300;
++        }
++        section {
++            margin: 0 auto;
++            max-width: 1100px;
++            padding: 2.5rem 1.75rem 3.5rem 1.75rem;
++        }
++        section h1 {
++            margin-bottom: 2.5rem;
++        }
++        section h2 {
++            font-size: 120%;
++            line-height: 2.5rem;
++            padding-top: 1.5rem;
++        }
++        section pre {
++            background-color: rgba(247, 248, 249, 1);
++            border: 1px solid rgba(242, 242, 242, 1);
++            display: block;
++            font-size: .9rem;
++            margin: 2rem 0;
++            padding: 1rem 1.5rem;
++            white-space: pre-wrap;
++            word-break: break-all;
++        }
++        section code {
++            display: block;
++        }
++        section a {
++            color: rgba(221, 72, 20, 1);
++        }
++        section svg {
++            margin-bottom: -5px;
++            margin-right: 5px;
++            width: 25px;
++        }
++        .further {
++            background-color: rgba(247, 248, 249, 1);
++            border-bottom: 1px solid rgba(242, 242, 242, 1);
++            border-top: 1px solid rgba(242, 242, 242, 1);
++        }
++        .further h2:first-of-type {
++            padding-top: 0;
++        }
++        .svg-stroke {
++            fill: none;
++            stroke: #000;
++            stroke-width: 32px;
++        }
++        footer {
++            background-color: rgba(221, 72, 20, .8);
++            text-align: center;
++        }
++        footer .environment {
++            color: rgba(255, 255, 255, 1);
++            padding: 2rem 1.75rem;
++        }
++        footer .copyrights {
++            background-color: rgba(62, 62, 62, 1);
++            color: rgba(200, 200, 200, 1);
++            padding: .25rem 1.75rem;
++        }
++        @media (max-width: 629px) {
++            header ul {
++                padding: 0;
++            }
++            header .menu-toggle {
++                padding: 0 1rem;
++            }
++            header .menu-item {
++                background-color: rgba(244, 245, 246, 1);
++                border-top: 1px solid rgba(242, 242, 242, 1);
++                margin: 0 15px;
++                width: calc(100% - 30px);
++            }
++            header .menu-toggle {
++                display: block;
++            }
++            header .hidden {
++                display: none;
++            }
++            header li.menu-item a {
++                background-color: rgba(221, 72, 20, .1);
++            }
++            header li.menu-item a:hover,
++            header li.menu-item a:focus {
++                background-color: rgba(221, 72, 20, .7);
++                color: rgba(255, 255, 255, .8);
++            }
++        }
++        table{
++            font-family: arial, sans-serif;
++            border-collapse: collapse;
++        }
++        td, th {
++            border-bottom: 1px solid #dddddd;
++            text-align: left;
++            padding: 20px;
++        }
++    </style>
++</head>
++<body style="height: 1vh;">
++
++<!-- HEADER: MENU + HEROE SECTION -->
++<header>
++
++    <div class="menu">
++        <ul>
++            <li class="logo">
++                <div id="fh5co-logo"><a href="<?php echo base_url()?>" target="_blank">Tasty<span>.
++                            <!--                    <svg role="img" aria-label="Visit CodeIgniter.com official website!" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2100 500" height="44"><path fill="#dd4814" d="M148.2 411c-20.53-9.07-34.48-28.61-36.31-50.99 1.2-23.02 13.36-44.06 32.67-56.61-3.17 7.73-2.4 16.53 2 23.6 5.01 7 13.63 10.36 22.07 8.61 12.02-3.38 19.06-15.86 15.68-27.89-1.2-4.21-3.6-8.03-6.88-10.91-13.6-11.06-20.43-28.44-18-45.81 2.33-9.2 7.42-17.52 14.61-23.8-5.4 14.4 9.83 28.61 20.05 35.6 18.14 10.88 35.6 22.84 52.32 35.81 18.27 14.4 28.23 36.94 26.67 60-4.11 24.54-21.47 44.8-45.13 52.4 47.33-10.53 96.13-48.13 97.06-101.46-.93-42.67-26.4-80.96-65.33-98.4h-1.73c.86 2.09 1.28 4.34 1.2 6.61.13-1.47.13-2.93 0-4.4.21 1.73.21 3.47 0 5.2-2.96 12.13-15.2 19.6-27.36 16.64-4.86-1.2-9.2-3.93-12.32-7.87-15.6-20 0-42.76 2.61-64.76 1.6-28.13-11.25-55.02-34.05-71.46 11.41 19.02-3.79 44-14.84 58.21-11.07 14.21-27.07 24.8-40.11 37.2-14.05 13.07-26.93 27.44-38.49 42.8-24.99 30.53-34.8 70.8-26.67 109.4 11.15 37.2 42.07 65.15 80.2 72.4h.21l-.13-.12Zm324.56-159.8q0-17.92 6.16-35.56 6.44-17.92 18.48-31.92t29.68-22.68q17.64-8.96 40.04-8.96 26.6 0 45.36 12.04 19.04 12.04 28 31.36l-15.4 9.52q-4.76-9.8-11.76-16.52-6.72-6.72-14.56-10.92-7.84-4.2-16.24-5.88-8.4-1.96-16.52-1.96-17.92 0-31.64 7.28-13.72 7.28-23.24 19.04-9.24 11.76-14 26.6-4.76 14.56-4.76 29.68 0 16.52 5.6 31.64 5.88 15.12 15.68 26.88 10.08 11.48 23.52 18.48 13.72 6.72 29.68 6.72 8.4 0 17.08-1.96 8.96-2.24 17.08-6.72 8.4-4.76 15.4-11.48 7-7 11.76-16.8l16.24 8.4q-4.76 11.2-13.44 19.88-8.68 8.4-19.32 14.28-10.64 5.88-22.68 8.96-11.76 3.08-23.24 3.08-20.44 0-37.52-8.96-17.08-8.96-29.4-23.24-12.32-14.56-19.32-32.76-6.72-18.48-6.72-37.52Zm263.48 103.6q-15.96 0-29.12-5.88-13.16-6.16-22.96-16.52-9.52-10.36-14.84-24.08Q664 294.6 664 279.48q0-15.4 5.32-29.12 5.6-13.72 15.12-24.08 9.8-10.36 22.96-16.52t28.84-6.16q15.68 0 28.84 6.16 13.44 6.16 22.96 16.52 9.8 10.36 15.12 24.08 5.6 13.72 5.6 29.12 0 15.12-5.32 28.84t-15.12 24.08q-9.52 10.36-22.96 16.52-13.16 5.88-29.12 5.88Zm-52.92-75.04q0 12.32 4.2 22.96 4.2 10.36 11.2 18.48 7.28 7.84 16.8 12.32 9.8 4.48 20.72 4.48 10.92 0 20.44-4.48 9.8-4.76 17.08-12.6 7.28-8.12 11.48-18.76 4.2-10.64 4.2-22.96 0-12.04-4.2-22.68-4.2-10.92-11.48-18.76-7.28-8.12-17.08-12.6-9.52-4.76-20.44-4.76-10.92 0-20.44 4.76-9.52 4.48-16.8 12.6-7.28 8.12-11.48 19.04-4.2 10.64-4.2 22.96ZM900.6 354.8q-15.12 0-28-6.16-12.88-6.44-22.12-16.8t-14.56-23.8q-5.04-13.72-5.04-28.56 0-15.4 5.04-29.12 5.04-14 13.72-24.36 8.96-10.36 21-16.24 12.32-6.16 26.88-6.16 18.48 0 32.76 9.8 14.28 9.52 22.4 23.24V147.6h19.04v179.76q0 7.84 6.72 7.84V352q-4.2.84-6.72.84-6.72 0-11.76-4.2-5.04-4.48-5.04-10.64v-14.28Q946.24 338 931.4 346.4t-30.8 8.4Zm4.2-16.8q7 0 14.84-2.8 8.12-2.8 15.12-7.56 7-5.04 11.76-11.48 5.04-6.72 6.16-14.28V256.8q-2.8-7.56-8.12-14-5.32-6.72-12.32-11.76-6.72-5.04-14.56-7.84-7.84-2.8-15.4-2.8-11.76 0-21.28 5.04-9.52 5.04-16.52 13.44-6.72 8.12-10.36 18.76-3.64 10.64-3.64 21.84 0 11.76 4.2 22.4 4.2 10.64 11.48 18.76 7.28 7.84 17.08 12.6Q893.32 338 904.8 338Zm173.04 16.8q-15.96 0-29.4-5.88-13.16-6.16-22.96-16.52-9.8-10.64-15.4-24.36-5.32-13.72-5.32-29.4 0-15.4 5.32-28.84 5.6-13.72 15.12-23.8 9.8-10.36 23.24-16.24 13.44-6.16 29.12-6.16 15.96 0 29.12 6.16 13.44 5.88 22.96 16.24 9.52 10.36 14.84 23.8 5.32 13.44 5.32 28.56v4.48q0 2.24-.28 3.08h-124.88q.84 11.76 5.32 21.84 4.76 9.8 12.04 17.08 7.28 7.28 16.52 11.48 9.52 3.92 20.16 3.92 7 0 14-1.96t12.88-5.32q5.88-3.36 10.64-8.12 4.76-5.04 7.28-10.92l16.52 4.48q-3.36 8.12-9.52 14.84-6.16 6.44-14.28 11.48-8.12 4.76-17.92 7.56-9.8 2.52-20.44 2.52Zm-53.48-83.44h107.24q-.84-11.76-5.6-21.28-4.48-9.8-11.76-16.8-7-7-16.52-10.92-9.24-3.92-19.88-3.92-10.64 0-20.16 3.92t-16.8 10.92q-7 7-11.48 16.8-4.2 9.8-5.04 21.28Zm193.2 80.64h-38.64V153.2h38.64V352Zm93.52.84q-14.84 0-26.88-5.88t-21-15.96q-8.68-10.36-13.44-23.8-4.76-13.44-4.76-28.56 0-15.96 5.04-29.68 5.04-13.72 14-24.08 8.96-10.36 21.56-16.24 12.6-5.88 27.72-5.88 17.08 0 29.96 7.84 12.88 7.56 21.28 20.44v-25.76h32.76V345q0 16.24-6.16 29.12-6.16 12.88-17.08 21.84-10.64 8.96-25.76 13.72-14.84 4.76-32.48 4.76-24.08 0-40.6-7.84-16.24-8.12-28-22.68l20.44-19.88q8.4 10.36 21 16.24 12.88 5.88 27.16 5.88 8.68 0 16.52-2.24 8.12-2.52 14.28-7.56 6.16-5.04 9.52-12.88 3.64-7.84 3.64-18.48v-18.48q-7.28 12.6-20.44 19.6-13.16 6.72-28.28 6.72Zm12.6-29.96q6.16 0 11.76-1.96t10.36-5.32q4.76-3.36 8.4-7.84 3.64-4.48 5.6-9.52v-35q-5.04-12.88-15.96-20.72-10.64-7.84-22.4-7.84-8.68 0-15.68 3.92-7 3.64-12.04 10.08-5.04 6.16-7.84 14.28-2.52 8.12-2.52 16.8 0 8.96 3.08 16.8t8.4 13.72q5.6 5.88 12.88 9.24 7.28 3.36 15.96 3.36Zm243.88-62.44V352h-37.52v-82.32q0-17.64-6.16-25.76-6.16-8.12-17.08-8.12-5.6 0-11.48 2.24-5.88 2.24-11.2 6.44-5.04 3.92-9.24 9.52t-6.16 12.32V352h-37.52V205.28h33.88v27.16q8.12-14 23.52-21.84t34.72-7.84q13.72 0 22.4 5.04 8.68 5.04 13.44 13.16 4.76 8.12 6.44 18.48 1.96 10.36 1.96 21Zm70.28 91.56h-37.52V205.28h37.52V352Zm0-167.16h-37.52V147.6h37.52v37.24Zm114.24 129.92 7.56 29.68q-7.56 3.36-18.48 6.72-10.92 3.36-22.96 3.36-7.84 0-14.84-1.96-6.72-1.96-12.04-6.16-5.04-4.48-8.12-11.2-3.08-7-3.08-16.8v-84.28h-19.32v-28.84h19.32v-47.6h37.52v47.6h30.8v28.84h-30.8v71.68q0 7.84 3.92 11.2 4.2 3.08 10.08 3.08t11.48-1.96q5.6-1.96 8.96-3.36Zm91.56 40.04q-17.64 0-31.92-5.88-14.28-6.16-24.36-16.52t-15.68-24.08q-5.32-13.72-5.32-28.84 0-15.68 5.32-29.4 5.32-14 15.4-24.36 10.08-10.64 24.36-16.8 14.56-6.16 32.48-6.16 17.92 0 31.92 6.16 14.28 6.16 24.08 16.52 10.08 10.36 15.12 24.08 5.32 13.72 5.32 28.56 0 3.64-.28 7 0 3.36-.56 5.6h-113.4q.84 8.68 4.2 15.4 3.36 6.72 8.68 11.48 5.32 4.76 12.04 7.28 6.72 2.52 14 2.52 11.2 0 21-5.32 10.08-5.6 13.72-14.56l32.2 8.96q-8.12 16.8-26.04 27.72-17.64 10.64-42.28 10.64Zm-38.08-88.48h76.16q-1.4-16.52-12.32-26.32-10.64-10.08-26.04-10.08-7.56 0-14.28 2.8-6.44 2.52-11.48 7.28t-8.4 11.48q-3.08 6.72-3.64 14.84Zm225.12-62.72v34.16q-17.08.28-30.52 6.72-13.44 6.16-19.32 18.76V352h-37.52V205.28h34.44v31.36q3.92-7.56 9.24-13.44 5.32-6.16 11.48-10.64t12.32-6.72q6.44-2.52 12.32-2.52h4.48q1.68 0 3.08.28Z"/></svg>-->
++                </span></a>
++                </div>
++            </li>
++        </ul>
++    </div>
++
++    <div class="heroe">
++
++        <h1>Add Food</h1>
++
++        <h2></h2>
++
++    </div>
++
++</header>
++
++<!-- CONTENT -->
++
++<section>
++    <table>
++        <tr>
++            <td><?php echo form_label('Title', 'title');?></td>
++            <td><?php echo form_input($title);?></td>
++        </tr>
++        <tr>
++            <td><?php echo form_label('Description', 'description');?></td>
++            <td><?php echo form_textarea($description);?></td>
++        </tr>
++        <tr>
++            <td><?php echo form_label('Image', 'image');?></td>
++            <td><?php echo form_upload($image); ?></td>
++        </tr>
++        <tr>
++            <td><?php echo form_label("Price", 'price');?></td>
++            <td><?php echo form_input($price); ?></td>
++        </tr>
++    </table>
++
++    <?php echo "<br><br>";?>
++
++    <?php echo form_submit('submit', 'Save', 'class="btn btn-primary"');?>
++
++    <br><br>
++    <?php echo anchor(array('/admin/food/upload'), 'Add new food')?>
++</section>
++
++<!-- FOOTER: DEBUG INFO + COPYRIGHTS -->
++
++<footer style="vertical-align: bottom">
++
++    <div class="copyrights">
++
++        <p>&copy; <?= date('Y') ?> Tasty. All rights reserved.</p>
++
++    </div>
++
++</footer>
++
++<!-- SCRIPTS -->
++
++<script {csp-script-nonce}>
++    document.getElementById("menuToggle").addEventListener('click', toggleMenu);
++    function toggleMenu() {
++        var menuItems = document.getElementsByClassName('menu-item');
++        for (var i = 0; i < menuItems.length; i++) {
++            var menuItem = menuItems[i];
++            menuItem.classList.toggle("hidden");
++        }
++    }
++</script>
++
++<!-- -->
++
++</body>
++</html>
+Index: cigniter-app/app/Views/errors/html/debug.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/cigniter-app/app/Views/errors/html/debug.js b/cigniter-app/app/Views/errors/html/debug.js
+new file mode 100644
+--- /dev/null	(date 1712484387000)
++++ b/cigniter-app/app/Views/errors/html/debug.js	(date 1712484387000)
+@@ -0,0 +1,116 @@
++var tabLinks    = new Array();
++var contentDivs = new Array();
++
++function init()
++{
++    // Grab the tab links and content divs from the page
++    var tabListItems = document.getElementById('tabs').childNodes;
++    console.log(tabListItems);
++    for (var i = 0; i < tabListItems.length; i ++)
++    {
++        if (tabListItems[i].nodeName == "LI")
++        {
++            var tabLink     = getFirstChildWithTagName(tabListItems[i], 'A');
++            var id          = getHash(tabLink.getAttribute('href'));
++            tabLinks[id]    = tabLink;
++            contentDivs[id] = document.getElementById(id);
++        }
++    }
++
++    // Assign onclick events to the tab links, and
++    // highlight the first tab
++    var i = 0;
++
++    for (var id in tabLinks)
++    {
++        tabLinks[id].onclick = showTab;
++        tabLinks[id].onfocus = function () {
++            this.blur()
++        };
++        if (i == 0)
++        {
++            tabLinks[id].className = 'active';
++        }
++        i ++;
++    }
++
++    // Hide all content divs except the first
++    var i = 0;
++
++    for (var id in contentDivs)
++    {
++        if (i != 0)
++        {
++            console.log(contentDivs[id]);
++            contentDivs[id].className = 'content hide';
++        }
++        i ++;
++    }
++}
++
++function showTab()
++{
++    var selectedId = getHash(this.getAttribute('href'));
++
++    // Highlight the selected tab, and dim all others.
++    // Also show the selected content div, and hide all others.
++    for (var id in contentDivs)
++    {
++        if (id == selectedId)
++        {
++            tabLinks[id].className    = 'active';
++            contentDivs[id].className = 'content';
++        }
++        else
++        {
++            tabLinks[id].className    = '';
++            contentDivs[id].className = 'content hide';
++        }
++    }
++
++    // Stop the browser following the link
++    return false;
++}
++
++function getFirstChildWithTagName(element, tagName)
++{
++    for (var i = 0; i < element.childNodes.length; i ++)
++    {
++        if (element.childNodes[i].nodeName == tagName)
++        {
++            return element.childNodes[i];
++        }
++    }
++}
++
++function getHash(url)
++{
++    var hashPos = url.lastIndexOf('#');
++    return url.substring(hashPos + 1);
++}
++
++function toggle(elem)
++{
++    elem = document.getElementById(elem);
++
++    if (elem.style && elem.style['display'])
++    {
++        // Only works with the "style" attr
++        var disp = elem.style['display'];
++    }
++    else if (elem.currentStyle)
++    {
++        // For MSIE, naturally
++        var disp = elem.currentStyle['display'];
++    }
++    else if (window.getComputedStyle)
++    {
++        // For most other browsers
++        var disp = document.defaultView.getComputedStyle(elem, null).getPropertyValue('display');
++    }
++
++    // Toggle the state of the "display" style
++    elem.style.display = disp == 'block' ? 'none' : 'block';
++
++    return false;
++}
+Index: cigniter-app/app/Views/admin/Food/food.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/cigniter-app/app/Views/admin/Food/food.php b/cigniter-app/app/Views/admin/Food/food.php
+new file mode 100644
+--- /dev/null	(date 1719144587436)
++++ b/cigniter-app/app/Views/admin/Food/food.php	(date 1719144587436)
+@@ -0,0 +1,296 @@
++<!DOCTYPE html>
++<html lang="en">
++<head>
++    <meta charset="UTF-8">
++    <title>Admin dashboard</title>
++    <meta name="description" content="The small framework with powerful features">
++    <link rel="shortcut icon" type="image/png" href="/favicon.ico">
++
++    <!-- STYLES -->
++
++    <style {csp-style-nonce}>
++        * {
++            transition: background-color 300ms ease, color 300ms ease;
++        }
++        *:focus {
++            background-color: rgba(221, 72, 20, .2);
++            outline: none;
++        }
++        html, body {
++            color: rgba(33, 37, 41, 1);
++            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
++            font-size: 16px;
++            margin: 0;
++            padding: 0;
++            -webkit-font-smoothing: antialiased;
++            -moz-osx-font-smoothing: grayscale;
++            text-rendering: optimizeLegibility;
++        }
++        header {
++            background-color: rgba(247, 248, 249, 1);
++            padding: .4rem 0 0;
++        }
++        .menu {
++            padding: .4rem 2rem;
++        }
++        header ul {
++            border-bottom: 1px solid rgba(242, 242, 242, 1);
++            list-style-type: none;
++            margin: 0;
++            overflow: hidden;
++            padding: 0;
++            text-align: right;
++        }
++        header li {
++            display: inline-block;
++        }
++        header li a {
++            border-radius: 5px;
++            color: rgba(0, 0, 0, .5);
++            display: block;
++            height: 44px;
++            text-decoration: none;
++        }
++        header li.menu-item a {
++            border-radius: 5px;
++            margin: 5px 0;
++            height: 38px;
++            line-height: 36px;
++            padding: .4rem .65rem;
++            text-align: center;
++        }
++        header li.menu-item a:hover,
++        header li.menu-item a:focus {
++            background-color: rgba(221, 72, 20, .2);
++            color: rgba(221, 72, 20, 1);
++        }
++        header .logo {
++            float: left;
++            height: 44px;
++            padding: .4rem .5rem;
++        }
++        header .menu-toggle {
++            display: none;
++            float: right;
++            font-size: 2rem;
++            font-weight: bold;
++        }
++        header .menu-toggle button {
++            background-color: rgba(221, 72, 20, .6);
++            border: none;
++            border-radius: 3px;
++            color: rgba(255, 255, 255, 1);
++            cursor: pointer;
++            font: inherit;
++            font-size: 1.3rem;
++            height: 36px;
++            padding: 0;
++            margin: 11px 0;
++            overflow: visible;
++            width: 40px;
++        }
++        header .menu-toggle button:hover,
++        header .menu-toggle button:focus {
++            background-color: rgba(221, 72, 20, .8);
++            color: rgba(255, 255, 255, .8);
++        }
++        header .heroe {
++            margin: 0 auto;
++            max-width: 1100px;
++            padding: 1rem 1.75rem 1.75rem 1.75rem;
++        }
++        header .heroe h1 {
++            font-size: 2.5rem;
++            font-weight: 500;
++        }
++        header .heroe h2 {
++            font-size: 1.5rem;
++            font-weight: 300;
++        }
++        section {
++            margin: 0 auto;
++            max-width: 1100px;
++            padding: 2.5rem 1.75rem 3.5rem 1.75rem;
++        }
++        section h1 {
++            margin-bottom: 2.5rem;
++        }
++        section h2 {
++            font-size: 120%;
++            line-height: 2.5rem;
++            padding-top: 1.5rem;
++        }
++        section pre {
++            background-color: rgba(247, 248, 249, 1);
++            border: 1px solid rgba(242, 242, 242, 1);
++            display: block;
++            font-size: .9rem;
++            margin: 2rem 0;
++            padding: 1rem 1.5rem;
++            white-space: pre-wrap;
++            word-break: break-all;
++        }
++        section code {
++            display: block;
++        }
++        section a {
++            color: rgba(221, 72, 20, 1);
++        }
++        section svg {
++            margin-bottom: -5px;
++            margin-right: 5px;
++            width: 25px;
++        }
++        .further {
++            background-color: rgba(247, 248, 249, 1);
++            border-bottom: 1px solid rgba(242, 242, 242, 1);
++            border-top: 1px solid rgba(242, 242, 242, 1);
++        }
++        .further h2:first-of-type {
++            padding-top: 0;
++        }
++        .svg-stroke {
++            fill: none;
++            stroke: #000;
++            stroke-width: 32px;
++        }
++        footer {
++            background-color: rgba(221, 72, 20, .8);
++            text-align: center;
++        }
++        footer .environment {
++            color: rgba(255, 255, 255, 1);
++            padding: 2rem 1.75rem;
++        }
++        footer .copyrights {
++            background-color: rgba(62, 62, 62, 1);
++            color: rgba(200, 200, 200, 1);
++            padding: .25rem 1.75rem;
++        }
++        @media (max-width: 629px) {
++            header ul {
++                padding: 0;
++            }
++            header .menu-toggle {
++                padding: 0 1rem;
++            }
++            header .menu-item {
++                background-color: rgba(244, 245, 246, 1);
++                border-top: 1px solid rgba(242, 242, 242, 1);
++                margin: 0 15px;
++                width: calc(100% - 30px);
++            }
++            header .menu-toggle {
++                display: block;
++            }
++            header .hidden {
++                display: none;
++            }
++            header li.menu-item a {
++                background-color: rgba(221, 72, 20, .1);
++            }
++            header li.menu-item a:hover,
++            header li.menu-item a:focus {
++                background-color: rgba(221, 72, 20, .7);
++                color: rgba(255, 255, 255, .8);
++            }
++        }
++        table{
++            font-family: arial, sans-serif;
++            border-collapse: collapse;
++            width: 100%;
++        }
++        td, th {
++            border: 1px solid #dddddd;
++            text-align: left;
++            padding: 8px;
++        }
++    </style>
++</head>
++<body>
++
++<!-- HEADER: MENU + HEROE SECTION -->
++<header>
++
++    <div class="menu">
++        <ul>
++            <li class="logo">
++                <div id="fh5co-logo"><a href="<?php echo base_url()?>" target="_blank">Tasty<span>.
++                            <!--                    <svg role="img" aria-label="Visit CodeIgniter.com official website!" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2100 500" height="44"><path fill="#dd4814" d="M148.2 411c-20.53-9.07-34.48-28.61-36.31-50.99 1.2-23.02 13.36-44.06 32.67-56.61-3.17 7.73-2.4 16.53 2 23.6 5.01 7 13.63 10.36 22.07 8.61 12.02-3.38 19.06-15.86 15.68-27.89-1.2-4.21-3.6-8.03-6.88-10.91-13.6-11.06-20.43-28.44-18-45.81 2.33-9.2 7.42-17.52 14.61-23.8-5.4 14.4 9.83 28.61 20.05 35.6 18.14 10.88 35.6 22.84 52.32 35.81 18.27 14.4 28.23 36.94 26.67 60-4.11 24.54-21.47 44.8-45.13 52.4 47.33-10.53 96.13-48.13 97.06-101.46-.93-42.67-26.4-80.96-65.33-98.4h-1.73c.86 2.09 1.28 4.34 1.2 6.61.13-1.47.13-2.93 0-4.4.21 1.73.21 3.47 0 5.2-2.96 12.13-15.2 19.6-27.36 16.64-4.86-1.2-9.2-3.93-12.32-7.87-15.6-20 0-42.76 2.61-64.76 1.6-28.13-11.25-55.02-34.05-71.46 11.41 19.02-3.79 44-14.84 58.21-11.07 14.21-27.07 24.8-40.11 37.2-14.05 13.07-26.93 27.44-38.49 42.8-24.99 30.53-34.8 70.8-26.67 109.4 11.15 37.2 42.07 65.15 80.2 72.4h.21l-.13-.12Zm324.56-159.8q0-17.92 6.16-35.56 6.44-17.92 18.48-31.92t29.68-22.68q17.64-8.96 40.04-8.96 26.6 0 45.36 12.04 19.04 12.04 28 31.36l-15.4 9.52q-4.76-9.8-11.76-16.52-6.72-6.72-14.56-10.92-7.84-4.2-16.24-5.88-8.4-1.96-16.52-1.96-17.92 0-31.64 7.28-13.72 7.28-23.24 19.04-9.24 11.76-14 26.6-4.76 14.56-4.76 29.68 0 16.52 5.6 31.64 5.88 15.12 15.68 26.88 10.08 11.48 23.52 18.48 13.72 6.72 29.68 6.72 8.4 0 17.08-1.96 8.96-2.24 17.08-6.72 8.4-4.76 15.4-11.48 7-7 11.76-16.8l16.24 8.4q-4.76 11.2-13.44 19.88-8.68 8.4-19.32 14.28-10.64 5.88-22.68 8.96-11.76 3.08-23.24 3.08-20.44 0-37.52-8.96-17.08-8.96-29.4-23.24-12.32-14.56-19.32-32.76-6.72-18.48-6.72-37.52Zm263.48 103.6q-15.96 0-29.12-5.88-13.16-6.16-22.96-16.52-9.52-10.36-14.84-24.08Q664 294.6 664 279.48q0-15.4 5.32-29.12 5.6-13.72 15.12-24.08 9.8-10.36 22.96-16.52t28.84-6.16q15.68 0 28.84 6.16 13.44 6.16 22.96 16.52 9.8 10.36 15.12 24.08 5.6 13.72 5.6 29.12 0 15.12-5.32 28.84t-15.12 24.08q-9.52 10.36-22.96 16.52-13.16 5.88-29.12 5.88Zm-52.92-75.04q0 12.32 4.2 22.96 4.2 10.36 11.2 18.48 7.28 7.84 16.8 12.32 9.8 4.48 20.72 4.48 10.92 0 20.44-4.48 9.8-4.76 17.08-12.6 7.28-8.12 11.48-18.76 4.2-10.64 4.2-22.96 0-12.04-4.2-22.68-4.2-10.92-11.48-18.76-7.28-8.12-17.08-12.6-9.52-4.76-20.44-4.76-10.92 0-20.44 4.76-9.52 4.48-16.8 12.6-7.28 8.12-11.48 19.04-4.2 10.64-4.2 22.96ZM900.6 354.8q-15.12 0-28-6.16-12.88-6.44-22.12-16.8t-14.56-23.8q-5.04-13.72-5.04-28.56 0-15.4 5.04-29.12 5.04-14 13.72-24.36 8.96-10.36 21-16.24 12.32-6.16 26.88-6.16 18.48 0 32.76 9.8 14.28 9.52 22.4 23.24V147.6h19.04v179.76q0 7.84 6.72 7.84V352q-4.2.84-6.72.84-6.72 0-11.76-4.2-5.04-4.48-5.04-10.64v-14.28Q946.24 338 931.4 346.4t-30.8 8.4Zm4.2-16.8q7 0 14.84-2.8 8.12-2.8 15.12-7.56 7-5.04 11.76-11.48 5.04-6.72 6.16-14.28V256.8q-2.8-7.56-8.12-14-5.32-6.72-12.32-11.76-6.72-5.04-14.56-7.84-7.84-2.8-15.4-2.8-11.76 0-21.28 5.04-9.52 5.04-16.52 13.44-6.72 8.12-10.36 18.76-3.64 10.64-3.64 21.84 0 11.76 4.2 22.4 4.2 10.64 11.48 18.76 7.28 7.84 17.08 12.6Q893.32 338 904.8 338Zm173.04 16.8q-15.96 0-29.4-5.88-13.16-6.16-22.96-16.52-9.8-10.64-15.4-24.36-5.32-13.72-5.32-29.4 0-15.4 5.32-28.84 5.6-13.72 15.12-23.8 9.8-10.36 23.24-16.24 13.44-6.16 29.12-6.16 15.96 0 29.12 6.16 13.44 5.88 22.96 16.24 9.52 10.36 14.84 23.8 5.32 13.44 5.32 28.56v4.48q0 2.24-.28 3.08h-124.88q.84 11.76 5.32 21.84 4.76 9.8 12.04 17.08 7.28 7.28 16.52 11.48 9.52 3.92 20.16 3.92 7 0 14-1.96t12.88-5.32q5.88-3.36 10.64-8.12 4.76-5.04 7.28-10.92l16.52 4.48q-3.36 8.12-9.52 14.84-6.16 6.44-14.28 11.48-8.12 4.76-17.92 7.56-9.8 2.52-20.44 2.52Zm-53.48-83.44h107.24q-.84-11.76-5.6-21.28-4.48-9.8-11.76-16.8-7-7-16.52-10.92-9.24-3.92-19.88-3.92-10.64 0-20.16 3.92t-16.8 10.92q-7 7-11.48 16.8-4.2 9.8-5.04 21.28Zm193.2 80.64h-38.64V153.2h38.64V352Zm93.52.84q-14.84 0-26.88-5.88t-21-15.96q-8.68-10.36-13.44-23.8-4.76-13.44-4.76-28.56 0-15.96 5.04-29.68 5.04-13.72 14-24.08 8.96-10.36 21.56-16.24 12.6-5.88 27.72-5.88 17.08 0 29.96 7.84 12.88 7.56 21.28 20.44v-25.76h32.76V345q0 16.24-6.16 29.12-6.16 12.88-17.08 21.84-10.64 8.96-25.76 13.72-14.84 4.76-32.48 4.76-24.08 0-40.6-7.84-16.24-8.12-28-22.68l20.44-19.88q8.4 10.36 21 16.24 12.88 5.88 27.16 5.88 8.68 0 16.52-2.24 8.12-2.52 14.28-7.56 6.16-5.04 9.52-12.88 3.64-7.84 3.64-18.48v-18.48q-7.28 12.6-20.44 19.6-13.16 6.72-28.28 6.72Zm12.6-29.96q6.16 0 11.76-1.96t10.36-5.32q4.76-3.36 8.4-7.84 3.64-4.48 5.6-9.52v-35q-5.04-12.88-15.96-20.72-10.64-7.84-22.4-7.84-8.68 0-15.68 3.92-7 3.64-12.04 10.08-5.04 6.16-7.84 14.28-2.52 8.12-2.52 16.8 0 8.96 3.08 16.8t8.4 13.72q5.6 5.88 12.88 9.24 7.28 3.36 15.96 3.36Zm243.88-62.44V352h-37.52v-82.32q0-17.64-6.16-25.76-6.16-8.12-17.08-8.12-5.6 0-11.48 2.24-5.88 2.24-11.2 6.44-5.04 3.92-9.24 9.52t-6.16 12.32V352h-37.52V205.28h33.88v27.16q8.12-14 23.52-21.84t34.72-7.84q13.72 0 22.4 5.04 8.68 5.04 13.44 13.16 4.76 8.12 6.44 18.48 1.96 10.36 1.96 21Zm70.28 91.56h-37.52V205.28h37.52V352Zm0-167.16h-37.52V147.6h37.52v37.24Zm114.24 129.92 7.56 29.68q-7.56 3.36-18.48 6.72-10.92 3.36-22.96 3.36-7.84 0-14.84-1.96-6.72-1.96-12.04-6.16-5.04-4.48-8.12-11.2-3.08-7-3.08-16.8v-84.28h-19.32v-28.84h19.32v-47.6h37.52v47.6h30.8v28.84h-30.8v71.68q0 7.84 3.92 11.2 4.2 3.08 10.08 3.08t11.48-1.96q5.6-1.96 8.96-3.36Zm91.56 40.04q-17.64 0-31.92-5.88-14.28-6.16-24.36-16.52t-15.68-24.08q-5.32-13.72-5.32-28.84 0-15.68 5.32-29.4 5.32-14 15.4-24.36 10.08-10.64 24.36-16.8 14.56-6.16 32.48-6.16 17.92 0 31.92 6.16 14.28 6.16 24.08 16.52 10.08 10.36 15.12 24.08 5.32 13.72 5.32 28.56 0 3.64-.28 7 0 3.36-.56 5.6h-113.4q.84 8.68 4.2 15.4 3.36 6.72 8.68 11.48 5.32 4.76 12.04 7.28 6.72 2.52 14 2.52 11.2 0 21-5.32 10.08-5.6 13.72-14.56l32.2 8.96q-8.12 16.8-26.04 27.72-17.64 10.64-42.28 10.64Zm-38.08-88.48h76.16q-1.4-16.52-12.32-26.32-10.64-10.08-26.04-10.08-7.56 0-14.28 2.8-6.44 2.52-11.48 7.28t-8.4 11.48q-3.08 6.72-3.64 14.84Zm225.12-62.72v34.16q-17.08.28-30.52 6.72-13.44 6.16-19.32 18.76V352h-37.52V205.28h34.44v31.36q3.92-7.56 9.24-13.44 5.32-6.16 11.48-10.64t12.32-6.72q6.44-2.52 12.32-2.52h4.48q1.68 0 3.08.28Z"/></svg>-->
++                </span></a>
++                </div>
++            </li>
++        </ul>
++    </div>
++
++    <div class="heroe">
++
++        <h1>Food Dashboard</h1>
++
++        <h2>Add some food on website</h2>
++
++    </div>
++
++</header>
++
++<!-- CONTENT -->
++
++<section>
++    <div style="horiz-align: center">
++        <form action="/admin/food/search" method="post" style="">
++            <input type="text" name="search" id="search" size="80" style="border-left: 0; border-right: 0; border-top: 0; border-bottom: 1px solid #00000f; border-radius: 2px; scale: 1">
++            <input type="submit" value="Search!" >
++        </form>
++    </div>
++    <br><br>
++    <table class="table">
++        <tr>
++            <td><strong>Title</strong></td>
++            <td style="width: 25%"><strong>Description</strong></td>
++            <td><strong>Image</strong></td>
++            <td style="width: 9%"><strong>Price</strong></td>
++            <td style="align-content: center"><strong>Actions</strong></td>
++        </tr>
++        <?php  foreach ($food as $var){ ?>
++        <tr>
++            <td><a href="/admin/food/view/<?php echo $var['id']; ?>"><?php echo $var['title']; ?></a></td>
++            <td><?php echo $var['description'] ?></td>
++            <td><img src="<?php echo base_url($var['image']); ?>" alt="" width="400"></td>
++            <td><?php echo $var['price']; ?></td>
++            <td><span><a href="/admin/food/edit/<?php echo $var['id']; ?>">Edit</a> <a href="/admin/food/delete/<?php echo $var['id']; ?>" onclick="return confirm('Do you want to delete this event')">Delete</a></span></td>
++        </tr>
++        <?php } ?>
++    </table>
++    <br><br>
++    <?php echo anchor(array('/admin/food/upload'), 'Add new food')?>
++</section>
++
++<!-- FOOTER: DEBUG INFO + COPYRIGHTS -->
++
++<footer style="vertical-align: bottom">
++
++    <div class="copyrights">
++
++        <p>&copy; <?= date('Y') ?> Tasty. All rights reserved.</p>
++
++    </div>
++
++</footer>
++
++<!-- SCRIPTS -->
++
++<script {csp-script-nonce}>
++    document.getElementById("menuToggle").addEventListener('click', toggleMenu);
++    function toggleMenu() {
++        var menuItems = document.getElementsByClassName('menu-item');
++        for (var i = 0; i < menuItems.length; i++) {
++            var menuItem = menuItems[i];
++            menuItem.classList.toggle("hidden");
++        }
++    }
++</script>
++
++<!-- -->
++
++</body>
++</html>
+Index: cigniter-app/app/Views/errors/html/debug.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/cigniter-app/app/Views/errors/html/debug.css b/cigniter-app/app/Views/errors/html/debug.css
+new file mode 100644
+--- /dev/null	(date 1712484387000)
++++ b/cigniter-app/app/Views/errors/html/debug.css	(date 1712484387000)
+@@ -0,0 +1,190 @@
++:root {
++    --main-bg-color: #fff;
++    --main-text-color: #555;
++    --dark-text-color: #222;
++    --light-text-color: #c7c7c7;
++    --brand-primary-color: #E06E3F;
++    --light-bg-color: #ededee;
++    --dark-bg-color: #404040;
++}
++
++body {
++    height: 100%;
++    background: var(--main-bg-color);
++    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
++    color: var(--main-text-color);
++    font-weight: 300;
++    margin: 0;
++    padding: 0;
++}
++h1 {
++    font-weight: lighter;
++    font-size: 3rem;
++    color: var(--dark-text-color);
++    margin: 0;
++}
++h1.headline {
++    margin-top: 20%;
++    font-size: 5rem;
++}
++.text-center {
++    text-align: center;
++}
++p.lead {
++    font-size: 1.6rem;
++}
++.container {
++    max-width: 75rem;
++    margin: 0 auto;
++    padding: 1rem;
++}
++.header {
++    background: var(--light-bg-color);
++    color: var(--dark-text-color);
++}
++.header .container {
++    padding: 1rem;
++}
++.header h1 {
++    font-size: 2.5rem;
++    font-weight: 500;
++}
++.header p {
++    font-size: 1.2rem;
++    margin: 0;
++    line-height: 2.5;
++}
++.header a {
++    color: var(--brand-primary-color);
++    margin-left: 2rem;
++    display: none;
++    text-decoration: none;
++}
++.header:hover a {
++    display: inline;
++}
++
++.environment {
++    background: var(--dark-bg-color);
++    color: var(--light-text-color);
++    text-align: center;
++    padding: 0.2rem;
++}
++
++.source {
++    background: #343434;
++    color: var(--light-text-color);
++    padding: 0.5em 1em;
++    border-radius: 5px;
++    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
++    font-size: 0.85rem;
++    margin: 0;
++    overflow-x: scroll;
++}
++.source span.line {
++    line-height: 1.4;
++}
++.source span.line .number {
++    color: #666;
++}
++.source .line .highlight {
++    display: block;
++    background: var(--dark-text-color);
++    color: var(--light-text-color);
++}
++.source span.highlight .number {
++    color: #fff;
++}
++
++.tabs {
++    list-style: none;
++    list-style-position: inside;
++    margin: 0;
++    padding: 0;
++    margin-bottom: -1px;
++}
++.tabs li {
++    display: inline;
++}
++.tabs a:link,
++.tabs a:visited {
++    padding: 0 1rem;
++    line-height: 2.7;
++    text-decoration: none;
++    color: var(--dark-text-color);
++    background: var(--light-bg-color);
++    border: 1px solid rgba(0,0,0,0.15);
++    border-bottom: 0;
++    border-top-left-radius: 5px;
++    border-top-right-radius: 5px;
++    display: inline-block;
++}
++.tabs a:hover {
++    background: var(--light-bg-color);
++    border-color: rgba(0,0,0,0.15);
++}
++.tabs a.active {
++    background: var(--main-bg-color);
++    color: var(--main-text-color);
++}
++.tab-content {
++    background: var(--main-bg-color);
++    border: 1px solid rgba(0,0,0,0.15);
++}
++.content {
++    padding: 1rem;
++}
++.hide {
++    display: none;
++}
++
++.alert {
++    margin-top: 2rem;
++    display: block;
++    text-align: center;
++    line-height: 3.0;
++    background: #d9edf7;
++    border: 1px solid #bcdff1;
++    border-radius: 5px;
++    color: #31708f;
++}
++
++table {
++    width: 100%;
++    overflow: hidden;
++}
++th {
++    text-align: left;
++    border-bottom: 1px solid #e7e7e7;
++    padding-bottom: 0.5rem;
++}
++td {
++    padding: 0.2rem 0.5rem 0.2rem 0;
++}
++tr:hover td {
++    background: #f1f1f1;
++}
++td pre {
++    white-space: pre-wrap;
++}
++
++.trace a {
++    color: inherit;
++}
++.trace table {
++    width: auto;
++}
++.trace tr td:first-child {
++    min-width: 5em;
++    font-weight: bold;
++}
++.trace td {
++    background: var(--light-bg-color);
++    padding: 0 1rem;
++}
++.trace td pre {
++    margin: 0;
++}
++.args {
++    display: none;
++}
+Index: cigniter-app/app/Views/errors/html/error_404.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/cigniter-app/app/Views/errors/html/error_404.php b/cigniter-app/app/Views/errors/html/error_404.php
+new file mode 100644
+--- /dev/null	(date 1712484387000)
++++ b/cigniter-app/app/Views/errors/html/error_404.php	(date 1712484387000)
+@@ -0,0 +1,84 @@
++<!DOCTYPE html>
++<html lang="en">
++<head>
++    <meta charset="utf-8">
++    <title><?= lang('Errors.pageNotFound') ?></title>
++
++    <style>
++        div.logo {
++            height: 200px;
++            width: 155px;
++            display: inline-block;
++            opacity: 0.08;
++            position: absolute;
++            top: 2rem;
++            left: 50%;
++            margin-left: -73px;
++        }
++        body {
++            height: 100%;
++            background: #fafafa;
++            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
++            color: #777;
++            font-weight: 300;
++        }
++        h1 {
++            font-weight: lighter;
++            letter-spacing: normal;
++            font-size: 3rem;
++            margin-top: 0;
++            margin-bottom: 0;
++            color: #222;
++        }
++        .wrap {
++            max-width: 1024px;
++            margin: 5rem auto;
++            padding: 2rem;
++            background: #fff;
++            text-align: center;
++            border: 1px solid #efefef;
++            border-radius: 0.5rem;
++            position: relative;
++        }
++        pre {
++            white-space: normal;
++            margin-top: 1.5rem;
++        }
++        code {
++            background: #fafafa;
++            border: 1px solid #efefef;
++            padding: 0.5rem 1rem;
++            border-radius: 5px;
++            display: block;
++        }
++        p {
++            margin-top: 1.5rem;
++        }
++        .footer {
++            margin-top: 2rem;
++            border-top: 1px solid #efefef;
++            padding: 1em 2em 0 2em;
++            font-size: 85%;
++            color: #999;
++        }
++        a:active,
++        a:link,
++        a:visited {
++            color: #dd4814;
++        }
++    </style>
++</head>
++<body>
++    <div class="wrap">
++        <h1>404</h1>
++
++        <p>
++            <?php if (ENVIRONMENT !== 'production') : ?>
++                <?= nl2br(esc($message)) ?>
++            <?php else : ?>
++                <?= lang('Errors.sorryCannotFind') ?>
++            <?php endif; ?>
++        </p>
++    </div>
++</body>
++</html>
+Index: cigniter-app/app/Views/admin/Food/edit.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/cigniter-app/app/Views/admin/Food/edit.php b/cigniter-app/app/Views/admin/Food/edit.php
+new file mode 100644
+--- /dev/null	(date 1719144718704)
++++ b/cigniter-app/app/Views/admin/Food/edit.php	(date 1719144718704)
+@@ -0,0 +1,335 @@
++<?php
++$title = [
++    'name'=>'title',
++    'id'=>'title',
++    'maxlength'=>'100',
++    'class'=>'form-control',
++    'required'=>'required',
++    'size'=>'50',
++    'value'=> $food['title'],
++];
++$description = [
++    'name'=>'description',
++    'id'=>'description',
++    'type'=>'textarea',
++    'size'=>'50',
++    'rows'=>'5',
++    'maxlength'=>'1500',
++    'required'=>'required',
++    'class'=>'form-control',
++    'value'=> $food['description'],
++];
++$image = [
++    'name'=>'image',
++    'id'=>'image',
++    'type'=>'file',
++    'accept'=>'image/*',
++
++];
++
++$price = [
++    'name'=>'price',
++    'id'=>'price',
++    'type'=>'price',
++    'class'=>'form-control',
++    'required'=>'required',
++    'size'=>'50',
++    'value'=> $food['price'],
++
++];
++helper('form');
++echo form_open_multipart('/admin/food/update/'.$food['id']);
++?>
++<!DOCTYPE html>
++<html lang="en">
++<head>
++    <meta charset="UTF-8">
++    <title>Add new food</title>
++    <meta name="description" content="The small framework with powerful features">
++    <link rel="shortcut icon" type="image/png" href="/favicon.ico">
++
++    <!-- STYLES -->
++
++    <style {csp-style-nonce}>
++        * {
++            transition: background-color 300ms ease, color 300ms ease;
++        }
++        *:focus {
++            background-color: rgba(221, 72, 20, .2);
++            outline: none;
++        }
++        html, body {
++            color: rgba(33, 37, 41, 1);
++            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
++            font-size: 16px;
++            margin: 0;
++            padding: 0;
++            -webkit-font-smoothing: antialiased;
++            -moz-osx-font-smoothing: grayscale;
++            text-rendering: optimizeLegibility;
++        }
++        header {
++            background-color: rgba(247, 248, 249, 1);
++            padding: .4rem 0 0;
++        }
++        .menu {
++            padding: .4rem 2rem;
++        }
++        header ul {
++            border-bottom: 1px solid rgba(242, 242, 242, 1);
++            list-style-type: none;
++            margin: 0;
++            overflow: hidden;
++            padding: 0;
++            text-align: right;
++        }
++        header li {
++            display: inline-block;
++        }
++        header li a {
++            border-radius: 5px;
++            color: rgba(0, 0, 0, .5);
++            display: block;
++            height: 44px;
++            text-decoration: none;
++        }
++        header li.menu-item a {
++            border-radius: 5px;
++            margin: 5px 0;
++            height: 38px;
++            line-height: 36px;
++            padding: .4rem .65rem;
++            text-align: center;
++        }
++        header li.menu-item a:hover,
++        header li.menu-item a:focus {
++            background-color: rgba(221, 72, 20, .2);
++            color: rgba(221, 72, 20, 1);
++        }
++        header .logo {
++            float: left;
++            height: 44px;
++            padding: .4rem .5rem;
++        }
++        header .menu-toggle {
++            display: none;
++            float: right;
++            font-size: 2rem;
++            font-weight: bold;
++        }
++        header .menu-toggle button {
++            background-color: rgba(221, 72, 20, .6);
++            border: none;
++            border-radius: 3px;
++            color: rgba(255, 255, 255, 1);
++            cursor: pointer;
++            font: inherit;
++            font-size: 1.3rem;
++            height: 36px;
++            padding: 0;
++            margin: 11px 0;
++            overflow: visible;
++            width: 40px;
++        }
++        header .menu-toggle button:hover,
++        header .menu-toggle button:focus {
++            background-color: rgba(221, 72, 20, .8);
++            color: rgba(255, 255, 255, .8);
++        }
++        header .heroe {
++            margin: 0 auto;
++            max-width: 1100px;
++            padding: 1rem 1.75rem 1.75rem 1.75rem;
++        }
++        header .heroe h1 {
++            font-size: 2.5rem;
++            font-weight: 500;
++        }
++        header .heroe h2 {
++            font-size: 1.5rem;
++            font-weight: 300;
++        }
++        section {
++            margin: 0 auto;
++            max-width: 1100px;
++            padding: 2.5rem 1.75rem 3.5rem 1.75rem;
++        }
++        section h1 {
++            margin-bottom: 2.5rem;
++        }
++        section h2 {
++            font-size: 120%;
++            line-height: 2.5rem;
++            padding-top: 1.5rem;
++        }
++        section pre {
++            background-color: rgba(247, 248, 249, 1);
++            border: 1px solid rgba(242, 242, 242, 1);
++            display: block;
++            font-size: .9rem;
++            margin: 2rem 0;
++            padding: 1rem 1.5rem;
++            white-space: pre-wrap;
++            word-break: break-all;
++        }
++        section code {
++            display: block;
++        }
++        section a {
++            color: rgba(221, 72, 20, 1);
++        }
++        section svg {
++            margin-bottom: -5px;
++            margin-right: 5px;
++            width: 25px;
++        }
++        .further {
++            background-color: rgba(247, 248, 249, 1);
++            border-bottom: 1px solid rgba(242, 242, 242, 1);
++            border-top: 1px solid rgba(242, 242, 242, 1);
++        }
++        .further h2:first-of-type {
++            padding-top: 0;
++        }
++        .svg-stroke {
++            fill: none;
++            stroke: #000;
++            stroke-width: 32px;
++        }
++        footer {
++            background-color: rgba(221, 72, 20, .8);
++            text-align: center;
++        }
++        footer .environment {
++            color: rgba(255, 255, 255, 1);
++            padding: 2rem 1.75rem;
++        }
++        footer .copyrights {
++            background-color: rgba(62, 62, 62, 1);
++            color: rgba(200, 200, 200, 1);
++            padding: .25rem 1.75rem;
++        }
++        @media (max-width: 629px) {
++            header ul {
++                padding: 0;
++            }
++            header .menu-toggle {
++                padding: 0 1rem;
++            }
++            header .menu-item {
++                background-color: rgba(244, 245, 246, 1);
++                border-top: 1px solid rgba(242, 242, 242, 1);
++                margin: 0 15px;
++                width: calc(100% - 30px);
++            }
++            header .menu-toggle {
++                display: block;
++            }
++            header .hidden {
++                display: none;
++            }
++            header li.menu-item a {
++                background-color: rgba(221, 72, 20, .1);
++            }
++            header li.menu-item a:hover,
++            header li.menu-item a:focus {
++                background-color: rgba(221, 72, 20, .7);
++                color: rgba(255, 255, 255, .8);
++            }
++        }
++        table{
++            font-family: arial, sans-serif;
++            border-collapse: collapse;
++        }
++        td, th {
++            border-bottom: 1px solid #dddddd;
++            text-align: left;
++            padding: 20px;
++        }
++    </style>
++</head>
++<body style="height: 1vh;">
++
++<!-- HEADER: MENU + HEROE SECTION -->
++<header>
++
++    <div class="menu">
++        <ul>
++            <li class="logo">
++                <div id="fh5co-logo"><a href="<?php echo base_url()?>" target="_blank">Tasty<span>.
++                            <!--                    <svg role="img" aria-label="Visit CodeIgniter.com official website!" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2100 500" height="44"><path fill="#dd4814" d="M148.2 411c-20.53-9.07-34.48-28.61-36.31-50.99 1.2-23.02 13.36-44.06 32.67-56.61-3.17 7.73-2.4 16.53 2 23.6 5.01 7 13.63 10.36 22.07 8.61 12.02-3.38 19.06-15.86 15.68-27.89-1.2-4.21-3.6-8.03-6.88-10.91-13.6-11.06-20.43-28.44-18-45.81 2.33-9.2 7.42-17.52 14.61-23.8-5.4 14.4 9.83 28.61 20.05 35.6 18.14 10.88 35.6 22.84 52.32 35.81 18.27 14.4 28.23 36.94 26.67 60-4.11 24.54-21.47 44.8-45.13 52.4 47.33-10.53 96.13-48.13 97.06-101.46-.93-42.67-26.4-80.96-65.33-98.4h-1.73c.86 2.09 1.28 4.34 1.2 6.61.13-1.47.13-2.93 0-4.4.21 1.73.21 3.47 0 5.2-2.96 12.13-15.2 19.6-27.36 16.64-4.86-1.2-9.2-3.93-12.32-7.87-15.6-20 0-42.76 2.61-64.76 1.6-28.13-11.25-55.02-34.05-71.46 11.41 19.02-3.79 44-14.84 58.21-11.07 14.21-27.07 24.8-40.11 37.2-14.05 13.07-26.93 27.44-38.49 42.8-24.99 30.53-34.8 70.8-26.67 109.4 11.15 37.2 42.07 65.15 80.2 72.4h.21l-.13-.12Zm324.56-159.8q0-17.92 6.16-35.56 6.44-17.92 18.48-31.92t29.68-22.68q17.64-8.96 40.04-8.96 26.6 0 45.36 12.04 19.04 12.04 28 31.36l-15.4 9.52q-4.76-9.8-11.76-16.52-6.72-6.72-14.56-10.92-7.84-4.2-16.24-5.88-8.4-1.96-16.52-1.96-17.92 0-31.64 7.28-13.72 7.28-23.24 19.04-9.24 11.76-14 26.6-4.76 14.56-4.76 29.68 0 16.52 5.6 31.64 5.88 15.12 15.68 26.88 10.08 11.48 23.52 18.48 13.72 6.72 29.68 6.72 8.4 0 17.08-1.96 8.96-2.24 17.08-6.72 8.4-4.76 15.4-11.48 7-7 11.76-16.8l16.24 8.4q-4.76 11.2-13.44 19.88-8.68 8.4-19.32 14.28-10.64 5.88-22.68 8.96-11.76 3.08-23.24 3.08-20.44 0-37.52-8.96-17.08-8.96-29.4-23.24-12.32-14.56-19.32-32.76-6.72-18.48-6.72-37.52Zm263.48 103.6q-15.96 0-29.12-5.88-13.16-6.16-22.96-16.52-9.52-10.36-14.84-24.08Q664 294.6 664 279.48q0-15.4 5.32-29.12 5.6-13.72 15.12-24.08 9.8-10.36 22.96-16.52t28.84-6.16q15.68 0 28.84 6.16 13.44 6.16 22.96 16.52 9.8 10.36 15.12 24.08 5.6 13.72 5.6 29.12 0 15.12-5.32 28.84t-15.12 24.08q-9.52 10.36-22.96 16.52-13.16 5.88-29.12 5.88Zm-52.92-75.04q0 12.32 4.2 22.96 4.2 10.36 11.2 18.48 7.28 7.84 16.8 12.32 9.8 4.48 20.72 4.48 10.92 0 20.44-4.48 9.8-4.76 17.08-12.6 7.28-8.12 11.48-18.76 4.2-10.64 4.2-22.96 0-12.04-4.2-22.68-4.2-10.92-11.48-18.76-7.28-8.12-17.08-12.6-9.52-4.76-20.44-4.76-10.92 0-20.44 4.76-9.52 4.48-16.8 12.6-7.28 8.12-11.48 19.04-4.2 10.64-4.2 22.96ZM900.6 354.8q-15.12 0-28-6.16-12.88-6.44-22.12-16.8t-14.56-23.8q-5.04-13.72-5.04-28.56 0-15.4 5.04-29.12 5.04-14 13.72-24.36 8.96-10.36 21-16.24 12.32-6.16 26.88-6.16 18.48 0 32.76 9.8 14.28 9.52 22.4 23.24V147.6h19.04v179.76q0 7.84 6.72 7.84V352q-4.2.84-6.72.84-6.72 0-11.76-4.2-5.04-4.48-5.04-10.64v-14.28Q946.24 338 931.4 346.4t-30.8 8.4Zm4.2-16.8q7 0 14.84-2.8 8.12-2.8 15.12-7.56 7-5.04 11.76-11.48 5.04-6.72 6.16-14.28V256.8q-2.8-7.56-8.12-14-5.32-6.72-12.32-11.76-6.72-5.04-14.56-7.84-7.84-2.8-15.4-2.8-11.76 0-21.28 5.04-9.52 5.04-16.52 13.44-6.72 8.12-10.36 18.76-3.64 10.64-3.64 21.84 0 11.76 4.2 22.4 4.2 10.64 11.48 18.76 7.28 7.84 17.08 12.6Q893.32 338 904.8 338Zm173.04 16.8q-15.96 0-29.4-5.88-13.16-6.16-22.96-16.52-9.8-10.64-15.4-24.36-5.32-13.72-5.32-29.4 0-15.4 5.32-28.84 5.6-13.72 15.12-23.8 9.8-10.36 23.24-16.24 13.44-6.16 29.12-6.16 15.96 0 29.12 6.16 13.44 5.88 22.96 16.24 9.52 10.36 14.84 23.8 5.32 13.44 5.32 28.56v4.48q0 2.24-.28 3.08h-124.88q.84 11.76 5.32 21.84 4.76 9.8 12.04 17.08 7.28 7.28 16.52 11.48 9.52 3.92 20.16 3.92 7 0 14-1.96t12.88-5.32q5.88-3.36 10.64-8.12 4.76-5.04 7.28-10.92l16.52 4.48q-3.36 8.12-9.52 14.84-6.16 6.44-14.28 11.48-8.12 4.76-17.92 7.56-9.8 2.52-20.44 2.52Zm-53.48-83.44h107.24q-.84-11.76-5.6-21.28-4.48-9.8-11.76-16.8-7-7-16.52-10.92-9.24-3.92-19.88-3.92-10.64 0-20.16 3.92t-16.8 10.92q-7 7-11.48 16.8-4.2 9.8-5.04 21.28Zm193.2 80.64h-38.64V153.2h38.64V352Zm93.52.84q-14.84 0-26.88-5.88t-21-15.96q-8.68-10.36-13.44-23.8-4.76-13.44-4.76-28.56 0-15.96 5.04-29.68 5.04-13.72 14-24.08 8.96-10.36 21.56-16.24 12.6-5.88 27.72-5.88 17.08 0 29.96 7.84 12.88 7.56 21.28 20.44v-25.76h32.76V345q0 16.24-6.16 29.12-6.16 12.88-17.08 21.84-10.64 8.96-25.76 13.72-14.84 4.76-32.48 4.76-24.08 0-40.6-7.84-16.24-8.12-28-22.68l20.44-19.88q8.4 10.36 21 16.24 12.88 5.88 27.16 5.88 8.68 0 16.52-2.24 8.12-2.52 14.28-7.56 6.16-5.04 9.52-12.88 3.64-7.84 3.64-18.48v-18.48q-7.28 12.6-20.44 19.6-13.16 6.72-28.28 6.72Zm12.6-29.96q6.16 0 11.76-1.96t10.36-5.32q4.76-3.36 8.4-7.84 3.64-4.48 5.6-9.52v-35q-5.04-12.88-15.96-20.72-10.64-7.84-22.4-7.84-8.68 0-15.68 3.92-7 3.64-12.04 10.08-5.04 6.16-7.84 14.28-2.52 8.12-2.52 16.8 0 8.96 3.08 16.8t8.4 13.72q5.6 5.88 12.88 9.24 7.28 3.36 15.96 3.36Zm243.88-62.44V352h-37.52v-82.32q0-17.64-6.16-25.76-6.16-8.12-17.08-8.12-5.6 0-11.48 2.24-5.88 2.24-11.2 6.44-5.04 3.92-9.24 9.52t-6.16 12.32V352h-37.52V205.28h33.88v27.16q8.12-14 23.52-21.84t34.72-7.84q13.72 0 22.4 5.04 8.68 5.04 13.44 13.16 4.76 8.12 6.44 18.48 1.96 10.36 1.96 21Zm70.28 91.56h-37.52V205.28h37.52V352Zm0-167.16h-37.52V147.6h37.52v37.24Zm114.24 129.92 7.56 29.68q-7.56 3.36-18.48 6.72-10.92 3.36-22.96 3.36-7.84 0-14.84-1.96-6.72-1.96-12.04-6.16-5.04-4.48-8.12-11.2-3.08-7-3.08-16.8v-84.28h-19.32v-28.84h19.32v-47.6h37.52v47.6h30.8v28.84h-30.8v71.68q0 7.84 3.92 11.2 4.2 3.08 10.08 3.08t11.48-1.96q5.6-1.96 8.96-3.36Zm91.56 40.04q-17.64 0-31.92-5.88-14.28-6.16-24.36-16.52t-15.68-24.08q-5.32-13.72-5.32-28.84 0-15.68 5.32-29.4 5.32-14 15.4-24.36 10.08-10.64 24.36-16.8 14.56-6.16 32.48-6.16 17.92 0 31.92 6.16 14.28 6.16 24.08 16.52 10.08 10.36 15.12 24.08 5.32 13.72 5.32 28.56 0 3.64-.28 7 0 3.36-.56 5.6h-113.4q.84 8.68 4.2 15.4 3.36 6.72 8.68 11.48 5.32 4.76 12.04 7.28 6.72 2.52 14 2.52 11.2 0 21-5.32 10.08-5.6 13.72-14.56l32.2 8.96q-8.12 16.8-26.04 27.72-17.64 10.64-42.28 10.64Zm-38.08-88.48h76.16q-1.4-16.52-12.32-26.32-10.64-10.08-26.04-10.08-7.56 0-14.28 2.8-6.44 2.52-11.48 7.28t-8.4 11.48q-3.08 6.72-3.64 14.84Zm225.12-62.72v34.16q-17.08.28-30.52 6.72-13.44 6.16-19.32 18.76V352h-37.52V205.28h34.44v31.36q3.92-7.56 9.24-13.44 5.32-6.16 11.48-10.64t12.32-6.72q6.44-2.52 12.32-2.52h4.48q1.68 0 3.08.28Z"/></svg>-->
++                </span></a>
++                </div>
++            </li>
++        </ul>
++    </div>
++
++    <div class="heroe">
++
++        <h1>Add food</h1>
++
++        <h2></h2>
++
++    </div>
++
++</header>
++
++<!-- CONTENT -->
++
++<section>
++    <table>
++        <tr>
++            <td><?php echo form_label('Title', 'title');?></td>
++            <td><?php echo form_input($title);?></td>
++        </tr>
++        <tr>
++            <td><?php echo form_label('Description', 'description');?></td>
++            <td><?php echo form_textarea($description);?></td>
++        </tr>
++        <tr>
++            <td><?php echo form_label('Image', 'image');?></td>
++            <td><?php echo form_upload($image); ?></td>
++        </tr>
++        <tr>
++            <td><?php echo form_label("Date", 'date');?></td>
++            <td><?php echo form_input($price); ?></td>
++        </tr>
++    </table>
++
++    <?php echo "<br><br>";?>
++
++    <?php echo form_submit('submit', 'Save', 'class="btn btn-primary"');?>
++
++    <br><br>
++    <?php echo anchor(array('/admin/food/upload'), 'Edit')?>
++</section>
++
++<!-- FOOTER: DEBUG INFO + COPYRIGHTS -->
++
++<footer style="vertical-align: bottom">
++
++    <div class="copyrights">
++
++        <p>&copy; <?= date('Y') ?> Tasty. All rights reserved.</p>
++
++    </div>
++
++</footer>
++
++<!-- SCRIPTS -->
++
++<script {csp-script-nonce}>
++    document.getElementById("menuToggle").addEventListener('click', toggleMenu);
++    function toggleMenu() {
++        var menuItems = document.getElementsByClassName('menu-item');
++        for (var i = 0; i < menuItems.length; i++) {
++            var menuItem = menuItems[i];
++            menuItem.classList.toggle("hidden");
++        }
++    }
++</script>
++
++<!-- -->
++
++</body>
++</html>
+Index: cigniter-app/app/Views/errors/html/production.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/cigniter-app/app/Views/errors/html/production.php b/cigniter-app/app/Views/errors/html/production.php
+new file mode 100644
+--- /dev/null	(date 1712484387000)
++++ b/cigniter-app/app/Views/errors/html/production.php	(date 1712484387000)
+@@ -0,0 +1,25 @@
++<!doctype html>
++<html>
++<head>
++    <meta charset="UTF-8">
++    <meta name="robots" content="noindex">
++
++    <title><?= lang('Errors.whoops') ?></title>
++
++    <style>
++        <?= preg_replace('#[\r\n\t ]+#', ' ', file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'debug.css')) ?>
++    </style>
++</head>
++<body>
++
++    <div class="container text-center">
++
++        <h1 class="headline"><?= lang('Errors.whoops') ?></h1>
++
++        <p class="lead"><?= lang('Errors.weHitASnag') ?></p>
++
++    </div>
++
++</body>
++
++</html>
+Index: cigniter-app/app/Views/errors/html/error_exception.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/cigniter-app/app/Views/errors/html/error_exception.php b/cigniter-app/app/Views/errors/html/error_exception.php
+new file mode 100644
+--- /dev/null	(date 1712484387000)
++++ b/cigniter-app/app/Views/errors/html/error_exception.php	(date 1712484387000)
+@@ -0,0 +1,430 @@
++<?php
++use CodeIgniter\HTTP\Header;
++use Config\Services;
++use CodeIgniter\CodeIgniter;
++
++$errorId = uniqid('error', true);
++?>
++<!doctype html>
++<html>
++<head>
++    <meta charset="UTF-8">
++    <meta name="robots" content="noindex">
++
++    <title><?= esc($title) ?></title>
++    <style>
++        <?= preg_replace('#[\r\n\t ]+#', ' ', file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'debug.css')) ?>
++    </style>
++
++    <script>
++        <?= file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'debug.js') ?>
++    </script>
++</head>
++<body onload="init()">
++
++    <!-- Header -->
++    <div class="header">
++        <div class="environment">
++            Displayed at <?= esc(date('H:i:sa')) ?> &mdash;
++            PHP: <?= esc(PHP_VERSION) ?>  &mdash;
++            CodeIgniter: <?= esc(CodeIgniter::CI_VERSION) ?> --
++            Environment: <?= ENVIRONMENT ?>
++        </div>
++        <div class="container">
++            <h1><?= esc($title), esc($exception->getCode() ? ' #' . $exception->getCode() : '') ?></h1>
++            <p>
++                <?= nl2br(esc($exception->getMessage())) ?>
++                <a href="https://www.duckduckgo.com/?q=<?= urlencode($title . ' ' . preg_replace('#\'.*\'|".*"#Us', '', $exception->getMessage())) ?>"
++                   rel="noreferrer" target="_blank">search &rarr;</a>
++            </p>
++        </div>
++    </div>
++
++    <!-- Source -->
++    <div class="container">
++        <p><b><?= esc(clean_path($file)) ?></b> at line <b><?= esc($line) ?></b></p>
++
++        <?php if (is_file($file)) : ?>
++            <div class="source">
++                <?= static::highlightFile($file, $line, 15); ?>
++            </div>
++        <?php endif; ?>
++    </div>
++
++    <div class="container">
++        <?php
++        $last = $exception;
++
++        while ($prevException = $last->getPrevious()) {
++            $last = $prevException;
++            ?>
++
++    <pre>
++    Caused by:
++    <?= esc($prevException::class), esc($prevException->getCode() ? ' #' . $prevException->getCode() : '') ?>
++
++    <?= nl2br(esc($prevException->getMessage())) ?>
++    <a href="https://www.duckduckgo.com/?q=<?= urlencode($prevException::class . ' ' . preg_replace('#\'.*\'|".*"#Us', '', $prevException->getMessage())) ?>"
++       rel="noreferrer" target="_blank">search &rarr;</a>
++    <?= esc(clean_path($prevException->getFile()) . ':' . $prevException->getLine()) ?>
++    </pre>
++
++        <?php
++        }
++        ?>
++    </div>
++
++    <?php if (defined('SHOW_DEBUG_BACKTRACE') && SHOW_DEBUG_BACKTRACE) : ?>
++    <div class="container">
++
++        <ul class="tabs" id="tabs">
++            <li><a href="#backtrace">Backtrace</a></li>
++            <li><a href="#server">Server</a></li>
++            <li><a href="#request">Request</a></li>
++            <li><a href="#response">Response</a></li>
++            <li><a href="#files">Files</a></li>
++            <li><a href="#memory">Memory</a></li>
++        </ul>
++
++        <div class="tab-content">
++
++            <!-- Backtrace -->
++            <div class="content" id="backtrace">
++
++                <ol class="trace">
++                <?php foreach ($trace as $index => $row) : ?>
++
++                    <li>
++                        <p>
++                            <!-- Trace info -->
++                            <?php if (isset($row['file']) && is_file($row['file'])) : ?>
++                                <?php
++                                if (isset($row['function']) && in_array($row['function'], ['include', 'include_once', 'require', 'require_once'], true)) {
++                                    echo esc($row['function'] . ' ' . clean_path($row['file']));
++                                } else {
++                                    echo esc(clean_path($row['file']) . ' : ' . $row['line']);
++                                }
++                                ?>
++                            <?php else: ?>
++                                {PHP internal code}
++                            <?php endif; ?>
++
++                            <!-- Class/Method -->
++                            <?php if (isset($row['class'])) : ?>
++                                &nbsp;&nbsp;&mdash;&nbsp;&nbsp;<?= esc($row['class'] . $row['type'] . $row['function']) ?>
++                                <?php if (! empty($row['args'])) : ?>
++                                    <?php $argsId = $errorId . 'args' . $index ?>
++                                    ( <a href="#" onclick="return toggle('<?= esc($argsId, 'attr') ?>');">arguments</a> )
++                                    <div class="args" id="<?= esc($argsId, 'attr') ?>">
++                                        <table cellspacing="0">
++
++                                        <?php
++                                        $params = null;
++                                        // Reflection by name is not available for closure function
++                                        if (! str_ends_with($row['function'], '}')) {
++                                            $mirror = isset($row['class']) ? new ReflectionMethod($row['class'], $row['function']) : new ReflectionFunction($row['function']);
++                                            $params = $mirror->getParameters();
++                                        }
++
++                                        foreach ($row['args'] as $key => $value) : ?>
++                                            <tr>
++                                                <td><code><?= esc(isset($params[$key]) ? '$' . $params[$key]->name : "#{$key}") ?></code></td>
++                                                <td><pre><?= esc(print_r($value, true)) ?></pre></td>
++                                            </tr>
++                                        <?php endforeach ?>
++
++                                        </table>
++                                    </div>
++                                <?php else : ?>
++                                    ()
++                                <?php endif; ?>
++                            <?php endif; ?>
++
++                            <?php if (! isset($row['class']) && isset($row['function'])) : ?>
++                                &nbsp;&nbsp;&mdash;&nbsp;&nbsp;    <?= esc($row['function']) ?>()
++                            <?php endif; ?>
++                        </p>
++
++                        <!-- Source? -->
++                        <?php if (isset($row['file']) && is_file($row['file']) && isset($row['class'])) : ?>
++                            <div class="source">
++                                <?= static::highlightFile($row['file'], $row['line']) ?>
++                            </div>
++                        <?php endif; ?>
++                    </li>
++
++                <?php endforeach; ?>
++                </ol>
++
++            </div>
++
++            <!-- Server -->
++            <div class="content" id="server">
++                <?php foreach (['_SERVER', '_SESSION'] as $var) : ?>
++                    <?php
++                    if (empty($GLOBALS[$var]) || ! is_array($GLOBALS[$var])) {
++                        continue;
++                    } ?>
++
++                    <h3>$<?= esc($var) ?></h3>
++
++                    <table>
++                        <thead>
++                            <tr>
++                                <th>Key</th>
++                                <th>Value</th>
++                            </tr>
++                        </thead>
++                        <tbody>
++                        <?php foreach ($GLOBALS[$var] as $key => $value) : ?>
++                            <tr>
++                                <td><?= esc($key) ?></td>
++                                <td>
++                                    <?php if (is_string($value)) : ?>
++                                        <?= esc($value) ?>
++                                    <?php else: ?>
++                                        <pre><?= esc(print_r($value, true)) ?></pre>
++                                    <?php endif; ?>
++                                </td>
++                            </tr>
++                        <?php endforeach; ?>
++                        </tbody>
++                    </table>
++
++                <?php endforeach ?>
++
++                <!-- Constants -->
++                <?php $constants = get_defined_constants(true); ?>
++                <?php if (! empty($constants['user'])) : ?>
++                    <h3>Constants</h3>
++
++                    <table>
++                        <thead>
++                            <tr>
++                                <th>Key</th>
++                                <th>Value</th>
++                            </tr>
++                        </thead>
++                        <tbody>
++                        <?php foreach ($constants['user'] as $key => $value) : ?>
++                            <tr>
++                                <td><?= esc($key) ?></td>
++                                <td>
++                                    <?php if (is_string($value)) : ?>
++                                        <?= esc($value) ?>
++                                    <?php else: ?>
++                                        <pre><?= esc(print_r($value, true)) ?></pre>
++                                    <?php endif; ?>
++                                </td>
++                            </tr>
++                        <?php endforeach; ?>
++                        </tbody>
++                    </table>
++                <?php endif; ?>
++            </div>
++
++            <!-- Request -->
++            <div class="content" id="request">
++                <?php $request = Services::request(); ?>
++
++                <table>
++                    <tbody>
++                        <tr>
++                            <td style="width: 10em">Path</td>
++                            <td><?= esc($request->getUri()) ?></td>
++                        </tr>
++                        <tr>
++                            <td>HTTP Method</td>
++                            <td><?= esc($request->getMethod()) ?></td>
++                        </tr>
++                        <tr>
++                            <td>IP Address</td>
++                            <td><?= esc($request->getIPAddress()) ?></td>
++                        </tr>
++                        <tr>
++                            <td style="width: 10em">Is AJAX Request?</td>
++                            <td><?= $request->isAJAX() ? 'yes' : 'no' ?></td>
++                        </tr>
++                        <tr>
++                            <td>Is CLI Request?</td>
++                            <td><?= $request->isCLI() ? 'yes' : 'no' ?></td>
++                        </tr>
++                        <tr>
++                            <td>Is Secure Request?</td>
++                            <td><?= $request->isSecure() ? 'yes' : 'no' ?></td>
++                        </tr>
++                        <tr>
++                            <td>User Agent</td>
++                            <td><?= esc($request->getUserAgent()->getAgentString()) ?></td>
++                        </tr>
++
++                    </tbody>
++                </table>
++
++
++                <?php $empty = true; ?>
++                <?php foreach (['_GET', '_POST', '_COOKIE'] as $var) : ?>
++                    <?php
++                    if (empty($GLOBALS[$var]) || ! is_array($GLOBALS[$var])) {
++                        continue;
++                    } ?>
++
++                    <?php $empty = false; ?>
++
++                    <h3>$<?= esc($var) ?></h3>
++
++                    <table style="width: 100%">
++                        <thead>
++                            <tr>
++                                <th>Key</th>
++                                <th>Value</th>
++                            </tr>
++                        </thead>
++                        <tbody>
++                        <?php foreach ($GLOBALS[$var] as $key => $value) : ?>
++                            <tr>
++                                <td><?= esc($key) ?></td>
++                                <td>
++                                    <?php if (is_string($value)) : ?>
++                                        <?= esc($value) ?>
++                                    <?php else: ?>
++                                        <pre><?= esc(print_r($value, true)) ?></pre>
++                                    <?php endif; ?>
++                                </td>
++                            </tr>
++                        <?php endforeach; ?>
++                        </tbody>
++                    </table>
++
++                <?php endforeach ?>
++
++                <?php if ($empty) : ?>
++
++                    <div class="alert">
++                        No $_GET, $_POST, or $_COOKIE Information to show.
++                    </div>
++
++                <?php endif; ?>
++
++                <?php $headers = $request->headers(); ?>
++                <?php if (! empty($headers)) : ?>
++
++                    <h3>Headers</h3>
++
++                    <table>
++                        <thead>
++                            <tr>
++                                <th>Header</th>
++                                <th>Value</th>
++                            </tr>
++                        </thead>
++                        <tbody>
++                        <?php foreach ($headers as $name => $value) : ?>
++                            <tr>
++                                <td><?= esc($name, 'html') ?></td>
++                                <td>
++                                <?php
++                                if ($value instanceof Header) {
++                                    echo esc($value->getValueLine(), 'html');
++                                } else {
++                                    foreach ($value as $i => $header) {
++                                        echo ' ('. $i+1 . ') ' . esc($header->getValueLine(), 'html');
++                                    }
++                                }
++                                ?>
++                                </td>
++                            </tr>
++                        <?php endforeach; ?>
++                        </tbody>
++                    </table>
++
++                <?php endif; ?>
++            </div>
++
++            <!-- Response -->
++            <?php
++                $response = Services::response();
++                $response->setStatusCode(http_response_code());
++            ?>
++            <div class="content" id="response">
++                <table>
++                    <tr>
++                        <td style="width: 15em">Response Status</td>
++                        <td><?= esc($response->getStatusCode() . ' - ' . $response->getReasonPhrase()) ?></td>
++                    </tr>
++                </table>
++
++                <?php $headers = $response->headers(); ?>
++                <?php if (! empty($headers)) : ?>
++                    <h3>Headers</h3>
++
++                    <table>
++                        <thead>
++                            <tr>
++                                <th>Header</th>
++                                <th>Value</th>
++                            </tr>
++                        </thead>
++                        <tbody>
++                        <?php foreach ($headers as $name => $value) : ?>
++                            <tr>
++                                <td><?= esc($name, 'html') ?></td>
++                                <td>
++                                <?php
++                                if ($value instanceof Header) {
++                                    echo esc($response->getHeaderLine($name), 'html');
++                                } else {
++                                    foreach ($value as $i => $header) {
++                                        echo ' ('. $i+1 . ') ' . esc($header->getValueLine(), 'html');
++                                    }
++                                }
++                                ?>
++                                </td>
++                            </tr>
++                        <?php endforeach; ?>
++                        </tbody>
++                    </table>
++
++                <?php endif; ?>
++            </div>
++
++            <!-- Files -->
++            <div class="content" id="files">
++                <?php $files = get_included_files(); ?>
++
++                <ol>
++                <?php foreach ($files as $file) :?>
++                    <li><?= esc(clean_path($file)) ?></li>
++                <?php endforeach ?>
++                </ol>
++            </div>
++
++            <!-- Memory -->
++            <div class="content" id="memory">
++
++                <table>
++                    <tbody>
++                        <tr>
++                            <td>Memory Usage</td>
++                            <td><?= esc(static::describeMemory(memory_get_usage(true))) ?></td>
++                        </tr>
++                        <tr>
++                            <td style="width: 12em">Peak Memory Usage:</td>
++                            <td><?= esc(static::describeMemory(memory_get_peak_usage(true))) ?></td>
++                        </tr>
++                        <tr>
++                            <td>Memory Limit:</td>
++                            <td><?= esc(ini_get('memory_limit')) ?></td>
++                        </tr>
++                    </tbody>
++                </table>
++
++            </div>
++
++        </div>  <!-- /tab-content -->
++
++    </div> <!-- /container -->
++    <?php endif; ?>
++
++</body>
++</html>
+Index: .idea/Tema2.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/Tema2.iml b/.idea/Tema2.iml
+new file mode 100644
+--- /dev/null	(date 1716402410488)
++++ b/.idea/Tema2.iml	(date 1716402410488)
+@@ -0,0 +1,46 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="WEB_MODULE" version="4">
++  <component name="NewModuleRootManager">
++    <content url="file://$MODULE_DIR$">
++      <sourceFolder url="file://$MODULE_DIR$/cigniter-app/app" isTestSource="false" packagePrefix="App\" />
++      <sourceFolder url="file://$MODULE_DIR$/cigniter-app/tests" isTestSource="true" />
++      <sourceFolder url="file://$MODULE_DIR$/cigniter-app/tests/_support" isTestSource="true" packagePrefix="Tests\Support\" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/codeigniter4/framework" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/composer" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/fakerphp/faker" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/laminas/laminas-escaper" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/mikey179/vfsstream" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/myclabs/deep-copy" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/nikic/php-parser" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/phar-io/manifest" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/phar-io/version" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/phpunit/php-code-coverage" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/phpunit/php-file-iterator" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/phpunit/php-invoker" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/phpunit/php-text-template" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/phpunit/php-timer" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/phpunit/phpunit" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/psr/container" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/psr/log" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/sebastian/cli-parser" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/sebastian/code-unit" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/sebastian/code-unit-reverse-lookup" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/sebastian/comparator" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/sebastian/complexity" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/sebastian/diff" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/sebastian/environment" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/sebastian/exporter" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/sebastian/global-state" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/sebastian/lines-of-code" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/sebastian/object-enumerator" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/sebastian/object-reflector" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/sebastian/recursion-context" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/sebastian/type" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/sebastian/version" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/symfony/deprecation-contracts" />
++      <excludeFolder url="file://$MODULE_DIR$/cigniter-app/vendor/theseer/tokenizer" />
++    </content>
++    <orderEntry type="inheritedJdk" />
++    <orderEntry type="sourceFolder" forTests="false" />
++  </component>
++</module>
+\ No newline at end of file
+Index: cigniter-app/app/Views/eventView.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/cigniter-app/app/Views/eventView.php b/cigniter-app/app/Views/eventView.php
+new file mode 100644
+--- /dev/null	(date 1719151154240)
++++ b/cigniter-app/app/Views/eventView.php	(date 1719151154240)
+@@ -0,0 +1,151 @@
++<!DOCTYPE HTML>
++<html>
++<head>
++    <meta charset="utf-8">
++    <meta http-equiv="X-UA-Compatible" content="IE=edge">
++    <title>Tasty &mdash; Free Website Template, Free HTML5 Template by freehtml5.co</title>
++    <meta name="viewport" content="width=device-width, initial-scale=1">
++    <meta name="description" content="Free HTML5 Website Template by freehtml5.co" />
++    <meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
++    <meta name="author" content="freehtml5.co" />
++
++    <!--
++    //////////////////////////////////////////////////////
++
++    FREE HTML5 TEMPLATE
++    DESIGNED & DEVELOPED by FreeHTML5.co
++
++    Website: 		http://freehtml5.co/
++    Email: 			info@freehtml5.co
++    Twitter: 		http://twitter.com/fh5co
++    Facebook: 		https://www.facebook.com/fh5co
++
++    //////////////////////////////////////////////////////
++     -->
++
++    <!-- Facebook and Twitter integration -->
++    <meta property="og:title" content=""/>
++    <meta property="og:image" content=""/>
++    <meta property="og:url" content=""/>
++    <meta property="og:site_name" content=""/>
++    <meta property="og:description" content=""/>
++    <meta name="twitter:title" content="" />
++    <meta name="twitter:image" content="" />
++    <meta name="twitter:url" content="" />
++    <meta name="twitter:card" content="" />
++
++    <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond:300,300i,400,400i,500,600i,700" rel="stylesheet">
++    <link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet">
++
++    <!-- Animate.css -->
++    <link rel="stylesheet" href="<?php echo base_url()?>css/animate.css">
++    <!-- Icomoon Icon Fonts-->
++    <link rel="stylesheet" href="<?php echo base_url()?>css/icomoon.css">
++    <!-- Bootstrap  -->
++    <link rel="stylesheet" href="<?php echo base_url()?>css/bootstrap.css">
++
++    <!-- Flexslider  -->
++    <link rel="stylesheet" href="<?php echo base_url()?>css/flexslider.css">
++
++    <!-- Theme style  -->
++    <link rel="stylesheet" href="<?php echo base_url()?>css/style.css">
++
++    <!-- Modernizr JS -->
++    <script src="<?php echo base_url()?>js/modernizr-2.6.2.min.js"></script>
++    <!-- FOR IE9 below -->
++    <!--[if lt IE 9]>
++    <script src="<?php echo base_url()?>js/respond.min.js"></script>
++    <![endif]-->
++
++    <style>
++        err{
++            color: red;
++            font-size: 10pt;
++        }
++    </style>
++</head>
++<body>
++
++
++
++<div class="fh5co-loader"></div>
++
++<div id="page">
++    <nav class="fh5co-nav" role="navigation">
++        <!-- <div class="top-menu"> -->
++        <div class="container">
++            <div class="row">
++                <div class="col-xs-12 text-center logo-wrap">
++                    <div id="fh5co-logo"><a href="/">Tasty<span>.</span></a></div>
++                </div>
++                <div class="col-xs-12 text-center menu-1 menu-wrap">
++                    <h1 style="color: darkgrey"><i>Event preview</i></h1>
++                </div>
++            </div>
++
++        </div>
++        <!-- </div> -->
++    </nav>
++
++    <header id="fh5co-header" class="fh5co-cover js-fullheight" role="banner" style="background-image: url(<?php echo base_url().$event['image']; ?>)" data-stellar-background-ratio="0.5">
++        <div class="overlay"></div>
++        <div class="container">
++            <div class="row">
++                <div class="col-md-12 text-center">
++                    <div class="display-t js-fullheight">
++                        <div class="display-tc js-fullheight animate-box" data-animate-effect="fadeIn">
++                            <h1><?php echo $event['title']; ?></h1>
++                            <h2><?php echo $event['description'] ?></h2>
++                            <h3 style="opacity: 100; color: whitesmoke"><strong>Date:</strong> <?php echo $event['date']?> </h3>
++                        </div>
++                    </div>
++                </div>
++            </div>
++
++    </header>
++
++    <footer id="fh5co-footer" role="contentinfo" class="fh5co-section">
++
++        <div class="row copyright">
++            <div class="col-md-12 text-center">
++                <p>
++                    <small class="block">&copy; 2024 Tasty. All Rights Reserved.</small>
++                    <small class="block">Designed by Bulgac Roman</small>
++                </p>
++                <p>
++                <ul class="fh5co-social-icons">
++                    <li><a href="#"><i class="icon-twitter2"></i></a></li>
++                    <li><a href="#"><i class="icon-facebook2"></i></a></li>
++                    <li><a href="#"><i class="icon-linkedin2"></i></a></li>
++                    <li><a href="#"><i class="icon-dribbble2"></i></a></li>
++                </ul>
++                </p>
++            </div>
++        </div>
++
++</div>
++</footer>
++</div>
++
++<div class="gototop js-top">
++    <a href="#" class="js-gotop"><i class="icon-arrow-up22"></i></a>
++</div>
++
++<!-- jQuery -->
++<script src="<?php echo base_url()?>js/jquery.min.js"></script>
++<!-- jQuery Easing -->
++<script src="<?php echo base_url()?>js/jquery.easing.1.3.js"></script>
++<!-- Bootstrap -->
++<script src="<?php echo base_url()?>js/bootstrap.min.js"></script>
++<!-- Waypoints -->
++<script src="<?php echo base_url()?>js/jquery.waypoints.min.js"></script>
++<!-- Waypoints -->
++<script src="<?php echo base_url()?>js/jquery.stellar.min.js"></script>
++<!-- Flexslider -->
++<script src="<?php echo base_url()?>js/jquery.flexslider-min.js"></script>
++<!-- Main -->
++<script src="<?php echo base_url()?>js/main.js"></script>
++
++</body>
++</html>
++
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+new file mode 100644
+--- /dev/null	(date 1716402410515)
++++ b/.idea/modules.xml	(date 1716402410515)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/.idea/Tema2.iml" filepath="$PROJECT_DIR$/.idea/Tema2.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
